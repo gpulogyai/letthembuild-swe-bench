@@ -1,0 +1,33 @@
+{
+  "setup": "claude-code",
+  "instance_id": "matplotlib__matplotlib-20826",
+  "repo": "matplotlib/matplotlib",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T01:48:08.051Z",
+  "wallSeconds": 85,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "lib/matplotlib/axis.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 24,
+        "cacheRead": 615691,
+        "cacheWrite": 36953,
+        "output": 8702,
+        "total": 661370
+      }
+    },
+    "total": 661370,
+    "calls": 12,
+    "costUsd": 0.5928982
+  }
+}

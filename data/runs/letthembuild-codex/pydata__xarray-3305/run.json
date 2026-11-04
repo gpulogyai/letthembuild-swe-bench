@@ -1,0 +1,31 @@
+{
+  "setup": "letthembuild-codex",
+  "instance_id": "pydata__xarray-3305",
+  "repo": "pydata/xarray",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T04:54:23.914Z",
+  "wallSeconds": 59,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "xarray/core/dataset.py",
+    "xarray/core/variable.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 1,
+        "total": 258877
+      }
+    },
+    "total": 258877,
+    "calls": null,
+    "costUsd": null
+  }
+}

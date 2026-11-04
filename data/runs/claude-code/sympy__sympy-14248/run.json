@@ -1,0 +1,35 @@
+{
+  "setup": "claude-code",
+  "instance_id": "sympy__sympy-14248",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T01:51:53.402Z",
+  "wallSeconds": 116,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/printing/latex.py",
+    "sympy/printing/pretty/pretty.py",
+    "sympy/printing/str.py"
+  ],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 36,
+        "cacheRead": 960727,
+        "cacheWrite": 38852,
+        "output": 8726,
+        "total": 1008341
+      }
+    },
+    "total": 1008341,
+    "calls": 19,
+    "costUsd": 0.6776254
+  }
+}
