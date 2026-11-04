@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 1344" width="820" role="img">
+<defs><pattern id="h-claude" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="#e0773c" fill-opacity="0.28"/><rect width="3" height="7" fill="#e0773c"/></pattern><pattern id="h-codex" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="#10a37f" fill-opacity="0.28"/><rect width="3" height="7" fill="#10a37f"/></pattern></defs>
+<rect width="820" height="1344" rx="14" fill="#ffffff"/>
+<rect x="20" y="16" width="14" height="14" rx="3" fill="#e0773c"/>
+<text x="42" y="28" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="14" fill="#59606b">Claude (claude-opus-5-5)</text>
+<rect x="245.60000000000002" y="16" width="14" height="14" rx="3" fill="#10a37f"/>
+<text x="267.6" y="28" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="14" fill="#59606b">Codex (gpt-6.1-sol)</text>
+<rect x="434.20000000000005" y="16" width="14" height="14" rx="3" fill="url(#h-claude)"/>
+<text x="456.20000000000005" y="28" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="14" fill="#59606b">not solved</text>
+<line x1="250" x2="250" y1="52" y2="1288" stroke="#dde1e7"/>
+<text x="250" y="1306" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">0</text>
+<line x1="345.45454545454544" x2="345.45454545454544" y1="52" y2="1288" stroke="#dde1e7"/>
+<text x="345.45454545454544" y="1306" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">250k</text>
+<line x1="440.9090909090909" x2="440.9090909090909" y1="52" y2="1288" stroke="#dde1e7"/>
+<text x="440.9090909090909" y="1306" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">500k</text>
+<line x1="536.3636363636363" x2="536.3636363636363" y1="52" y2="1288" stroke="#dde1e7"/>
+<text x="536.3636363636363" y="1306" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">750k</text>
+<line x1="631.8181818181818" x2="631.8181818181818" y1="52" y2="1288" stroke="#dde1e7"/>
+<text x="631.8181818181818" y="1306" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">1.0M</text>
+<line x1="0" x2="820" y1="228" y2="228" stroke="#dde1e7" stroke-dasharray="3 4"/>
+<line x1="0" x2="820" y1="404" y2="404" stroke="#dde1e7" stroke-dasharray="3 4"/>
+<line x1="0" x2="820" y1="580" y2="580" stroke="#dde1e7" stroke-dasharray="3 4"/>
+<line x1="0" x2="820" y1="756" y2="756" stroke="#dde1e7" stroke-dasharray="3 4"/>
+<line x1="0" x2="820" y1="932" y2="932" stroke="#dde1e7" stroke-dasharray="3 4"/>
+<line x1="0" x2="820" y1="1108" y2="1108" stroke="#dde1e7" stroke-dasharray="3 4"/>
+<text x="238" y="79" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">django-13023 · Claude Code</text>
+<rect x="250" y="62" width="86.4046909090909" height="24" rx="4" fill="#e0773c"/>
+<rect x="250" y="62" width="4" height="24" fill="#e0773c"/>
+<text x="344.4046909090909" y="78.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">226k  ✓ solved</text>
+<text x="238" y="123" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Claude</text>
+<rect x="250" y="106" width="162.06005454545453" height="24" rx="4" fill="#e0773c"/>
+<rect x="250" y="106" width="4" height="24" fill="#e0773c"/>
+<text x="420.06005454545453" y="122.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">424k  ✓ solved</text>
+<text x="238" y="167" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Codex CLI</text>
+<rect x="250" y="150" width="63.47879999999998" height="24" rx="4" fill="#10a37f"/>
+<rect x="250" y="150" width="4" height="24" fill="#10a37f"/>
+<text x="321.4788" y="166.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">166k  ✓ solved</text>
+<text x="238" y="211" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Codex</text>
+<rect x="250" y="194" width="92.88414545454543" height="24" rx="4" fill="#10a37f"/>
+<rect x="250" y="194" width="4" height="24" fill="#10a37f"/>
+<text x="350.88414545454543" y="210.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">243k  ✓ solved</text>
+<text x="238" y="255" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">django-14315 · Claude Code</text>
+<rect x="250" y="238" width="71.98379999999997" height="24" rx="4" fill="url(#h-claude)"/>
+<rect x="250" y="238" width="4" height="24" fill="url(#h-claude)"/>
+<text x="329.9838" y="254.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">189k  ✗ not solved</text>
+<text x="238" y="299" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Claude</text>
+<rect x="250" y="282" width="122.3223272727273" height="24" rx="4" fill="url(#h-claude)"/>
+<rect x="250" y="282" width="4" height="24" fill="url(#h-claude)"/>
+<text x="380.3223272727273" y="298.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">320k  ✗ not solved</text>
+<text x="238" y="343" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Codex CLI</text>
+<rect x="250" y="326" width="86.03547272727269" height="24" rx="4" fill="url(#h-codex)"/>
+<rect x="250" y="326" width="4" height="24" fill="url(#h-codex)"/>
+<text x="344.0354727272727" y="342.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">225k  ✗ not solved</text>
+<text x="238" y="387" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Codex</text>
+<rect x="250" y="370" width="69.45845454545452" height="24" rx="4" fill="url(#h-codex)"/>
+<rect x="250" y="370" width="4" height="24" fill="url(#h-codex)"/>
+<text x="327.4584545454545" y="386.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">182k  ✗ not solved</text>
+<text x="238" y="431" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">sympy-24539 · Claude Code</text>
+<rect x="250" y="414" width="105.26230909090907" height="24" rx="4" fill="#e0773c"/>
+<rect x="250" y="414" width="4" height="24" fill="#e0773c"/>
+<text x="363.26230909090907" y="430.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">276k  ✓ solved</text>
+<text x="238" y="475" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Claude</text>
+<rect x="250" y="458" width="80.74385454545455" height="24" rx="4" fill="#e0773c"/>
+<rect x="250" y="458" width="4" height="24" fill="#e0773c"/>
+<text x="338.74385454545455" y="474.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">211k  ✓ solved</text>
+<text x="238" y="519" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Codex CLI</text>
+<rect x="250" y="502" width="81.30092727272728" height="24" rx="4" fill="#10a37f"/>
+<rect x="250" y="502" width="4" height="24" fill="#10a37f"/>
+<text x="339.3009272727273" y="518.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">213k  ✓ solved</text>
+<text x="238" y="563" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Codex</text>
+<rect x="250" y="546" width="88.0197818181818" height="24" rx="4" fill="#10a37f"/>
+<rect x="250" y="546" width="4" height="24" fill="#10a37f"/>
+<text x="346.0197818181818" y="562.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">231k  ✓ solved</text>
+<text x="238" y="607" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">xarray-3305 · Claude Code</text>
+<rect x="250" y="590" width="90.39240000000001" height="24" rx="4" fill="#e0773c"/>
+<rect x="250" y="590" width="4" height="24" fill="#e0773c"/>
+<text x="348.3924" y="606.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">237k  ✓ solved</text>
+<text x="238" y="651" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Claude</text>
+<rect x="250" y="634" width="147.71132727272732" height="24" rx="4" fill="#e0773c"/>
+<rect x="250" y="634" width="4" height="24" fill="#e0773c"/>
+<text x="405.7113272727273" y="650.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">387k  ✓ solved</text>
+<text x="238" y="695" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Codex CLI</text>
+<rect x="250" y="678" width="158.85736363636363" height="24" rx="4" fill="#10a37f"/>
+<rect x="250" y="678" width="4" height="24" fill="#10a37f"/>
+<text x="416.85736363636363" y="694.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">416k  ✓ solved</text>
+<text x="238" y="739" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Codex</text>
+<rect x="250" y="722" width="98.84394545454546" height="24" rx="4" fill="#10a37f"/>
+<rect x="250" y="722" width="4" height="24" fill="#10a37f"/>
+<text x="356.84394545454546" y="738.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">259k  ✓ solved</text>
+<text x="238" y="783" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">matplotlib-20826 · Claude Code</text>
+<rect x="250" y="766" width="252.5230909090909" height="24" rx="4" fill="#e0773c"/>
+<rect x="250" y="766" width="4" height="24" fill="#e0773c"/>
+<text x="510.5230909090909" y="782.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">661k  ✓ solved</text>
+<text x="238" y="827" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Claude</text>
+<rect x="250" y="810" width="155.19954545454544" height="24" rx="4" fill="#e0773c"/>
+<rect x="250" y="810" width="4" height="24" fill="#e0773c"/>
+<text x="413.19954545454544" y="826.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">406k  ✓ solved</text>
+<text x="238" y="871" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Codex CLI</text>
+<rect x="250" y="854" width="108.83383636363635" height="24" rx="4" fill="#10a37f"/>
+<rect x="250" y="854" width="4" height="24" fill="#10a37f"/>
+<text x="366.83383636363635" y="870.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">285k  ✓ solved</text>
+<text x="238" y="915" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Codex</text>
+<rect x="250" y="898" width="121.61749090909092" height="24" rx="4" fill="#10a37f"/>
+<rect x="250" y="898" width="4" height="24" fill="#10a37f"/>
+<text x="379.6174909090909" y="914.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">319k  ✓ solved</text>
+<text x="238" y="959" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">scikit-learn-14710 · Claude Code</text>
+<rect x="250" y="942" width="130.04880000000003" height="24" rx="4" fill="#e0773c"/>
+<rect x="250" y="942" width="4" height="24" fill="#e0773c"/>
+<text x="388.0488" y="958.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">341k  ✓ solved</text>
+<text x="238" y="1003" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Claude</text>
+<rect x="250" y="986" width="149.82240000000002" height="24" rx="4" fill="#e0773c"/>
+<rect x="250" y="986" width="4" height="24" fill="#e0773c"/>
+<text x="407.8224" y="1002.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">392k  ✓ solved</text>
+<text x="238" y="1047" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Codex CLI</text>
+<rect x="250" y="1030" width="86.85790909090906" height="24" rx="4" fill="#10a37f"/>
+<rect x="250" y="1030" width="4" height="24" fill="#10a37f"/>
+<text x="344.85790909090906" y="1046.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">227k  ✓ solved</text>
+<text x="238" y="1091" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Codex</text>
+<rect x="250" y="1074" width="83.85872727272726" height="24" rx="4" fill="#10a37f"/>
+<rect x="250" y="1074" width="4" height="24" fill="#10a37f"/>
+<text x="341.85872727272726" y="1090.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">220k  ✓ solved</text>
+<text x="238" y="1135" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">sympy-14248 · Claude Code</text>
+<rect x="250" y="1118" width="385.0029272727272" height="24" rx="4" fill="url(#h-claude)"/>
+<rect x="250" y="1118" width="4" height="24" fill="url(#h-claude)"/>
+<text x="643.0029272727272" y="1134.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">1.01M  ✗ not solved</text>
+<text x="238" y="1179" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Claude</text>
+<rect x="250" y="1162" width="230.5819090909091" height="24" rx="4" fill="#e0773c"/>
+<rect x="250" y="1162" width="4" height="24" fill="#e0773c"/>
+<text x="488.5819090909091" y="1178.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">604k  ✓ solved</text>
+<text x="238" y="1223" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Codex CLI</text>
+<rect x="250" y="1206" width="378.99158181818177" height="24" rx="4" fill="url(#h-codex)"/>
+<rect x="250" y="1206" width="4" height="24" fill="url(#h-codex)"/>
+<text x="636.9915818181818" y="1222.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">993k  ✗ not solved</text>
+<text x="238" y="1267" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Codex</text>
+<rect x="250" y="1250" width="179.79970909090912" height="24" rx="4" fill="url(#h-codex)"/>
+<rect x="250" y="1250" width="4" height="24" fill="url(#h-codex)"/>
+<text x="437.7997090909091" y="1266.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">471k  ✗ not solved</text>
+<text x="20" y="1330" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="12.5" fill="#59606b">One run per setup per issue, graded by the official SWE-bench harness. Striped bars did not solve the issue.</text>
+</svg>
