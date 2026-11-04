@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 288" width="820" role="img">
+<defs><pattern id="h-claude" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="#e0773c" fill-opacity="0.28"/><rect width="3" height="7" fill="#e0773c"/></pattern><pattern id="h-codex" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="#10a37f" fill-opacity="0.28"/><rect width="3" height="7" fill="#10a37f"/></pattern></defs>
+<rect width="820" height="288" rx="14" fill="#ffffff"/>
+<rect x="20" y="16" width="14" height="14" rx="3" fill="#e0773c"/>
+<text x="42" y="28" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="14" fill="#59606b">Claude (claude-opus-5-5)</text>
+<rect x="245.60000000000002" y="16" width="14" height="14" rx="3" fill="#10a37f"/>
+<text x="267.6" y="28" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="14" fill="#59606b">Codex (gpt-6.1-sol)</text>
+<line x1="130" x2="130" y1="52" y2="232" stroke="#dde1e7"/>
+<text x="130" y="250" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">0</text>
+<line x1="207.14285714285714" x2="207.14285714285714" y1="52" y2="232" stroke="#dde1e7"/>
+<text x="207.14285714285714" y="250" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">100k</text>
+<line x1="284.2857142857143" x2="284.2857142857143" y1="52" y2="232" stroke="#dde1e7"/>
+<text x="284.2857142857143" y="250" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">200k</text>
+<line x1="361.42857142857144" x2="361.42857142857144" y1="52" y2="232" stroke="#dde1e7"/>
+<text x="361.42857142857144" y="250" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">300k</text>
+<line x1="438.57142857142856" x2="438.57142857142856" y1="52" y2="232" stroke="#dde1e7"/>
+<text x="438.57142857142856" y="250" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">400k</text>
+<line x1="515.7142857142858" x2="515.7142857142858" y1="52" y2="232" stroke="#dde1e7"/>
+<text x="515.7142857142858" y="250" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">500k</text>
+<line x1="592.8571428571429" x2="592.8571428571429" y1="52" y2="232" stroke="#dde1e7"/>
+<text x="592.8571428571429" y="250" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">600k</text>
+<line x1="670" x2="670" y1="52" y2="232" stroke="#dde1e7"/>
+<text x="670" y="250" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">700k</text>
+<line x1="0" x2="820" y1="140" y2="140" stroke="#dde1e7" stroke-dasharray="3 4"/>
+<text x="118" y="79" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Claude Code</text>
+<rect x="130" y="62" width="453.22524" height="24" rx="4" fill="#e0773c"/>
+<rect x="130" y="62" width="4" height="24" fill="#e0773c"/>
+<text x="591.22524" y="78.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">588k</text>
+<text x="118" y="123" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Claude</text>
+<rect x="130" y="106" width="353.0466" height="24" rx="4" fill="#e0773c"/>
+<rect x="130" y="106" width="4" height="24" fill="#e0773c"/>
+<text x="491.0466" y="122.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">458k  (−22%)</text>
+<text x="118" y="167" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Codex CLI</text>
+<rect x="130" y="150" width="389.6785028571428" height="24" rx="4" fill="#10a37f"/>
+<rect x="130" y="150" width="4" height="24" fill="#10a37f"/>
+<text x="527.6785028571428" y="166.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">505k</text>
+<text x="118" y="211" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Codex</text>
+<rect x="130" y="194" width="296.7907885714286" height="24" rx="4" fill="#10a37f"/>
+<rect x="130" y="194" width="4" height="24" fill="#10a37f"/>
+<text x="434.7907885714286" y="210.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">385k  (−24%)</text>
+<text x="20" y="274" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="12.5" fill="#59606b">All tokens a setup spent on the seven issues, failures included, divided by the issues it solved.</text>
+</svg>
