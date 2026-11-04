@@ -1,0 +1,102 @@
+diff --git a/sympy/printing/latex.py b/sympy/printing/latex.py
+index 8253b2f682..a63aa27778 100644
+--- a/sympy/printing/latex.py
++++ b/sympy/printing/latex.py
+@@ -1477,8 +1477,13 @@ def _print_Adjoint(self, expr):
+             return r"%s^\dagger" % self._print(mat)
+ 
+     def _print_MatAdd(self, expr):
+-        terms = list(expr.args)
+-        tex = " + ".join(map(self._print, terms))
++        tex = self._print(expr.args[0])
++        for term in expr.args[1:]:
++            term_tex = self._print(term)
++            if term_tex.startswith('-'):
++                tex += ' - ' + term_tex[1:].lstrip()
++            else:
++                tex += ' + ' + term_tex
+         return tex
+ 
+     def _print_MatMul(self, expr):
+@@ -1488,6 +1493,8 @@ def parens(x):
+             if isinstance(x, (Add, MatAdd, HadamardProduct)):
+                 return r"\left(%s\right)" % self._print(x)
+             return self._print(x)
++        if expr.args[0] == -1:
++            return '- ' + ' '.join(map(parens, expr.args[1:]))
+         return ' '.join(map(parens, expr.args))
+ 
+     def _print_Mod(self, expr, exp=None):
+diff --git a/sympy/printing/pretty/pretty.py b/sympy/printing/pretty/pretty.py
+index db24f4c612..700e9f6360 100644
+--- a/sympy/printing/pretty/pretty.py
++++ b/sympy/printing/pretty/pretty.py
+@@ -819,7 +819,19 @@ def _print_BlockMatrix(self, B):
+         return self._print(B.blocks)
+ 
+     def _print_MatAdd(self, expr):
+-        return self._print_seq(expr.args, None, None, ' + ')
++        pforms = []
++        for i, term in enumerate(expr.args):
++            if i and term.is_MatMul and _coeff_isneg(term.args[0]):
++                args = list(term.args)
++                args[0] = -args[0]
++                if args[0] == 1:
++                    args = args[1:]
++                pform = self._print(term.func(*args))
++                pform = prettyForm(*pform.left(' - '), binding=prettyForm.NEG)
++            else:
++                pform = self._print(term)
++            pforms.append(pform)
++        return prettyForm.__add__(*pforms)
+ 
+     def _print_MatMul(self, expr):
+         args = list(expr.args)
+diff --git a/sympy/printing/str.py b/sympy/printing/str.py
+index 0baefe0f7f..7bf53bd5ec 100644
+--- a/sympy/printing/str.py
++++ b/sympy/printing/str.py
+@@ -5,6 +5,7 @@
+ from __future__ import print_function, division
+ 
+ from sympy.core import S, Rational, Pow, Basic, Mul
++from sympy.core.function import _coeff_isneg
+ from sympy.core.mul import _keep_coeff
+ from .printer import Printer
+ from sympy.printing.precedence import precedence, PRECEDENCE
+@@ -304,16 +305,31 @@ def _print_Mul(self, expr):
+             return sign + '*'.join(a_str) + "/(%s)" % '*'.join(b_str)
+ 
+     def _print_MatMul(self, expr):
+-        return '*'.join([self.parenthesize(arg, precedence(expr))
+-            for arg in expr.args])
++        args = list(expr.args)
++        if _coeff_isneg(args[0]):
++            args[0] = -args[0]
++            sign = '-'
++        else:
++            sign = ''
++        if args[0] == 1:
++            args = args[1:]
++        return sign + '*'.join([self.parenthesize(arg, precedence(expr))
++            for arg in args])
+ 
+     def _print_HadamardProduct(self, expr):
+         return '.*'.join([self.parenthesize(arg, precedence(expr))
+             for arg in expr.args])
+ 
+     def _print_MatAdd(self, expr):
+-        return ' + '.join([self.parenthesize(arg, precedence(expr))
+-            for arg in expr.args])
++        terms = [self.parenthesize(arg, precedence(expr))
++            for arg in expr.args]
++        result = terms[0]
++        for term in terms[1:]:
++            if term.startswith('-'):
++                result += ' - ' + term[1:]
++            else:
++                result += ' + ' + term
++        return result
+ 
+     def _print_NaN(self, expr):
+         return 'nan'
