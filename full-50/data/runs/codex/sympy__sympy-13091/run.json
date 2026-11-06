@@ -1,0 +1,35 @@
+{
+  "setup": "codex",
+  "instance_id": "sympy__sympy-13091",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T06:42:47.681Z",
+  "wallSeconds": 101,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/core/basic.py",
+    "sympy/core/expr.py",
+    "sympy/core/numbers.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 43664,
+        "cacheRead": 495232,
+        "cacheWrite": 0,
+        "output": 3566,
+        "total": 542462
+      }
+    },
+    "total": 542462,
+    "calls": null,
+    "costUsd": null
+  }
+}

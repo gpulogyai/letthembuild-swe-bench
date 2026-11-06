@@ -1,0 +1,20 @@
+diff --git a/sympy/core/mod.py b/sympy/core/mod.py
+index eae25630cc..847eddda6a 100644
+--- a/sympy/core/mod.py
++++ b/sympy/core/mod.py
+@@ -118,6 +118,15 @@ def doit(p, q):
+                 return cls(net, q)
+ 
+         elif isinstance(p, Mul):
++            if q.is_integer and all(arg.is_integer for arg in p.args):
++                # Reduce integer factors, keeping the product inside Mod.
++                reduced = []
++                for arg in p.args:
++                    r = cls(arg, q)
++                    reduced.append(arg if isinstance(r, cls) else r)
++                if reduced != list(p.args):
++                    return cls(Mul(*reduced), q)
++
+             # separating into modulus and non modulus
+             both_l = non_mod_l, mod_l = [], []
+             for arg in p.args:
