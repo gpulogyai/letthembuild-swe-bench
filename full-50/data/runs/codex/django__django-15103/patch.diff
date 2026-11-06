@@ -1,0 +1,84 @@
+diff --git a/django/template/defaultfilters.py b/django/template/defaultfilters.py
+index 5ccef38048..12f0d4caaa 100644
+--- a/django/template/defaultfilters.py
++++ b/django/template/defaultfilters.py
+@@ -83,7 +83,7 @@ def escapejs_filter(value):
+ 
+ 
+ @register.filter(is_safe=True)
+-def json_script(value, element_id):
++def json_script(value, element_id=None):
+     """
+     Output value JSON-encoded, wrapped in a <script type="application/json">
+     tag.
+diff --git a/django/utils/html.py b/django/utils/html.py
+index da1b5675ec..26ea2e92ce 100644
+--- a/django/utils/html.py
++++ b/django/utils/html.py
+@@ -61,18 +61,21 @@ _json_script_escapes = {
+ }
+ 
+ 
+-def json_script(value, element_id):
++def json_script(value, element_id=None):
+     """
+     Escape all the HTML/XML special characters with their unicode escapes, so
+     value is safe to be output anywhere except for inside a tag attribute. Wrap
+-    the escaped JSON in a script tag.
++    the escaped JSON in a script tag, optionally with an id.
+     """
+     from django.core.serializers.json import DjangoJSONEncoder
+     json_str = json.dumps(value, cls=DjangoJSONEncoder).translate(_json_script_escapes)
+-    return format_html(
+-        '<script id="{}" type="application/json">{}</script>',
+-        element_id, mark_safe(json_str)
+-    )
++    if element_id:
++        template = '<script id="{}" type="application/json">{}</script>'
++        args = (element_id, mark_safe(json_str))
++    else:
++        template = '<script type="application/json">{}</script>'
++        args = (mark_safe(json_str),)
++    return format_html(template, *args)
+ 
+ 
+ def conditional_escape(text):
+diff --git a/docs/ref/templates/builtins.txt b/docs/ref/templates/builtins.txt
+index 2edfd65c7b..13a2e8fa60 100644
+--- a/docs/ref/templates/builtins.txt
++++ b/docs/ref/templates/builtins.txt
+@@ -1832,7 +1832,8 @@ If ``value`` is the list ``['a', 'b', 'c']``, the output will be the string
+ Safely outputs a Python object as JSON, wrapped in a ``<script>`` tag, ready
+ for use with JavaScript.
+ 
+-**Argument:** HTML "id" of the ``<script>`` tag.
++**Argument:** An optional HTML "id" of the ``<script>`` tag. If omitted, the
++``<script>`` tag has no "id" attribute.
+ 
+ For example::
+ 
+@@ -1861,6 +1862,10 @@ This is compatible with a strict Content Security Policy that prohibits in-page
+ script execution. It also maintains a clean separation between passive data and
+ executable code.
+ 
++.. versionchanged:: 4.1
++
++    The ``id`` argument was made optional.
++
+ .. templatefilter:: last
+ 
+ ``last``
+diff --git a/docs/releases/4.1.txt b/docs/releases/4.1.txt
+index 7bfb527104..bd2d45998d 100644
+--- a/docs/releases/4.1.txt
++++ b/docs/releases/4.1.txt
+@@ -210,7 +210,8 @@ Signals
+ Templates
+ ~~~~~~~~~
+ 
+-* ...
++* The :tfilter:`json_script` template filter now allows omitting the ``id``
++  argument in order to output a ``<script>`` tag without an ``id`` attribute.
+ 
+ Tests
+ ~~~~~

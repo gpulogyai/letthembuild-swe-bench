@@ -171,14 +171,52 @@ data/
     run.json                     time, exit, files changed, solved, tokens by model
     transcript.jsonl             the tool's own event stream: messages, commands, results, usage
     usage.jsonl                  LetThemBuild only: each model call's tokens
+full-50/data/                    the same layout for all 50 issues, Codex CLI and LetThemBuild · Codex, plus
+  difficulty.json                SWE-bench Verified's difficulty label for each issue
+  runs/<setup>/<issue>/report.json   the harness's report for that one patch
 charts/                          the charts above, light and dark
-harness/                         select_tasks.py, prepare.py, run.mjs, grade.mjs, charts.mjs, export-public.mjs
+harness/                         select_tasks.py, prepare.py, run.mjs, grade.mjs, grade-full.mjs, charts.mjs,
+                                 export-public.mjs, verdict.mjs
 ```
 
 Transcripts are the tools' own streams with machine details removed: home-folder paths and email addresses are
 replaced, and the parts that describe the machine rather than the run (app settings, other conversations,
 installed plugins and connectors, a listing of the home folder) are left out. `harness/export-public.mjs` is
 exactly what did that.
+
+## All 50 issues: Codex
+
+The same comparison for Codex on all 50 issues, one run per setup per issue, same conditions as above (Codex CLI
+0.165.0 against LetThemBuild desktop 1.1.369 with brief 2026-11-05.1, its one seat running that Codex CLI, on
+4 November 2026). No run reached the 40-minute limit.
+
+| | Codex CLI alone | LetThemBuild · Codex |
+|---|---:|---:|
+| Issues solved | 42 of 50 | 41 of 50 |
+| Tokens, all 50 issues | 15.10M | 13.34M |
+| Tokens per solved issue | 0.36M | 0.33M |
+
+**LetThemBuild used 11.6% fewer tokens, with a 95% range of −21.5% to −0.7%**, so the whole range is below zero.
+It used fewer tokens than Codex alone on 28 of the 50 issues.
+
+| SWE-bench difficulty | Issues | Codex CLI | LetThemBuild · Codex | Change | 95% range |
+|---|---:|---:|---:|---:|---|
+| Under 15 minutes | 21 | 5.11M | 4.86M | −4.8% | −19.1% to +11.3% |
+| 15 minutes – 1 hour | 25 | 7.64M | 6.63M | −13.2% | −28.7% to +5.1% |
+| 1 – 4 hours | 4 | 2.35M | 1.85M | −21.2% | −41.2% to −4.6% |
+
+The range comes from resampling the 50 issues 10,000 times, keeping each issue's pair of runs together. Difficulty
+is SWE-bench Verified's own label, not anything measured here, so the split cannot favour either setup. Only four
+issues carry the 1–4 hour label, too few to read much into on their own.
+
+Every run is in [`full-50/data/`](full-50/data), laid out like `data/`, with the official harness's report for each
+patch beside it. To print every number in this section:
+
+```
+node harness/verdict.mjs full-50 codex letthembuild-codex
+```
+
+The range is drawn with a fixed seed, so the script prints the same figures every time.
 
 ## Next
 

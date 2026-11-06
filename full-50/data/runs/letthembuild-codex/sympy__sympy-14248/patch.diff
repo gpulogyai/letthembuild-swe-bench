@@ -1,0 +1,127 @@
+diff --git a/sympy/printing/latex.py b/sympy/printing/latex.py
+index 8253b2f682..9bc4f63846 100644
+--- a/sympy/printing/latex.py
++++ b/sympy/printing/latex.py
+@@ -300,7 +300,7 @@ def _print_NoneType(self, e):
+ 
+ 
+     def _print_Add(self, expr, order=None):
+-        if self.order == 'none':
++        if self.order == 'none' or expr.is_MatAdd:
+             terms = list(expr.args)
+         else:
+             terms = self._as_ordered_terms(expr, order=order)
+@@ -309,6 +309,11 @@ def _print_Add(self, expr, order=None):
+         for i, term in enumerate(terms):
+             if i == 0:
+                 pass
++            elif term.is_MatMul and _coeff_isneg(term.args[0]):
++                tex += " - "
++                args = term.args[1:] if term.args[0] is S.NegativeOne else \
++                    (-term.args[0],) + term.args[1:]
++                term = term.func(*args)
+             elif _coeff_isneg(term):
+                 tex += " - "
+                 term = -term
+@@ -1477,13 +1482,14 @@ def _print_Adjoint(self, expr):
+             return r"%s^\dagger" % self._print(mat)
+ 
+     def _print_MatAdd(self, expr):
+-        terms = list(expr.args)
+-        tex = " + ".join(map(self._print, terms))
+-        return tex
++        return self._print_Add(expr)
+ 
+     def _print_MatMul(self, expr):
+         from sympy import Add, MatAdd, HadamardProduct
+ 
++        if expr.args[0] is S.NegativeOne:
++            return '-' + self._print(expr.func(*expr.args[1:]))
++
+         def parens(x):
+             if isinstance(x, (Add, MatAdd, HadamardProduct)):
+                 return r"\left(%s\right)" % self._print(x)
+diff --git a/sympy/printing/pretty/pretty.py b/sympy/printing/pretty/pretty.py
+index db24f4c612..9233940a36 100644
+--- a/sympy/printing/pretty/pretty.py
++++ b/sympy/printing/pretty/pretty.py
+@@ -819,7 +819,7 @@ def _print_BlockMatrix(self, B):
+         return self._print(B.blocks)
+ 
+     def _print_MatAdd(self, expr):
+-        return self._print_seq(expr.args, None, None, ' + ')
++        return self._print_Add(expr)
+ 
+     def _print_MatMul(self, expr):
+         args = list(expr.args)
+@@ -1409,7 +1409,7 @@ def _print_Mod(self, expr):
+         return pform
+ 
+     def _print_Add(self, expr, order=None):
+-        if self.order == 'none':
++        if self.order == 'none' or expr.is_MatAdd:
+             terms = list(expr.args)
+         else:
+             terms = self._as_ordered_terms(expr, order=order)
+@@ -1437,7 +1437,12 @@ def pretty_negative(pform, index):
+             return prettyForm(binding=prettyForm.NEG, *p)
+ 
+         for i, term in enumerate(terms):
+-            if term.is_Mul and _coeff_isneg(term):
++            if term.is_MatMul and _coeff_isneg(term.args[0]):
++                args = term.args[1:] if term.args[0] is S.NegativeOne else \
++                    (-term.args[0],) + term.args[1:]
++                pform = self._print(term.func(*args))
++                pforms.append(pretty_negative(pform, i))
++            elif term.is_Mul and _coeff_isneg(term):
+                 coeff, other = term.as_coeff_mul(rational=False)
+                 pform = self._print(Mul(-coeff, *other, evaluate=False))
+                 pforms.append(pretty_negative(pform, i))
+diff --git a/sympy/printing/str.py b/sympy/printing/str.py
+index 0baefe0f7f..302dc56d01 100644
+--- a/sympy/printing/str.py
++++ b/sympy/printing/str.py
+@@ -5,6 +5,7 @@
+ from __future__ import print_function, division
+ 
+ from sympy.core import S, Rational, Pow, Basic, Mul
++from sympy.core.function import _coeff_isneg
+ from sympy.core.mul import _keep_coeff
+ from .printer import Printer
+ from sympy.printing.precedence import precedence, PRECEDENCE
+@@ -47,7 +48,7 @@ def emptyPrinter(self, expr):
+             return str(expr)
+ 
+     def _print_Add(self, expr, order=None):
+-        if self.order == 'none':
++        if self.order == 'none' or expr.is_MatAdd:
+             terms = list(expr.args)
+         else:
+             terms = self._as_ordered_terms(expr, order=order)
+@@ -304,16 +305,22 @@ def _print_Mul(self, expr):
+             return sign + '*'.join(a_str) + "/(%s)" % '*'.join(b_str)
+ 
+     def _print_MatMul(self, expr):
+-        return '*'.join([self.parenthesize(arg, precedence(expr))
+-            for arg in expr.args])
++        args = list(expr.args)
++        sign = ''
++        if _coeff_isneg(args[0]):
++            sign = '-'
++            args[0] = -args[0]
++            if args[0] == 1:
++                args = args[1:]
++        return sign + '*'.join([self.parenthesize(arg, precedence(expr))
++            for arg in args])
+ 
+     def _print_HadamardProduct(self, expr):
+         return '.*'.join([self.parenthesize(arg, precedence(expr))
+             for arg in expr.args])
+ 
+     def _print_MatAdd(self, expr):
+-        return ' + '.join([self.parenthesize(arg, precedence(expr))
+-            for arg in expr.args])
++        return self._print_Add(expr)
+ 
+     def _print_NaN(self, expr):
+         return 'nan'

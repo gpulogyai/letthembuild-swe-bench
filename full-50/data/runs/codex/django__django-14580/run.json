@@ -1,0 +1,33 @@
+{
+  "setup": "codex",
+  "instance_id": "django__django-14580",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T06:17:44.298Z",
+  "wallSeconds": 41,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/db/migrations/serializer.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 16451,
+        "cacheRead": 167936,
+        "cacheWrite": 0,
+        "output": 1425,
+        "total": 185812
+      }
+    },
+    "total": 185812,
+    "calls": null,
+    "costUsd": null
+  }
+}

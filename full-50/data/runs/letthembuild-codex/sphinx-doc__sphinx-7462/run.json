@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-codex",
+  "instance_id": "sphinx-doc__sphinx-7462",
+  "repo": "sphinx-doc/sphinx",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T07:35:00.598Z",
+  "wallSeconds": 45,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sphinx/domains/python.py"
+  ],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 1,
+        "total": 158847
+      }
+    },
+    "total": 158847,
+    "calls": null,
+    "costUsd": null
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-codex",
+  "instance_id": "scikit-learn__scikit-learn-13439",
+  "repo": "scikit-learn/scikit-learn",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T07:32:27.811Z",
+  "wallSeconds": 46,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sklearn/pipeline.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 1,
+        "total": 149716
+      }
+    },
+    "total": 149716,
+    "calls": null,
+    "costUsd": null
+  }
+}

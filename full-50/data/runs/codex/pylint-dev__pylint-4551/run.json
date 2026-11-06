@@ -1,0 +1,34 @@
+{
+  "setup": "codex",
+  "instance_id": "pylint-dev__pylint-4551",
+  "repo": "pylint-dev/pylint",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T06:32:15.017Z",
+  "wallSeconds": 204,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "pylint/pyreverse/diagrams.py",
+    "pylint/pyreverse/inspector.py"
+  ],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 41874,
+        "cacheRead": 512896,
+        "cacheWrite": 0,
+        "output": 6693,
+        "total": 561463
+      }
+    },
+    "total": 561463,
+    "calls": null,
+    "costUsd": null
+  }
+}

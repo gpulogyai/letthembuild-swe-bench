@@ -1,0 +1,31 @@
+{
+  "setup": "letthembuild-codex",
+  "instance_id": "django__django-15103",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T07:12:14.669Z",
+  "wallSeconds": 54,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/template/defaultfilters.py",
+    "django/utils/html.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 1,
+        "total": 238912
+      }
+    },
+    "total": 238912,
+    "calls": null,
+    "costUsd": null
+  }
+}
