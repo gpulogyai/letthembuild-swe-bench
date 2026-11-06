@@ -1,0 +1,31 @@
+{
+  "setup": "letthembuild-codex",
+  "instance_id": "pylint-dev__pylint-4551",
+  "repo": "pylint-dev/pylint",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T07:28:47.177Z",
+  "wallSeconds": 132,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "pylint/pyreverse/diagrams.py",
+    "pylint/pyreverse/inspector.py"
+  ],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 1,
+        "total": 306869
+      }
+    },
+    "total": 306869,
+    "calls": null,
+    "costUsd": null
+  }
+}

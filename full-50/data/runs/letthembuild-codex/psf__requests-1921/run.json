@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-codex",
+  "instance_id": "psf__requests-1921",
+  "repo": "psf/requests",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T07:23:28.225Z",
+  "wallSeconds": 59,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "requests/sessions.py"
+  ],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 1,
+        "total": 196845
+      }
+    },
+    "total": 196845,
+    "calls": null,
+    "costUsd": null
+  }
+}

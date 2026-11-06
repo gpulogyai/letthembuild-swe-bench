@@ -1,0 +1,33 @@
+{
+  "setup": "codex",
+  "instance_id": "sympy__sympy-15599",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T06:48:42.124Z",
+  "wallSeconds": 110,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/core/mod.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 44894,
+        "cacheRead": 232576,
+        "cacheWrite": 0,
+        "output": 3066,
+        "total": 280536
+      }
+    },
+    "total": 280536,
+    "calls": null,
+    "costUsd": null
+  }
+}
