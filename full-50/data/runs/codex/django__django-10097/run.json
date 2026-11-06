@@ -1,0 +1,33 @@
+{
+  "setup": "codex",
+  "instance_id": "django__django-10097",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T06:06:11.194Z",
+  "wallSeconds": 67,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/core/validators.py"
+  ],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 24198,
+        "cacheRead": 327296,
+        "cacheWrite": 0,
+        "output": 2804,
+        "total": 354298
+      }
+    },
+    "total": 354298,
+    "calls": null,
+    "costUsd": null
+  }
+}

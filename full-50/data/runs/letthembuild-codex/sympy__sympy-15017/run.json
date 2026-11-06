@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-codex",
+  "instance_id": "sympy__sympy-15017",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T07:45:05.904Z",
+  "wallSeconds": 63,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/tensor/array/ndim_array.py"
+  ],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 1,
+        "total": 229979
+      }
+    },
+    "total": 229979,
+    "calls": null,
+    "costUsd": null
+  }
+}

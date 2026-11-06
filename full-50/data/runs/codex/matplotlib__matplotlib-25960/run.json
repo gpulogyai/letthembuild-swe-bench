@@ -1,0 +1,33 @@
+{
+  "setup": "codex",
+  "instance_id": "matplotlib__matplotlib-25960",
+  "repo": "matplotlib/matplotlib",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T06:25:19.460Z",
+  "wallSeconds": 120,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "lib/matplotlib/figure.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 63978,
+        "cacheRead": 590464,
+        "cacheWrite": 0,
+        "output": 4004,
+        "total": 658446
+      }
+    },
+    "total": 658446,
+    "calls": null,
+    "costUsd": null
+  }
+}
