@@ -1,24 +1,20 @@
 diff --git a/lib/matplotlib/figure.py b/lib/matplotlib/figure.py
-index dab2bc4a5a..d4bbe273df 100644
+index dab2bc4a5a..3b508995bb 100644
 --- a/lib/matplotlib/figure.py
 +++ b/lib/matplotlib/figure.py
-@@ -1591,6 +1591,20 @@ default: %(va)s
+@@ -1591,6 +1591,16 @@ default: %(va)s
              for j in range(nrows):
                  sfarr[j, i] = self.add_subfigure(gs[j, i], **kwargs)
  
-+        if self.get_layout_engine() is None and (wspace is not None or
-+                                                hspace is not None):
-+            # Subfigures fill their parent, with no outer margins.  Preserve
-+            # zero spacing in a direction where no spacing was requested.
++        if self.get_layout_engine() is None and (
++                wspace is not None or hspace is not None):
++            # Account for spacing between subfigures when no layout engine
++            # will adjust their positions.  Keep the outer margins at zero.
 +            gs.update(left=0, right=1, bottom=0, top=1,
-+                      wspace=0 if wspace is None else wspace,
-+                      hspace=0 if hspace is None else hspace)
-+            bottoms, tops, lefts, rights = gs.get_grid_positions(self)
-+            for i in range(ncols):
-+                for j in range(nrows):
-+                    bbox = Bbox.from_extents(lefts[i], bottoms[j],
-+                                             rights[i], tops[j])
-+                    sfarr[j, i]._redo_transform_rel_fig(bbox=bbox)
++                      wspace=wspace or 0, hspace=hspace or 0)
++            for sf in sfarr.flat:
++                sf._redo_transform_rel_fig(
++                    bbox=sf._subplotspec.get_position(self))
 +
          if squeeze:
              # Discarding unneeded dimensions that equal 1.  If we only have one

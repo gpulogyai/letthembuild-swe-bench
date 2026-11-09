@@ -1,0 +1,33 @@
+{
+  "setup": "grok-run2",
+  "instance_id": "sympy__sympy-20154",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-06T10:29:09.898Z",
+  "wallSeconds": 98,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/utilities/iterables.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 78663,
+        "cacheRead": 280960,
+        "cacheWrite": 0,
+        "output": 6599,
+        "total": 366222
+      }
+    },
+    "total": 366222,
+    "calls": 10,
+    "costUsd": null
+  }
+}

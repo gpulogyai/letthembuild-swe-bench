@@ -1,0 +1,146 @@
+diff --git a/django/db/backends/base/operations.py b/django/db/backends/base/operations.py
+index 2e283a3193..15403332d8 100644
+--- a/django/db/backends/base/operations.py
++++ b/django/db/backends/base/operations.py
+@@ -5,7 +5,7 @@ from importlib import import_module
+ import sqlparse
+ 
+ from django.conf import settings
+-from django.db import NotSupportedError, transaction
++from django.db import DatabaseError, NotSupportedError, transaction
+ from django.db.backends import utils
+ from django.utils import timezone
+ from django.utils.encoding import force_str
+@@ -105,6 +105,9 @@ class BaseDatabaseOperations:
+         """
+         raise NotImplementedError('subclasses of BaseDatabaseOperations may require a date_interval_sql() method')
+ 
++    def format_for_duration_arithmetic(self, sql):
++        raise NotImplementedError('subclasses of BaseDatabaseOperations may require a format_for_duration_arithmetic() method')
++
+     def date_trunc_sql(self, lookup_type, field_name):
+         """
+         Given a lookup_type of 'year', 'month', or 'day', return the SQL that
+@@ -611,6 +614,8 @@ class BaseDatabaseOperations:
+         return conn.join(sub_expressions)
+ 
+     def combine_duration_expression(self, connector, sub_expressions):
++        if connector not in ['+', '-']:
++            raise DatabaseError('Invalid connector for timedelta: %s.' % connector)
+         return self.combine_expression(connector, sub_expressions)
+ 
+     def binary_placeholder_sql(self, value):
+diff --git a/django/db/backends/mysql/operations.py b/django/db/backends/mysql/operations.py
+index af8cfd86b5..ffddb64e3c 100644
+--- a/django/db/backends/mysql/operations.py
++++ b/django/db/backends/mysql/operations.py
+@@ -3,7 +3,6 @@ import uuid
+ from django.conf import settings
+ from django.db.backends.base.operations import BaseDatabaseOperations
+ from django.utils import timezone
+-from django.utils.duration import duration_microseconds
+ from django.utils.encoding import force_str
+ 
+ 
+@@ -140,9 +139,6 @@ class DatabaseOperations(BaseDatabaseOperations):
+         else:
+             return "TIME(%s)" % (field_name)
+ 
+-    def date_interval_sql(self, timedelta):
+-        return 'INTERVAL %s MICROSECOND' % duration_microseconds(timedelta)
+-
+     def fetch_returned_insert_rows(self, cursor):
+         """
+         Given a cursor object that has just performed an INSERT...RETURNING
+diff --git a/django/db/backends/sqlite3/base.py b/django/db/backends/sqlite3/base.py
+index 31e8a55a43..0a8a965e75 100644
+--- a/django/db/backends/sqlite3/base.py
++++ b/django/db/backends/sqlite3/base.py
+@@ -559,6 +559,8 @@ def _sqlite_format_dtdelta(conn, lhs, rhs):
+             out = real_lhs - real_rhs
+     except (ValueError, TypeError):
+         return None
++    if isinstance(out, datetime.timedelta):
++        return duration_microseconds(out)
+     # typecast_timestamp returns a date or a datetime without timezone.
+     # It will be formatted as "%Y-%m-%d" or "%Y-%m-%d %H:%M:%S[.%f]"
+     return str(out)
+diff --git a/django/db/backends/sqlite3/operations.py b/django/db/backends/sqlite3/operations.py
+index 9510b5edd9..1f77b3109f 100644
+--- a/django/db/backends/sqlite3/operations.py
++++ b/django/db/backends/sqlite3/operations.py
+@@ -11,7 +11,6 @@ from django.db.backends.base.operations import BaseDatabaseOperations
+ from django.db.models.expressions import Col
+ from django.utils import timezone
+ from django.utils.dateparse import parse_date, parse_datetime, parse_time
+-from django.utils.duration import duration_microseconds
+ from django.utils.functional import cached_property
+ 
+ 
+@@ -74,9 +73,6 @@ class DatabaseOperations(BaseDatabaseOperations):
+         """
+         return "django_date_extract('%s', %s)" % (lookup_type.lower(), field_name)
+ 
+-    def date_interval_sql(self, timedelta):
+-        return str(duration_microseconds(timedelta))
+-
+     def format_for_duration_arithmetic(self, sql):
+         """Do nothing since formatting is handled in the custom function."""
+         return sql
+diff --git a/django/db/models/expressions.py b/django/db/models/expressions.py
+index a156c5e881..9371cfde33 100644
+--- a/django/db/models/expressions.py
++++ b/django/db/models/expressions.py
+@@ -57,7 +57,7 @@ class Combinable:
+         if not hasattr(other, 'resolve_expression'):
+             # everything must be resolvable to an expression
+             if isinstance(other, datetime.timedelta):
+-                other = DurationValue(other, output_field=fields.DurationField())
++                other = Value(other, output_field=fields.DurationField())
+             else:
+                 other = Value(other)
+ 
+@@ -480,7 +480,7 @@ class CombinedExpression(SQLiteNumericMixin, Expression):
+ 
+ class DurationExpression(CombinedExpression):
+     def compile(self, side, compiler, connection):
+-        if not isinstance(side, DurationValue):
++        if not self.has_only_duration_operands:
+             try:
+                 output = side.output_field
+             except FieldError:
+@@ -491,7 +491,19 @@ class DurationExpression(CombinedExpression):
+                     return connection.ops.format_for_duration_arithmetic(sql), params
+         return compiler.compile(side)
+ 
++    @cached_property
++    def has_only_duration_operands(self):
++        try:
++            return (
++                self.lhs.output_field.get_internal_type() == 'DurationField' and
++                self.rhs.output_field.get_internal_type() == 'DurationField'
++            )
++        except FieldError:
++            return False
++
+     def as_sql(self, compiler, connection):
++        if connection.features.has_native_duration_field:
++            return super().as_sql(compiler, connection)
+         connection.ops.check_expression_support(self)
+         expressions = []
+         expression_params = []
+@@ -709,14 +721,6 @@ class Value(Expression):
+         return []
+ 
+ 
+-class DurationValue(Value):
+-    def as_sql(self, compiler, connection):
+-        connection.ops.check_expression_support(self)
+-        if connection.features.has_native_duration_field:
+-            return super().as_sql(compiler, connection)
+-        return connection.ops.date_interval_sql(self.value), []
+-
+-
+ class RawSQL(Expression):
+     def __init__(self, sql, params, output_field=None):
+         if output_field is None:

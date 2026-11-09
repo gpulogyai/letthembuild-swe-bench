@@ -1,5 +1,5 @@
 diff --git a/django/db/models/expressions.py b/django/db/models/expressions.py
-index a156c5e881..59c4fe7ba8 100644
+index a156c5e881..2563e2dda9 100644
 --- a/django/db/models/expressions.py
 +++ b/django/db/models/expressions.py
 @@ -57,7 +57,7 @@ class Combinable:
@@ -16,26 +16,24 @@ index a156c5e881..59c4fe7ba8 100644
      def as_sql(self, compiler, connection):
          try:
 -            lhs_output = self.lhs.output_field
-+            lhs_type = self.lhs.output_field.get_internal_type()
++            lhs_output = self.lhs.output_field.get_internal_type()
          except FieldError:
--            lhs_output = None
-+            lhs_type = None
+             lhs_output = None
          try:
 -            rhs_output = self.rhs.output_field
-+            rhs_type = self.rhs.output_field.get_internal_type()
++            rhs_output = self.rhs.output_field.get_internal_type()
          except FieldError:
--            rhs_output = None
-+            rhs_type = None
-         if (not connection.features.has_native_duration_field and
+             rhs_output = None
+-        if (not connection.features.has_native_duration_field and
 -                ((lhs_output and lhs_output.get_internal_type() == 'DurationField') or
 -                 (rhs_output and rhs_output.get_internal_type() == 'DurationField'))):
-+                lhs_type != rhs_type and 'DurationField' in {lhs_type, rhs_type}):
++        if (not connection.features.has_native_duration_field and lhs_output != rhs_output and
++                'DurationField' in {lhs_output, rhs_output}):
              return DurationExpression(self.lhs, self.connector, self.rhs).as_sql(compiler, connection)
--        if (lhs_output and rhs_output and self.connector == self.SUB and
+         if (lhs_output and rhs_output and self.connector == self.SUB and
 -            lhs_output.get_internal_type() in {'DateField', 'DateTimeField', 'TimeField'} and
 -                lhs_output.get_internal_type() == rhs_output.get_internal_type()):
-+        if (self.connector == self.SUB and lhs_type in {'DateField', 'DateTimeField', 'TimeField'} and
-+                lhs_type == rhs_type):
++            lhs_output in {'DateField', 'DateTimeField', 'TimeField'} and lhs_output == rhs_output):
              return TemporalSubtraction(self.lhs, self.rhs).as_sql(compiler, connection)
          expressions = []
          expression_params = []

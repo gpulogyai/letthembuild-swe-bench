@@ -35,6 +35,7 @@
     "sympy__sympy-11618",
     "sympy__sympy-13091",
     "sympy__sympy-14248",
+    "sympy__sympy-15017",
     "sympy__sympy-15599",
     "sympy__sympy-16450",
     "sympy__sympy-20154",
@@ -51,8 +52,7 @@
     "psf__requests-1921",
     "psf__requests-2317",
     "pylint-dev__pylint-4551",
-    "sphinx-doc__sphinx-7462",
-    "sympy__sympy-15017"
+    "sphinx-doc__sphinx-7462"
   ],
   "empty_patch_ids": [],
   "error_ids": [],

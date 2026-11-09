@@ -1,0 +1,33 @@
+{
+  "setup": "grok",
+  "instance_id": "django__django-16569",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T07:03:24.503Z",
+  "wallSeconds": 66,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/forms/formsets.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 58845,
+        "cacheRead": 335744,
+        "cacheWrite": 0,
+        "output": 3267,
+        "total": 397856
+      }
+    },
+    "total": 397856,
+    "calls": 12,
+    "costUsd": null
+  }
+}

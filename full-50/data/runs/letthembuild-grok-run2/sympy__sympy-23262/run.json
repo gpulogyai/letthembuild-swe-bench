@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-grok-run2",
+  "instance_id": "sympy__sympy-23262",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-06T14:00:36.171Z",
+  "wallSeconds": 215,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/utilities/lambdify.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "turns": 1,
+        "total": 1226966
+      }
+    },
+    "total": 1226966,
+    "calls": null,
+    "costUsd": null
+  }
+}

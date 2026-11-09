@@ -1,0 +1,33 @@
+{
+  "setup": "claude-code",
+  "instance_id": "django__django-12304",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T06:09:15.919Z",
+  "wallSeconds": 36,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/db/models/enums.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 14,
+        "cacheRead": 298291,
+        "cacheWrite": 23133,
+        "output": 1648,
+        "total": 323086
+      }
+    },
+    "total": 323086,
+    "calls": 7,
+    "costUsd": 0.27773820000000005
+  }
+}

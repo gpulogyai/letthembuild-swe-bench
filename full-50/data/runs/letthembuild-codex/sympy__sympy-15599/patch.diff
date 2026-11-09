@@ -1,19 +1,21 @@
 diff --git a/sympy/core/mod.py b/sympy/core/mod.py
-index eae25630cc..e7e40eb3cc 100644
+index eae25630cc..a94e794f46 100644
 --- a/sympy/core/mod.py
 +++ b/sympy/core/mod.py
-@@ -123,6 +123,14 @@ def doit(p, q):
-             for arg in p.args:
-                 both_l[isinstance(arg, cls)].append(arg)
+@@ -118,6 +118,16 @@ def doit(p, q):
+                 return cls(net, q)
  
-+            if q.is_integer and all(x.is_integer for x in p.args):
-+                # Integer factors can be reduced modulo q before multiplying.
-+                for i, arg in enumerate(non_mod_l):
+         elif isinstance(p, Mul):
++            if q.is_integer and all(arg.is_integer for arg in p.args):
++                # Reduce integer factors while retaining the outer modulus.
++                reduced = []
++                for arg in p.args:
 +                    remainder = cls(arg, q)
-+                    if not isinstance(remainder, cls):
-+                        non_mod_l[i] = remainder
-+                p = Mul(*(non_mod_l + mod_l))
++                    reduced.append(arg if isinstance(remainder, cls) else remainder)
++                reduced = Mul(*reduced)
++                if reduced != p:
++                    return cls(reduced, q)
 +
-             if mod_l and all(inner.args[1] == q for inner in mod_l):
-                 # finding distributive term
-                 non_mod_l = [cls(x, q) for x in non_mod_l]
+             # separating into modulus and non modulus
+             both_l = non_mod_l, mod_l = [], []
+             for arg in p.args:

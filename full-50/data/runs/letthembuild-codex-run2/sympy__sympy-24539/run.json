@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-codex-run2",
+  "instance_id": "sympy__sympy-24539",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-06T12:54:37.311Z",
+  "wallSeconds": 44,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/polys/rings.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 1,
+        "total": 211518
+      }
+    },
+    "total": 211518,
+    "calls": null,
+    "costUsd": null
+  }
+}

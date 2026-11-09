@@ -1,0 +1,34 @@
+{
+  "setup": "claude-code",
+  "instance_id": "pydata__xarray-3305",
+  "repo": "pydata/xarray",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T06:22:18.460Z",
+  "wallSeconds": 30,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "xarray/core/dataset.py",
+    "xarray/core/variable.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 12,
+        "cacheRead": 262947,
+        "cacheWrite": 26106,
+        "output": 1994,
+        "total": 291059
+      }
+    },
+    "total": 291059,
+    "calls": 6,
+    "costUsd": 0.3013654
+  }
+}

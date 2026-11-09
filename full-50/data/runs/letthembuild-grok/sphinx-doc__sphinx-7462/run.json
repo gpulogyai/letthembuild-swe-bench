@@ -1,0 +1,32 @@
+{
+  "setup": "letthembuild-grok",
+  "instance_id": "sphinx-doc__sphinx-7462",
+  "repo": "sphinx-doc/sphinx",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-06T06:45:32.986Z",
+  "wallSeconds": 308,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "CHANGES",
+    "sphinx/domains/python.py",
+    "sphinx/pycode/ast.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "turns": 1,
+        "total": 1233216
+      }
+    },
+    "total": 1233216,
+    "calls": null,
+    "costUsd": null
+  }
+}

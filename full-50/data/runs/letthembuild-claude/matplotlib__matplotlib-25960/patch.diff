@@ -1,0 +1,51 @@
+diff --git a/lib/matplotlib/figure.py b/lib/matplotlib/figure.py
+index dab2bc4a5a..df0c8bced0 100644
+--- a/lib/matplotlib/figure.py
++++ b/lib/matplotlib/figure.py
+@@ -1568,8 +1568,9 @@ default: %(va)s
+         wspace, hspace : float, default: None
+             The amount of width/height reserved for space between subfigures,
+             expressed as a fraction of the average subfigure width/height.
+-            If not given, the values will be inferred from a figure or
+-            rcParams when necessary.
++            If not given, the values will be inferred from rcParams if using
++            constrained layout (see `~.ConstrainedLayoutEngine`), or zero if
++            not using a layout engine.
+ 
+         width_ratios : array-like of length *ncols*, optional
+             Defines the relative widths of the columns. Each column gets a
+@@ -2273,13 +2274,27 @@ class SubFigure(FigureBase):
+             self.bbox_relative.p1 = bbox.p1
+             return
+         # need to figure out *where* this subplotspec is.
+-        gs = self._subplotspec.get_gridspec()
+-        wr = np.asarray(gs.get_width_ratios())
+-        hr = np.asarray(gs.get_height_ratios())
+-        dx = wr[self._subplotspec.colspan].sum() / wr.sum()
+-        dy = hr[self._subplotspec.rowspan].sum() / hr.sum()
+-        x0 = wr[:self._subplotspec.colspan.start].sum() / wr.sum()
+-        y0 = 1 - hr[:self._subplotspec.rowspan.stop].sum() / hr.sum()
++        sub = self._subplotspec
++        gs = sub.get_gridspec()
++        nrows, ncols = gs.get_geometry()
++        wr = np.asarray(gs.get_width_ratios(), dtype=float)
++        hr = np.asarray(gs.get_height_ratios(), dtype=float)
++        # the subfigures span the whole parent, separated by wspace/hspace
++        # (expressed as a fraction of the average subfigure width/height).
++        wspace = getattr(gs, 'wspace', None) or 0
++        hspace = getattr(gs, 'hspace', None) or 0
++        cell_w = 1 / (ncols + wspace * (ncols - 1))
++        cell_h = 1 / (nrows + hspace * (nrows - 1))
++        widths = wr * cell_w * ncols / wr.sum()
++        heights = hr * cell_h * nrows / hr.sum()
++        sep_w = wspace * cell_w
++        sep_h = hspace * cell_h
++        cols, rows = sub.colspan, sub.rowspan
++        x0 = widths[:cols.start].sum() + sep_w * cols.start
++        dx = widths[cols].sum() + sep_w * (len(cols) - 1)
++        y1 = 1 - heights[:rows.start].sum() - sep_h * rows.start
++        dy = heights[rows].sum() + sep_h * (len(rows) - 1)
++        y0 = y1 - dy
+         if self.bbox_relative is None:
+             self.bbox_relative = Bbox.from_bounds(x0, y0, dx, dy)
+         else:

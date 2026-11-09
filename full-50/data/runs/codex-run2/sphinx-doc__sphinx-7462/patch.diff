@@ -1,0 +1,16 @@
+diff --git a/sphinx/domains/python.py b/sphinx/domains/python.py
+index 3ca730e307..a5af2a3033 100644
+--- a/sphinx/domains/python.py
++++ b/sphinx/domains/python.py
+@@ -118,7 +118,10 @@ def _parse_annotation(annotation: str) -> List[Node]:
+             for elem in node.elts:
+                 result.extend(unparse(elem))
+                 result.append(addnodes.desc_sig_punctuation('', ', '))
+-            result.pop()
++            if result:
++                result.pop()
++            else:
++                result.append(addnodes.desc_sig_punctuation('', '()'))
+             return result
+         else:
+             raise SyntaxError  # unsupported syntax

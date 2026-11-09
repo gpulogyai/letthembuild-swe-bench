@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-gemini-run2",
+  "instance_id": "django__django-11206",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T15:53:30.608Z",
+  "wallSeconds": 246,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/utils/numberformat.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "turns": 1,
+        "total": 316847
+      }
+    },
+    "total": 316847,
+    "calls": null,
+    "costUsd": null
+  }
+}

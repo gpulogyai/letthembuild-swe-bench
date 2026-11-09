@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-codex-run2",
+  "instance_id": "sympy__sympy-16450",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-06T12:50:30.299Z",
+  "wallSeconds": 48,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/simplify/simplify.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 1,
+        "total": 178100
+      }
+    },
+    "total": 178100,
+    "calls": null,
+    "costUsd": null
+  }
+}

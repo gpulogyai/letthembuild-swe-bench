@@ -1,0 +1,34 @@
+{
+  "setup": "grok-run2",
+  "instance_id": "scikit-learn__scikit-learn-13124",
+  "repo": "scikit-learn/scikit-learn",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-06T09:34:44.963Z",
+  "wallSeconds": 555,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "doc/whats_new/v0.21.rst",
+    "sklearn/model_selection/_split.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 133059,
+        "cacheRead": 2337408,
+        "cacheWrite": 0,
+        "output": 23120,
+        "total": 2493587
+      }
+    },
+    "total": 2493587,
+    "calls": 36,
+    "costUsd": null
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "setup": "gemini-run2",
+  "instance_id": "sphinx-doc__sphinx-9658",
+  "repo": "sphinx-doc/sphinx",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T12:35:28.718Z",
+  "wallSeconds": 1357,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sphinx/ext/autodoc/mock.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "uncached": 286768,
+        "cacheRead": 10201733,
+        "cacheWrite": 0,
+        "output": 108872,
+        "total": 10597373,
+        "reportedTotal": 345791
+      }
+    },
+    "total": 10597373,
+    "calls": 1,
+    "costUsd": null
+  }
+}

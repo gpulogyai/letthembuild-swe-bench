@@ -1,0 +1,57 @@
+diff --git a/default_1.sqlite3 b/default_1.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/default_2.sqlite3 b/default_2.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/default_3.sqlite3 b/default_3.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/default_4.sqlite3 b/default_4.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/default_5.sqlite3 b/default_5.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/default_6.sqlite3 b/default_6.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/default_7.sqlite3 b/default_7.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/django/forms/formsets.py b/django/forms/formsets.py
+index 235aaf844c..fd4d53a44f 100644
+--- a/django/forms/formsets.py
++++ b/django/forms/formsets.py
+@@ -490,7 +490,9 @@ class BaseFormSet(RenderableFormMixin):
+                     required=False,
+                     widget=self.get_ordering_widget(),
+                 )
+-        if self.can_delete and (self.can_delete_extra or index < initial_form_count):
++        if self.can_delete and (
++            self.can_delete_extra or (index is not None and index < initial_form_count)
++        ):
+             form.fields[DELETION_FIELD_NAME] = BooleanField(
+                 label=_("Delete"),
+                 required=False,
+diff --git a/other_1.sqlite3 b/other_1.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/other_2.sqlite3 b/other_2.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/other_3.sqlite3 b/other_3.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/other_4.sqlite3 b/other_4.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/other_5.sqlite3 b/other_5.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/other_6.sqlite3 b/other_6.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/other_7.sqlite3 b/other_7.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2

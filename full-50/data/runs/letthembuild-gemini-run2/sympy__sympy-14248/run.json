@@ -1,0 +1,32 @@
+{
+  "setup": "letthembuild-gemini-run2",
+  "instance_id": "sympy__sympy-14248",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T21:42:40.680Z",
+  "wallSeconds": 2054,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/printing/latex.py",
+    "sympy/printing/pretty/pretty.py",
+    "sympy/printing/str.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "turns": 1,
+        "total": 10795223
+      }
+    },
+    "total": 10795223,
+    "calls": null,
+    "costUsd": null
+  }
+}

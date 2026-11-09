@@ -1,0 +1,163 @@
+diff --git a/pylint/pyreverse/diagrams.py b/pylint/pyreverse/diagrams.py
+index bf9f67af6..e72b3d977 100644
+--- a/pylint/pyreverse/diagrams.py
++++ b/pylint/pyreverse/diagrams.py
+@@ -129,7 +129,7 @@ class ClassDiagram(Figure, FilterMixIn):
+                 if node.name not in names:
+                     node_name = node.name
+                     names.append(node_name)
+-        return names
++        return [name for name in sorted(names) if name]
+ 
+     def nodes(self):
+         """return the list of underlying nodes"""
+diff --git a/pylint/pyreverse/inspector.py b/pylint/pyreverse/inspector.py
+index 8fa122022..d32a256dd 100644
+--- a/pylint/pyreverse/inspector.py
++++ b/pylint/pyreverse/inspector.py
+@@ -217,9 +217,18 @@ class Linker(IdGeneratorMixIn, utils.LocalsVisitor):
+                 else:
+                     self.visit_module(frame)
+ 
+-            current = frame.locals_type[node.name]
+-            values = set(node.infer())
+-            frame.locals_type[node.name] = list(set(current) | values)
++            if isinstance(node.parent, astroid.AnnAssign) and isinstance(
++                frame, astroid.ClassDef
++            ):
++                current = frame.instance_attrs_type[node.name]
++                frame.instance_attrs_type[node.name] = list(
++                    set(current) | utils.infer_node(node)
++                )
++            else:
++                current = frame.locals_type[node.name]
++                frame.locals_type[node.name] = list(
++                    set(current) | utils.infer_node(node)
++                )
+         except astroid.InferenceError:
+             pass
+ 
+@@ -230,7 +239,7 @@ class Linker(IdGeneratorMixIn, utils.LocalsVisitor):
+         handle instance_attrs_type
+         """
+         try:
+-            values = set(node.infer())
++            values = utils.infer_node(node)
+             current = set(parent.instance_attrs_type[node.attrname])
+             parent.instance_attrs_type[node.attrname] = list(current | values)
+         except astroid.InferenceError:
+diff --git a/pylint/pyreverse/utils.py b/pylint/pyreverse/utils.py
+index a24d227ee..7b6d50a13 100644
+--- a/pylint/pyreverse/utils.py
++++ b/pylint/pyreverse/utils.py
+@@ -19,6 +19,9 @@
+ import os
+ import re
+ import sys
++from typing import Any, Optional, Set, Union
++
++import astroid
+ 
+ RCFILE = ".pyreverserc"
+ 
+@@ -213,3 +216,100 @@ class LocalsVisitor(ASTWalker):
+         if methods[1] is not None:
+             return methods[1](node)
+         return None
++
++
++def get_annotation_label(ann: Union[astroid.Name, astroid.Subscript]) -> str:
++    if isinstance(ann, astroid.Subscript):
++        return ann.as_string()
++    if isinstance(ann, astroid.Name):
++        return ann.name
++    return ""
++
++
++def get_annotation(
++    node: Union[astroid.AssignAttr, astroid.AssignName]
++) -> Optional[astroid.ClassDef]:
++    """return the annotation for `node`"""
++    ann = None
++    if isinstance(node.parent, astroid.AnnAssign):
++        ann = node.parent.annotation
++    elif isinstance(node, astroid.AssignAttr):
++        init_method = node.parent.frame()
++        try:
++            annotations = {}
++            if isinstance(init_method, astroid.FunctionDef):
++                annotations = dict(
++                    zip(init_method.args.args, init_method.args.annotations)
++                )
++                annotations.update(
++                    dict(
++                        zip(
++                            init_method.args.kwonlyargs,
++                            init_method.args.kwonlyargs_annotations,
++                        )
++                    )
++                )
++                if hasattr(init_method.args, "posonlyargs") and hasattr(
++                    init_method.args, "posonlyargs_annotations"
++                ):
++                    annotations.update(
++                        dict(
++                            zip(
++                                init_method.args.posonlyargs,
++                                init_method.args.posonlyargs_annotations,
++                            )
++                        )
++                    )
++                for k, v in list(annotations.items()):
++                    if isinstance(k, astroid.AssignName):
++                        annotations[k.name] = v
++                if init_method.args.vararg and init_method.args.varargannotation:
++                    annotations[
++                        init_method.args.vararg
++                    ] = init_method.args.varargannotation
++                if init_method.args.kwarg and init_method.args.kwargannotation:
++                    annotations[
++                        init_method.args.kwarg
++                    ] = init_method.args.kwargannotation
++            ann = annotations.get(node.parent.value.name)
++        except AttributeError:
++            pass
++
++    if not ann:
++        return None
++
++    try:
++        inferred = next(ann.infer())
++    except (astroid.InferenceError, StopIteration):
++        inferred = astroid.Uninferable
++
++    label = get_annotation_label(ann)
++    if (
++        inferred is astroid.Uninferable
++        or not isinstance(inferred, astroid.ClassDef)
++        or isinstance(ann, astroid.Subscript)
++    ):
++        ann = astroid.ClassDef(
++            name=label,
++            lineno=ann.lineno,
++            col_offset=ann.col_offset,
++            parent=ann.parent,
++        )
++    else:
++        ann = inferred
++        if label:
++            ann.name = label
++    return ann
++
++
++def infer_node(node: Union[astroid.AssignAttr, astroid.AssignName]) -> Set[Any]:
++    """Return a set containing the node annotation if it exists
++    otherwise return a set of the inferred types using the NodeNG.infer method"""
++
++    ann = get_annotation(node)
++    if ann:
++        return {ann}
++    try:
++        return set(node.infer())
++    except astroid.InferenceError:
++        return set()

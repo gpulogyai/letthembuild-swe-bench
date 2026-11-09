@@ -1,0 +1,33 @@
+{
+  "setup": "claude-code-run2",
+  "instance_id": "scikit-learn__scikit-learn-25973",
+  "repo": "scikit-learn/scikit-learn",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T22:44:18.310Z",
+  "wallSeconds": 27,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sklearn/feature_selection/_sequential.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 12,
+        "cacheRead": 257664,
+        "cacheWrite": 25429,
+        "output": 1949,
+        "total": 285054
+      }
+    },
+    "total": 285054,
+    "calls": 6,
+    "costUsd": 0.29399279999999994
+  }
+}
