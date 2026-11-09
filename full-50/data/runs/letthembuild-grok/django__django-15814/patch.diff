@@ -1,0 +1,16 @@
+diff --git a/django/db/models/sql/query.py b/django/db/models/sql/query.py
+index 33cc636b22..c041f865a0 100644
+--- a/django/db/models/sql/query.py
++++ b/django/db/models/sql/query.py
+@@ -748,6 +748,11 @@ class Query(BaseExpression):
+                     cur_model = source.related_model
+                 else:
+                     cur_model = source.remote_field.model
++                # Proxy models share columns with their concrete model. Keep
++                # the concrete model so only()/defer() restrictions and the
++                # primary key are recorded against the model used when
++                # selecting columns.
++                cur_model = cur_model._meta.concrete_model
+                 opts = cur_model._meta
+                 # Even if we're "just passing through" this model, we must add
+                 # both the current model's pk and the related reference field

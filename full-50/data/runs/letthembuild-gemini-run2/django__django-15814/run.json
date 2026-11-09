@@ -1,0 +1,40 @@
+{
+  "setup": "letthembuild-gemini-run2",
+  "instance_id": "django__django-15814",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T18:27:54.343Z",
+  "wallSeconds": 798,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/db/models/sql/query.py",
+    "other_1.sqlite3",
+    "other_10.sqlite3",
+    "other_2.sqlite3",
+    "other_3.sqlite3",
+    "other_4.sqlite3",
+    "other_5.sqlite3",
+    "other_6.sqlite3",
+    "other_7.sqlite3",
+    "other_8.sqlite3",
+    "other_9.sqlite3"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "turns": 1,
+        "total": 4067053
+      }
+    },
+    "total": 4067053,
+    "calls": null,
+    "costUsd": null
+  }
+}

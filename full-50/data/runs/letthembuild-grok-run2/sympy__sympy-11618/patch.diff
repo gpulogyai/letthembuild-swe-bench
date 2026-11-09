@@ -1,0 +1,23 @@
+diff --git a/sympy/geometry/point.py b/sympy/geometry/point.py
+index 593048464b..eaf32f2f83 100644
+--- a/sympy/geometry/point.py
++++ b/sympy/geometry/point.py
+@@ -266,8 +266,16 @@ def distance(self, p):
+         sqrt(x**2 + y**2)
+ 
+         """
+-        return sqrt(sum([(a - b)**2 for a, b in zip(
+-            self.args, p.args if isinstance(p, Point) else p)]))
++        coords = p.args if isinstance(p, Point) else p
++        if len(coords) != len(self):
++            # zip() stops at the shorter point, so a missing axis was
++            # dropped. That axis is 0: Point(x, y) is (x, y, 0) in 3D.
++            n = max(len(self), len(coords))
++            s = list(self.args) + [S.Zero]*(n - len(self))
++            o = list(coords) + [S.Zero]*(n - len(coords))
++        else:
++            s, o = self.args, coords
++        return sqrt(sum([(a - b)**2 for a, b in zip(s, o)]))
+ 
+     def taxicab_distance(self, p):
+         """The Taxicab Distance from self to point p.

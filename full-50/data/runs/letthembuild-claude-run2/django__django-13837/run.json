@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-claude-run2",
+  "instance_id": "django__django-13837",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T18:06:15.398Z",
+  "wallSeconds": 50,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/utils/autoreload.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 1,
+        "total": 106459
+      }
+    },
+    "total": 106459,
+    "calls": null,
+    "costUsd": null
+  }
+}

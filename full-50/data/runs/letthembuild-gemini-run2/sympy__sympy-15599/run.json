@@ -1,0 +1,23 @@
+{
+  "setup": "letthembuild-gemini-run2",
+  "instance_id": "sympy__sympy-15599",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T22:37:30.716Z",
+  "wallSeconds": 1121,
+  "exitCode": 1,
+  "timedOut": false,
+  "filesChanged": [],
+  "resolved": false,
+  "tokens": {
+    "bySource": {},
+    "total": 0,
+    "calls": null,
+    "costUsd": null
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "setup": "gemini",
+  "instance_id": "django__django-15732",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T12:40:15.920Z",
+  "wallSeconds": 2401,
+  "exitCode": 1,
+  "timedOut": true,
+  "filesChanged": [
+    "other_1.sqlite3",
+    "other_2.sqlite3"
+  ],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "uncached": 992718,
+        "cacheRead": 17601057,
+        "cacheWrite": 0,
+        "output": 261407,
+        "total": 18855182,
+        "reportedTotal": 1132947
+      }
+    },
+    "total": 18855182,
+    "calls": 1,
+    "costUsd": null
+  }
+}

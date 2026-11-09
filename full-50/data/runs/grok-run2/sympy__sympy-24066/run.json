@@ -1,0 +1,33 @@
+{
+  "setup": "grok-run2",
+  "instance_id": "sympy__sympy-24066",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-06T10:34:37.637Z",
+  "wallSeconds": 153,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/physics/units/unitsystem.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 95448,
+        "cacheRead": 482688,
+        "cacheWrite": 0,
+        "output": 9852,
+        "total": 587988
+      }
+    },
+    "total": 587988,
+    "calls": 14,
+    "costUsd": null
+  }
+}

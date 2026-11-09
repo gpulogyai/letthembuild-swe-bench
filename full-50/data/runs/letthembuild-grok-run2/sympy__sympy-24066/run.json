@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-grok-run2",
+  "instance_id": "sympy__sympy-24066",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-06T14:04:11.938Z",
+  "wallSeconds": 163,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/physics/units/unitsystem.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "turns": 1,
+        "total": 799146
+      }
+    },
+    "total": 799146,
+    "calls": null,
+    "costUsd": null
+  }
+}

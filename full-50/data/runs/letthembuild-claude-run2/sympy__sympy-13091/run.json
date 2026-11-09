@@ -1,0 +1,31 @@
+{
+  "setup": "letthembuild-claude-run2",
+  "instance_id": "sympy__sympy-13091",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T18:33:28.293Z",
+  "wallSeconds": 146,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/core/basic.py",
+    "sympy/core/numbers.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 1,
+        "total": 251336
+      }
+    },
+    "total": 251336,
+    "calls": null,
+    "costUsd": null
+  }
+}

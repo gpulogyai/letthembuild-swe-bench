@@ -1,0 +1,33 @@
+{
+  "setup": "codex-run2",
+  "instance_id": "scikit-learn__scikit-learn-10297",
+  "repo": "scikit-learn/scikit-learn",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-05T08:58:37.248Z",
+  "wallSeconds": 32,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sklearn/linear_model/ridge.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 14190,
+        "cacheRead": 134272,
+        "cacheWrite": 0,
+        "output": 1480,
+        "total": 149942
+      }
+    },
+    "total": 149942,
+    "calls": null,
+    "costUsd": null
+  }
+}

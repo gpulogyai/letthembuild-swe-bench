@@ -1,0 +1,112 @@
+diff --git a/pylint/pyreverse/diagrams.py b/pylint/pyreverse/diagrams.py
+index bf9f67af6..4c391c7fa 100644
+--- a/pylint/pyreverse/diagrams.py
++++ b/pylint/pyreverse/diagrams.py
+@@ -122,7 +122,7 @@ class ClassDiagram(Figure, FilterMixIn):
+             if isinstance(node, astroid.Instance):
+                 node = node._proxied
+             if (
+-                isinstance(node, astroid.ClassDef)
++                isinstance(node, (astroid.ClassDef, astroid.Name, astroid.Subscript))
+                 and hasattr(node, "name")
+                 and not self.has_node(node)
+             ):
+diff --git a/pylint/pyreverse/inspector.py b/pylint/pyreverse/inspector.py
+index 8fa122022..ce3f07e52 100644
+--- a/pylint/pyreverse/inspector.py
++++ b/pylint/pyreverse/inspector.py
+@@ -218,8 +218,7 @@ class Linker(IdGeneratorMixIn, utils.LocalsVisitor):
+                     self.visit_module(frame)
+ 
+             current = frame.locals_type[node.name]
+-            values = set(node.infer())
+-            frame.locals_type[node.name] = list(set(current) | values)
++            frame.locals_type[node.name] = list(set(current) | utils.infer_node(node))
+         except astroid.InferenceError:
+             pass
+ 
+@@ -230,9 +229,10 @@ class Linker(IdGeneratorMixIn, utils.LocalsVisitor):
+         handle instance_attrs_type
+         """
+         try:
+-            values = set(node.infer())
+             current = set(parent.instance_attrs_type[node.attrname])
+-            parent.instance_attrs_type[node.attrname] = list(current | values)
++            parent.instance_attrs_type[node.attrname] = list(
++                current | utils.infer_node(node)
++            )
+         except astroid.InferenceError:
+             pass
+ 
+diff --git a/pylint/pyreverse/utils.py b/pylint/pyreverse/utils.py
+index a24d227ee..e6a2df3ac 100644
+--- a/pylint/pyreverse/utils.py
++++ b/pylint/pyreverse/utils.py
+@@ -20,6 +20,8 @@ import os
+ import re
+ import sys
+ 
++import astroid
++
+ RCFILE = ".pyreverserc"
+ 
+ 
+@@ -213,3 +215,58 @@ class LocalsVisitor(ASTWalker):
+         if methods[1] is not None:
+             return methods[1](node)
+         return None
++
++
++def get_annotation_label(ann):
++    """return a label for the given annotation node"""
++    label = ""
++    if isinstance(ann, astroid.Name):
++        label = ann.name
++    elif isinstance(ann, astroid.Subscript):
++        label = ann.as_string()
++    return label
++
++
++def get_annotation(node):
++    """return the annotation for `node`, if any"""
++    ann = None
++    if isinstance(node.parent, astroid.AnnAssign):
++        ann = node.parent.annotation
++    elif isinstance(node, astroid.AssignAttr):
++        func = node.frame()
++        value = getattr(node.parent, "value", None)
++        if isinstance(func, astroid.FunctionDef) and isinstance(value, astroid.Name):
++            arg_names = [arg.name for arg in func.args.args]
++            annotations = dict(zip(arg_names, func.args.annotations))
++            ann = annotations.get(value.name)
++    else:
++        return ann
++
++    try:
++        default, *_ = node.infer()
++    except (astroid.InferenceError, ValueError):
++        default = ""
++
++    label = get_annotation_label(ann)
++    if ann and label:
++        label = (
++            rf"Optional[{label}]"
++            if getattr(default, "value", "value") is None
++            and not label.startswith("Optional")
++            else label
++        )
++    if label:
++        ann.name = label
++    return ann if label else None
++
++
++def infer_node(node):
++    """Return a set containing the node annotation if it exists
++    otherwise return a set of the inferred types using the NodeNG.infer method"""
++    ann = get_annotation(node)
++    if ann:
++        return {ann}
++    try:
++        return set(node.infer())
++    except astroid.InferenceError:
++        return set()

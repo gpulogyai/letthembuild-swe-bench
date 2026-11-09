@@ -1,0 +1,35 @@
+{
+  "setup": "gemini-run2",
+  "instance_id": "pydata__xarray-3305",
+  "repo": "pydata/xarray",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T09:32:28.518Z",
+  "wallSeconds": 289,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "xarray/core/dataset.py",
+    "xarray/core/variable.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "uncached": 71729,
+        "cacheRead": 653095,
+        "cacheWrite": 0,
+        "output": 18916,
+        "total": 743740,
+        "reportedTotal": 83735
+      }
+    },
+    "total": 743740,
+    "calls": 1,
+    "costUsd": null
+  }
+}

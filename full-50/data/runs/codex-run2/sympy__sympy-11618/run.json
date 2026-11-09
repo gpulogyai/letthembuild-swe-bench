@@ -1,0 +1,33 @@
+{
+  "setup": "codex-run2",
+  "instance_id": "sympy__sympy-11618",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-05T09:05:23.177Z",
+  "wallSeconds": 29,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/geometry/point.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 39484,
+        "cacheRead": 163072,
+        "cacheWrite": 0,
+        "output": 1079,
+        "total": 203635
+      }
+    },
+    "total": 203635,
+    "calls": null,
+    "costUsd": null
+  }
+}

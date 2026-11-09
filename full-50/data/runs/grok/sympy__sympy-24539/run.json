@@ -1,0 +1,33 @@
+{
+  "setup": "grok",
+  "instance_id": "sympy__sympy-24539",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T09:00:59.773Z",
+  "wallSeconds": 82,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/polys/rings.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 108455,
+        "cacheRead": 224640,
+        "cacheWrite": 0,
+        "output": 3261,
+        "total": 336356
+      }
+    },
+    "total": 336356,
+    "calls": 10,
+    "costUsd": null
+  }
+}

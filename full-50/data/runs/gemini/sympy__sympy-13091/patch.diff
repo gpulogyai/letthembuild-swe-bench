@@ -1,0 +1,111 @@
+diff --git a/sympy/core/basic.py b/sympy/core/basic.py
+index db4e971848..2ad720d35a 100644
+--- a/sympy/core/basic.py
++++ b/sympy/core/basic.py
+@@ -313,7 +313,7 @@ def __eq__(self, other):
+             try:
+                 other = _sympify(other)
+             except SympifyError:
+-                return False    # sympy != other
++                return NotImplemented
+ 
+             if type(self) != type(other):
+                 return False
+@@ -329,7 +329,7 @@ def __ne__(self, other):
+ 
+            but faster
+         """
+-        return not self.__eq__(other)
++        return not self == other
+ 
+     def dummy_eq(self, other, symbol=None):
+         """
+@@ -1180,7 +1180,7 @@ def _has(self, pattern):
+ 
+     def _has_matcher(self):
+         """Helper for .has()"""
+-        return self.__eq__
++        return lambda other: self == other
+ 
+     def replace(self, query, value, map=False, simultaneous=True, exact=False):
+         """
+diff --git a/sympy/core/numbers.py b/sympy/core/numbers.py
+index 864d055087..ee4dbc0662 100644
+--- a/sympy/core/numbers.py
++++ b/sympy/core/numbers.py
+@@ -1258,7 +1258,7 @@ def __eq__(self, other):
+         try:
+             other = _sympify(other)
+         except SympifyError:
+-            return False    # sympy != other  -->  not ==
++            return NotImplemented    # sympy != other  -->  not ==
+         if isinstance(other, NumberSymbol):
+             if other.is_irrational:
+                 return False
+@@ -1276,7 +1276,7 @@ def __eq__(self, other):
+         return False    # Float != non-Number
+ 
+     def __ne__(self, other):
+-        return not self.__eq__(other)
++        return not self == other
+ 
+     def __gt__(self, other):
+         try:
+@@ -1719,7 +1719,7 @@ def __eq__(self, other):
+         try:
+             other = _sympify(other)
+         except SympifyError:
+-            return False    # sympy != other  -->  not ==
++            return NotImplemented    # sympy != other  -->  not ==
+         if isinstance(other, NumberSymbol):
+             if other.is_irrational:
+                 return False
+@@ -1734,7 +1734,7 @@ def __eq__(self, other):
+         return False
+ 
+     def __ne__(self, other):
+-        return not self.__eq__(other)
++        return not self == other
+ 
+     def __gt__(self, other):
+         try:
+@@ -2112,7 +2112,7 @@ def __eq__(self, other):
+         return Rational.__eq__(self, other)
+ 
+     def __ne__(self, other):
+-        return not self.__eq__(other)
++        return not self == other
+ 
+     def __gt__(self, other):
+         try:
+@@ -3339,7 +3339,7 @@ def __eq__(self, other):
+         try:
+             other = _sympify(other)
+         except SympifyError:
+-            return False    # sympy != other  -->  not ==
++            return NotImplemented    # sympy != other  -->  not ==
+         if self is other:
+             return True
+         if isinstance(other, Number) and self.is_irrational:
+@@ -3348,7 +3348,7 @@ def __eq__(self, other):
+         return False    # NumberSymbol != non-(Number|self)
+ 
+     def __ne__(self, other):
+-        return not self.__eq__(other)
++        return not self == other
+ 
+     def __lt__(self, other):
+         try:
+diff --git a/sympy/geometry/entity.py b/sympy/geometry/entity.py
+index a9ce2f390a..6fece70a4d 100644
+--- a/sympy/geometry/entity.py
++++ b/sympy/geometry/entity.py
+@@ -104,7 +104,7 @@ def __getnewargs__(self):
+ 
+     def __ne__(self, o):
+         """Test inequality of two geometrical entities."""
+-        return not self.__eq__(o)
++        return not self == o
+ 
+     def __new__(cls, *args, **kwargs):
+         # Points are sequences, but they should not

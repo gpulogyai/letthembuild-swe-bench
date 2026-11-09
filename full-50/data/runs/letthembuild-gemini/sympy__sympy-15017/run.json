@@ -1,0 +1,32 @@
+{
+  "setup": "letthembuild-gemini",
+  "instance_id": "sympy__sympy-15017",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-05T03:48:20.273Z",
+  "wallSeconds": 1318,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/tensor/array/dense_ndim_array.py",
+    "sympy/tensor/array/ndim_array.py",
+    "sympy/tensor/array/sparse_ndim_array.py"
+  ],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "turns": 1,
+        "total": 4594779
+      }
+    },
+    "total": 4594779,
+    "calls": null,
+    "costUsd": null
+  }
+}

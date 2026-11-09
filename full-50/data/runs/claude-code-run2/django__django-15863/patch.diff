@@ -1,0 +1,36 @@
+diff --git a/django/template/defaultfilters.py b/django/template/defaultfilters.py
+index 7a5b28d159..980c72e00e 100644
+--- a/django/template/defaultfilters.py
++++ b/django/template/defaultfilters.py
+@@ -150,10 +150,16 @@ def floatformat(text, arg=-1):
+         elif last_char == "u":
+             use_l10n = False
+             arg = arg[:-1] or -1
+-    try:
++    if isinstance(text, Decimal):
++        input_val = str(text)
++        d = text
++    else:
+         input_val = repr(text)
+-        d = Decimal(input_val)
+-    except InvalidOperation:
++        try:
++            d = Decimal(input_val)
++        except InvalidOperation:
++            d = None
++    if d is None:
+         try:
+             d = Decimal(str(float(text)))
+         except (ValueError, InvalidOperation, TypeError):
+diff --git a/tests/default_1.sqlite3 b/tests/default_1.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/tests/default_2.sqlite3 b/tests/default_2.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/tests/other_1.sqlite3 b/tests/other_1.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/tests/other_2.sqlite3 b/tests/other_2.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2

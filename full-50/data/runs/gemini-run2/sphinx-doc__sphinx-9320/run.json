@@ -1,0 +1,34 @@
+{
+  "setup": "gemini-run2",
+  "instance_id": "sphinx-doc__sphinx-9320",
+  "repo": "sphinx-doc/sphinx",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T12:28:32.844Z",
+  "wallSeconds": 415,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sphinx/cmd/quickstart.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "uncached": 118497,
+        "cacheRead": 1455832,
+        "cacheWrite": 0,
+        "output": 34683,
+        "total": 1609012,
+        "reportedTotal": 137074
+      }
+    },
+    "total": 1609012,
+    "calls": 1,
+    "costUsd": null
+  }
+}

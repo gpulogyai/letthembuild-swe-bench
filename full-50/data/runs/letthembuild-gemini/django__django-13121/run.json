@@ -1,0 +1,23 @@
+{
+  "setup": "letthembuild-gemini",
+  "instance_id": "django__django-13121",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T06:28:55.117Z",
+  "wallSeconds": 2165,
+  "exitCode": 1,
+  "timedOut": false,
+  "filesChanged": [],
+  "resolved": false,
+  "tokens": {
+    "bySource": {},
+    "total": 0,
+    "calls": null,
+    "costUsd": null
+  }
+}

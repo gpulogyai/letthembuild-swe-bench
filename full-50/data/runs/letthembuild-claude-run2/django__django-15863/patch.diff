@@ -1,0 +1,37 @@
+diff --git a/django/template/defaultfilters.py b/django/template/defaultfilters.py
+index 7a5b28d159..23c3a08c67 100644
+--- a/django/template/defaultfilters.py
++++ b/django/template/defaultfilters.py
+@@ -151,7 +151,7 @@ def floatformat(text, arg=-1):
+             use_l10n = False
+             arg = arg[:-1] or -1
+     try:
+-        input_val = repr(text)
++        input_val = str(text)
+         d = Decimal(input_val)
+     except InvalidOperation:
+         try:
+diff --git a/tests/other_1.sqlite3 b/tests/other_1.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/tests/other_2.sqlite3 b/tests/other_2.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/tests/other_3.sqlite3 b/tests/other_3.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/tests/other_4.sqlite3 b/tests/other_4.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/tests/other_5.sqlite3 b/tests/other_5.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/tests/other_6.sqlite3 b/tests/other_6.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/tests/other_7.sqlite3 b/tests/other_7.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/tests/other_8.sqlite3 b/tests/other_8.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2

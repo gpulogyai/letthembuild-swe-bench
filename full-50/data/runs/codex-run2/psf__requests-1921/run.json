@@ -1,0 +1,33 @@
+{
+  "setup": "codex-run2",
+  "instance_id": "psf__requests-1921",
+  "repo": "psf/requests",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-05T08:52:02.851Z",
+  "wallSeconds": 54,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "requests/sessions.py"
+  ],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 30764,
+        "cacheRead": 270464,
+        "cacheWrite": 0,
+        "output": 2187,
+        "total": 303415
+      }
+    },
+    "total": 303415,
+    "calls": null,
+    "costUsd": null
+  }
+}

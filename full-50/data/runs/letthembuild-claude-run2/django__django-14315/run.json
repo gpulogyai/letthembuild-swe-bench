@@ -1,0 +1,32 @@
+{
+  "setup": "letthembuild-claude-run2",
+  "instance_id": "django__django-14315",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T18:07:50.968Z",
+  "wallSeconds": 53,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/db/backends/base/client.py",
+    "django/db/backends/postgresql/client.py",
+    "tests/dbshell/test_postgresql.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 1,
+        "total": 188787
+      }
+    },
+    "total": 188787,
+    "calls": null,
+    "costUsd": null
+  }
+}

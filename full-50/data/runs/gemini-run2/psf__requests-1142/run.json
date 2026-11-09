@@ -1,0 +1,34 @@
+{
+  "setup": "gemini-run2",
+  "instance_id": "psf__requests-1142",
+  "repo": "psf/requests",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T09:11:48.424Z",
+  "wallSeconds": 496,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "requests/models.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "uncached": 127851,
+        "cacheRead": 2079316,
+        "cacheWrite": 0,
+        "output": 35144,
+        "total": 2242311,
+        "reportedTotal": 146940
+      }
+    },
+    "total": 2242311,
+    "calls": 1,
+    "costUsd": null
+  }
+}
