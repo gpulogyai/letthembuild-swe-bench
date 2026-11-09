@@ -1,0 +1,33 @@
+{
+  "setup": "grok-run2",
+  "instance_id": "sympy__sympy-15599",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-06T10:16:55.164Z",
+  "wallSeconds": 576,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/core/mod.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 106989,
+        "cacheRead": 1748352,
+        "cacheWrite": 0,
+        "output": 37308,
+        "total": 1892649
+      }
+    },
+    "total": 1892649,
+    "calls": 25,
+    "costUsd": null
+  }
+}

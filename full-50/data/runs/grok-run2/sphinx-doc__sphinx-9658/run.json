@@ -1,0 +1,34 @@
+{
+  "setup": "grok-run2",
+  "instance_id": "sphinx-doc__sphinx-9658",
+  "repo": "sphinx-doc/sphinx",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-06T09:53:40.911Z",
+  "wallSeconds": 186,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "CHANGES",
+    "sphinx/ext/autodoc/mock.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 93128,
+        "cacheRead": 667392,
+        "cacheWrite": 0,
+        "output": 14708,
+        "total": 775228
+      }
+    },
+    "total": 775228,
+    "calls": 15,
+    "costUsd": null
+  }
+}

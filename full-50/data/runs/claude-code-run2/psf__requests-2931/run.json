@@ -1,0 +1,33 @@
+{
+  "setup": "claude-code-run2",
+  "instance_id": "psf__requests-2931",
+  "repo": "psf/requests",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T22:39:54.636Z",
+  "wallSeconds": 31,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "requests/models.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 12,
+        "cacheRead": 253722,
+        "cacheWrite": 23865,
+        "output": 1443,
+        "total": 279042
+      }
+    },
+    "total": 279042,
+    "calls": 6,
+    "costUsd": 0.2705724
+  }
+}

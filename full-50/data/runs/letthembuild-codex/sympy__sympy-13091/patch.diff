@@ -64,18 +64,10 @@ index 34e0ecb786..b0e61b889f 100644
              if (me.is_complex and me.is_real is False) or \
                      me.has(S.ComplexInfinity):
 diff --git a/sympy/core/numbers.py b/sympy/core/numbers.py
-index 864d055087..f1322b588c 100644
+index 864d055087..74ea39cc6d 100644
 --- a/sympy/core/numbers.py
 +++ b/sympy/core/numbers.py
-@@ -7,6 +7,7 @@
- import re as regex
- from collections import defaultdict
- 
-+from .basic import Basic
- from .containers import Tuple
- from .sympify import converter, sympify, _sympify, SympifyError
- from .singleton import S, Singleton
-@@ -697,7 +698,7 @@ def __lt__(self, other):
+@@ -697,7 +697,7 @@ def __lt__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -84,7 +76,7 @@ index 864d055087..f1322b588c 100644
          raise NotImplementedError('%s needs .__lt__() method' %
              (self.__class__.__name__))
  
-@@ -705,7 +706,7 @@ def __le__(self, other):
+@@ -705,7 +705,7 @@ def __le__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -93,7 +85,7 @@ index 864d055087..f1322b588c 100644
          raise NotImplementedError('%s needs .__le__() method' %
              (self.__class__.__name__))
  
-@@ -713,14 +714,14 @@ def __gt__(self, other):
+@@ -713,14 +713,14 @@ def __gt__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -110,7 +102,7 @@ index 864d055087..f1322b588c 100644
          return _sympify(other).__le__(self)
  
      def __hash__(self):
-@@ -1258,7 +1259,7 @@ def __eq__(self, other):
+@@ -1258,7 +1258,7 @@ def __eq__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -119,7 +111,7 @@ index 864d055087..f1322b588c 100644
          if isinstance(other, NumberSymbol):
              if other.is_irrational:
                  return False
-@@ -1276,13 +1277,16 @@ def __eq__(self, other):
+@@ -1276,13 +1276,16 @@ def __eq__(self, other):
          return False    # Float != non-Number
  
      def __ne__(self, other):
@@ -138,7 +130,7 @@ index 864d055087..f1322b588c 100644
          if isinstance(other, NumberSymbol):
              return other.__le__(self)
          if other.is_comparable:
-@@ -1296,7 +1300,7 @@ def __ge__(self, other):
+@@ -1296,7 +1299,7 @@ def __ge__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -147,7 +139,7 @@ index 864d055087..f1322b588c 100644
          if isinstance(other, NumberSymbol):
              return other.__lt__(self)
          if other.is_comparable:
-@@ -1310,7 +1314,7 @@ def __lt__(self, other):
+@@ -1310,7 +1313,7 @@ def __lt__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -156,7 +148,7 @@ index 864d055087..f1322b588c 100644
          if isinstance(other, NumberSymbol):
              return other.__ge__(self)
          if other.is_real and other.is_number:
-@@ -1324,7 +1328,7 @@ def __le__(self, other):
+@@ -1324,7 +1327,7 @@ def __le__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -165,7 +157,7 @@ index 864d055087..f1322b588c 100644
          if isinstance(other, NumberSymbol):
              return other.__gt__(self)
          if other.is_real and other.is_number:
-@@ -1719,7 +1723,7 @@ def __eq__(self, other):
+@@ -1719,7 +1722,7 @@ def __eq__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -174,7 +166,7 @@ index 864d055087..f1322b588c 100644
          if isinstance(other, NumberSymbol):
              if other.is_irrational:
                  return False
-@@ -1734,13 +1738,16 @@ def __eq__(self, other):
+@@ -1734,13 +1737,16 @@ def __eq__(self, other):
          return False
  
      def __ne__(self, other):
@@ -193,7 +185,7 @@ index 864d055087..f1322b588c 100644
          if isinstance(other, NumberSymbol):
              return other.__le__(self)
          expr = self
-@@ -1758,7 +1765,7 @@ def __ge__(self, other):
+@@ -1758,7 +1764,7 @@ def __ge__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -202,7 +194,7 @@ index 864d055087..f1322b588c 100644
          if isinstance(other, NumberSymbol):
              return other.__lt__(self)
          expr = self
-@@ -1776,7 +1783,7 @@ def __lt__(self, other):
+@@ -1776,7 +1782,7 @@ def __lt__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -211,7 +203,7 @@ index 864d055087..f1322b588c 100644
          if isinstance(other, NumberSymbol):
              return other.__ge__(self)
          expr = self
-@@ -1794,7 +1801,7 @@ def __le__(self, other):
+@@ -1794,7 +1800,7 @@ def __le__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -220,7 +212,7 @@ index 864d055087..f1322b588c 100644
          expr = self
          if isinstance(other, NumberSymbol):
              return other.__gt__(self)
-@@ -2112,13 +2119,16 @@ def __eq__(self, other):
+@@ -2112,13 +2118,16 @@ def __eq__(self, other):
          return Rational.__eq__(self, other)
  
      def __ne__(self, other):
@@ -239,7 +231,7 @@ index 864d055087..f1322b588c 100644
          if isinstance(other, Integer):
              return _sympify(self.p > other.p)
          return Rational.__gt__(self, other)
-@@ -2127,7 +2137,7 @@ def __lt__(self, other):
+@@ -2127,7 +2136,7 @@ def __lt__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -248,7 +240,7 @@ index 864d055087..f1322b588c 100644
          if isinstance(other, Integer):
              return _sympify(self.p < other.p)
          return Rational.__lt__(self, other)
-@@ -2136,7 +2146,7 @@ def __ge__(self, other):
+@@ -2136,7 +2145,7 @@ def __ge__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -257,7 +249,7 @@ index 864d055087..f1322b588c 100644
          if isinstance(other, Integer):
              return _sympify(self.p >= other.p)
          return Rational.__ge__(self, other)
-@@ -2145,7 +2155,7 @@ def __le__(self, other):
+@@ -2145,7 +2154,7 @@ def __le__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -266,22 +258,7 @@ index 864d055087..f1322b588c 100644
          if isinstance(other, Integer):
              return _sympify(self.p <= other.p)
          return Rational.__le__(self, other)
-@@ -2831,16 +2841,21 @@ def __hash__(self):
-         return super(Infinity, self).__hash__()
- 
-     def __eq__(self, other):
-+        if not isinstance(other, Basic):
-+            return NotImplemented
-         return other is S.Infinity
- 
-     def __ne__(self, other):
--        return other is not S.Infinity
-+        result = self.__eq__(other)
-+        if result is NotImplemented:
-+            return NotImplemented
-+        return not result
- 
-     def __lt__(self, other):
+@@ -2840,7 +2849,7 @@ def __lt__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -290,7 +267,7 @@ index 864d055087..f1322b588c 100644
          if other.is_real:
              return S.false
          return Expr.__lt__(self, other)
-@@ -2849,7 +2864,7 @@ def __le__(self, other):
+@@ -2849,7 +2858,7 @@ def __le__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -299,7 +276,7 @@ index 864d055087..f1322b588c 100644
          if other.is_real:
              if other.is_finite or other is S.NegativeInfinity:
                  return S.false
-@@ -2863,7 +2878,7 @@ def __gt__(self, other):
+@@ -2863,7 +2872,7 @@ def __gt__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -308,7 +285,7 @@ index 864d055087..f1322b588c 100644
          if other.is_real:
              if other.is_finite or other is S.NegativeInfinity:
                  return S.true
-@@ -2877,7 +2892,7 @@ def __ge__(self, other):
+@@ -2877,7 +2886,7 @@ def __ge__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -317,22 +294,7 @@ index 864d055087..f1322b588c 100644
          if other.is_real:
              return S.true
          return Expr.__ge__(self, other)
-@@ -3052,16 +3067,21 @@ def __hash__(self):
-         return super(NegativeInfinity, self).__hash__()
- 
-     def __eq__(self, other):
-+        if not isinstance(other, Basic):
-+            return NotImplemented
-         return other is S.NegativeInfinity
- 
-     def __ne__(self, other):
--        return other is not S.NegativeInfinity
-+        result = self.__eq__(other)
-+        if result is NotImplemented:
-+            return NotImplemented
-+        return not result
- 
-     def __lt__(self, other):
+@@ -3061,7 +3070,7 @@ def __lt__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -341,7 +303,7 @@ index 864d055087..f1322b588c 100644
          if other.is_real:
              if other.is_finite or other is S.Infinity:
                  return S.true
-@@ -3075,7 +3095,7 @@ def __le__(self, other):
+@@ -3075,7 +3084,7 @@ def __le__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -350,7 +312,7 @@ index 864d055087..f1322b588c 100644
          if other.is_real:
              return S.true
          return Expr.__le__(self, other)
-@@ -3084,7 +3104,7 @@ def __gt__(self, other):
+@@ -3084,7 +3093,7 @@ def __gt__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -359,7 +321,7 @@ index 864d055087..f1322b588c 100644
          if other.is_real:
              return S.false
          return Expr.__gt__(self, other)
-@@ -3093,7 +3113,7 @@ def __ge__(self, other):
+@@ -3093,7 +3102,7 @@ def __ge__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -368,31 +330,7 @@ index 864d055087..f1322b588c 100644
          if other.is_real:
              if other.is_finite or other is S.Infinity:
                  return S.false
-@@ -3218,16 +3238,21 @@ def __hash__(self):
- 
-     def __eq__(self, other):
-         # NaN is structurally equal to another NaN
-+        if not isinstance(other, Basic):
-+            return NotImplemented
-         return other is S.NaN
- 
-     def __ne__(self, other):
--        return other is not S.NaN
-+        result = self.__eq__(other)
-+        if result is NotImplemented:
-+            return NotImplemented
-+        return not result
- 
-     def _eval_Eq(self, other):
-         # NaN is not mathematically equal to anything, even NaN
-         return S.false
- 
--    # Expr will _sympify and raise TypeError
-+    # Use Expr's ordering methods to reject NaN comparisons.
-     __gt__ = Expr.__gt__
-     __ge__ = Expr.__ge__
-     __lt__ = Expr.__lt__
-@@ -3339,7 +3364,7 @@ def __eq__(self, other):
+@@ -3339,7 +3348,7 @@ def __eq__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -401,7 +339,7 @@ index 864d055087..f1322b588c 100644
          if self is other:
              return True
          if isinstance(other, Number) and self.is_irrational:
-@@ -3348,13 +3373,16 @@ def __eq__(self, other):
+@@ -3348,13 +3357,16 @@ def __eq__(self, other):
          return False    # NumberSymbol != non-(Number|self)
  
      def __ne__(self, other):
@@ -420,7 +358,7 @@ index 864d055087..f1322b588c 100644
          if self is other:
              return S.false
          if isinstance(other, Number):
-@@ -3375,7 +3403,7 @@ def __le__(self, other):
+@@ -3375,7 +3387,7 @@ def __le__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -429,7 +367,7 @@ index 864d055087..f1322b588c 100644
          if self is other:
              return S.true
          if other.is_real and other.is_number:
-@@ -3388,7 +3416,7 @@ def __gt__(self, other):
+@@ -3388,7 +3400,7 @@ def __gt__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:
@@ -438,7 +376,7 @@ index 864d055087..f1322b588c 100644
          r = _sympify((-self) < (-other))
          if r in (S.true, S.false):
              return r
-@@ -3399,7 +3427,7 @@ def __ge__(self, other):
+@@ -3399,7 +3411,7 @@ def __ge__(self, other):
          try:
              other = _sympify(other)
          except SympifyError:

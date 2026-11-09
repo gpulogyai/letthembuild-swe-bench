@@ -1,0 +1,33 @@
+{
+  "setup": "grok",
+  "instance_id": "psf__requests-1921",
+  "repo": "psf/requests",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T07:14:26.150Z",
+  "wallSeconds": 226,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "requests/sessions.py"
+  ],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 91635,
+        "cacheRead": 844800,
+        "cacheWrite": 0,
+        "output": 15162,
+        "total": 951597
+      }
+    },
+    "total": 951597,
+    "calls": 20,
+    "costUsd": null
+  }
+}

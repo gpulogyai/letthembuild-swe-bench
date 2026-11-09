@@ -1,0 +1,35 @@
+{
+  "setup": "gemini-run2",
+  "instance_id": "sympy__sympy-13091",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T13:00:59.248Z",
+  "wallSeconds": 1156,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/core/basic.py",
+    "sympy/core/numbers.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "uncached": 277103,
+        "cacheRead": 9087117,
+        "cacheWrite": 0,
+        "output": 81656,
+        "total": 9445876,
+        "reportedTotal": 323428
+      }
+    },
+    "total": 9445876,
+    "calls": 1,
+    "costUsd": null
+  }
+}

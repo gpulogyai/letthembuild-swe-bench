@@ -1,0 +1,33 @@
+{
+  "setup": "codex-run2",
+  "instance_id": "scikit-learn__scikit-learn-13439",
+  "repo": "scikit-learn/scikit-learn",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-05T09:00:28.030Z",
+  "wallSeconds": 31,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sklearn/pipeline.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 12117,
+        "cacheRead": 154112,
+        "cacheWrite": 0,
+        "output": 1110,
+        "total": 167339
+      }
+    },
+    "total": 167339,
+    "calls": null,
+    "costUsd": null
+  }
+}

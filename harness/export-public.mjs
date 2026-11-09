@@ -21,6 +21,8 @@ function scrub(text) {
   return text
     .replaceAll(join(SWE, "work"), "/bench/work")
     .replaceAll(SWE, "/bench")
+    // A search that strayed outside the benchmark can name the person's own folders; the path is kept only as far as home.
+    .replace(new RegExp(`${esc(HOME)}/(?:Documents|Desktop|Downloads|Movies|Music|Pictures)/[^\\n\\r"\\\\]*`, "g"), "/home/bench/[elsewhere]")
     .replaceAll(HOME, "/home/bench")
     .replaceAll(HOME.replaceAll("/", "-"), "-home-bench")
     // Some tools print paths lower-cased, and a long listing names the owner.
@@ -31,10 +33,19 @@ function scrub(text) {
     .replace(/\/private\/tmp\/claude-\d+\/[^\s"'\\]*/g, "/tmp/session")
     .replace(/[A-Za-z0-9._%+-]+@(?!pytest\b)[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}/g, (m) => m.endsWith(".invalid") ? m : "user@example.invalid");
 }
-// A command's output that lists the home folder names the person's own files; it is replaced, the rest kept.
-const HOME_ENTRIES = ["Desktop", "Documents", "Downloads", "Library", "Movies", "Music", "Pictures"];
-const homeListing = (t) => HOME_ENTRIES.filter((n) => new RegExp(`(^|\\n)${n}(\\n|$)`).test(t)).length >= 4;
-const redact = (v) => typeof v === "string" ? (homeListing(v) ? "[a listing of the home folder, removed]" : v)
+// A command's output that lists the home folder, a folder of the person's own tools, or the shell's environment
+// describes this machine, not the run; it is replaced, the rest kept. Lines may end \r\n (a terminal's output).
+const HOME_ENTRIES = ["Desktop", "Documents", "Downloads", "Library", "Movies", "Music", "Pictures", "Applications", ".Trash", ".ssh", ".zshrc", ".zsh_history", ".CFUserTextEncoding", ".config", ".local", ".npm", ".cache"];
+const ENV_KEYS = ["HOME", "LOGNAME", "SHELL", "PATH", "TMPDIR", "USER", "PWD"];
+const homeListing = (t) => HOME_ENTRIES.filter((n) => new RegExp(`(^|[\\s/])${esc(n)}/?\\r?(\\n|$)`).test(t)).length >= 4;
+const envDump = (t) => ENV_KEYS.filter((k) => new RegExp(`(^|[\\r\\n])${k}=`).test(t)).length >= 3;
+const count = (t, re) => (t.match(re) ?? []).length;
+// The person's own tools: a long listing whose links point into the home folder, a bare listing that names several of
+// the CLIs side by side, or a package cache's contents.
+const ownTools = (t) => count(t, new RegExp(`-> ${esc(HOME)}/`, "g")) >= 2
+  || ["agy", "claude", "codex", "grok"].filter((n) => new RegExp(`(^|[\\n\\s]|\\x1b\\[[0-9;]*m)${n}(\\x1b\\[[0-9;]*m)*\\r?(\\n|$)`).test(t)).length >= 3
+  || count(t, new RegExp(`${esc(HOME)}/\\.cache/`, "g")) >= 10;
+const redact = (v) => typeof v === "string" ? (homeListing(v) ? "[a listing of the home folder, removed]" : envDump(v) ? "[the shell's environment, removed]" : ownTools(v) ? "[a listing of this machine's own tools, removed]" : v)
   : Array.isArray(v) ? v.map(redact) : v && typeof v === "object" ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, redact(x)])) : v;
 const jsonl = (f) => existsSync(f) ? readFileSync(f, "utf8").split("\n").filter(Boolean).flatMap((l) => { try { return [JSON.parse(l)]; } catch { return []; } }) : [];
 
@@ -46,7 +57,10 @@ function transcript(arm, events) {
     if (e.type !== "done") return e;
     const { settings: _s, sessions: _ss, ...rest } = e; return rest;
   });
-  if (arm === "cc") return events.filter((e) => !(e.type === "system" && /^hook_/.test(e.subtype ?? ""))).map((e) => {
+  const tool = arm.split("@")[0];
+  // Grok's stream opens each turn with the commands installed on this machine; that is the machine, not the run.
+  if (tool === "grok") return events.filter((e) => e.type !== "available_commands");
+  if (tool === "cc") return events.filter((e) => !(e.type === "system" && /^hook_/.test(e.subtype ?? ""))).map((e) => {
     if (e.type !== "system" || e.subtype !== "init") return e;
     return { type: e.type, subtype: e.subtype, cwd: e.cwd, model: e.model, permissionMode: e.permissionMode, claude_code_version: e.claude_code_version };
   });

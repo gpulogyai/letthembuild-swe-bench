@@ -1,0 +1,15 @@
+diff --git a/django/db/models/enums.py b/django/db/models/enums.py
+index f48143ddaf..7240c0bf37 100644
+--- a/django/db/models/enums.py
++++ b/django/db/models/enums.py
+@@ -31,6 +31,10 @@ class ChoicesMeta(enum.EnumMeta):
+         # that is passed in as "self" as the value to use when looking up the
+         # label in the choices.
+         cls.label = property(lambda self: cls._value2label_map_.get(self.value))
++        # Set after class creation so Enum does not treat this as a member.
++        # Templates call callables with no arguments; Choices classes are
++        # callable, so looking up YearInSchool.FRESHMAN would fail otherwise.
++        cls.do_not_call_in_templates = True
+         return enum.unique(cls)
+ 
+     def __contains__(cls, member):

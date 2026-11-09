@@ -1,0 +1,32 @@
+{
+  "setup": "gemini-run2",
+  "instance_id": "matplotlib__matplotlib-20826",
+  "repo": "matplotlib/matplotlib",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-05T08:37:53.292Z",
+  "wallSeconds": 2400,
+  "exitCode": 1,
+  "timedOut": true,
+  "filesChanged": [],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "uncached": 604073,
+        "cacheRead": 17014973,
+        "cacheWrite": 0,
+        "output": 321503,
+        "total": 17940549,
+        "reportedTotal": 772407
+      }
+    },
+    "total": 17940549,
+    "calls": 1,
+    "costUsd": null
+  }
+}

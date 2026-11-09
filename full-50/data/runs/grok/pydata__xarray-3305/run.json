@@ -1,0 +1,34 @@
+{
+  "setup": "grok",
+  "instance_id": "pydata__xarray-3305",
+  "repo": "pydata/xarray",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T07:21:15.742Z",
+  "wallSeconds": 152,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "xarray/core/dataset.py",
+    "xarray/core/variable.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 78979,
+        "cacheRead": 795520,
+        "cacheWrite": 0,
+        "output": 8303,
+        "total": 882802
+      }
+    },
+    "total": 882802,
+    "calls": 19,
+    "costUsd": null
+  }
+}

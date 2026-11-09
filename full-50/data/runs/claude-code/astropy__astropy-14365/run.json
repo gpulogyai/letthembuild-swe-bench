@@ -1,0 +1,33 @@
+{
+  "setup": "claude-code",
+  "instance_id": "astropy__astropy-14365",
+  "repo": "astropy/astropy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T06:05:34.558Z",
+  "wallSeconds": 21,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "astropy/io/ascii/qdp.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 6,
+        "cacheRead": 114624,
+        "cacheWrite": 23268,
+        "output": 1131,
+        "total": 139029
+      }
+    },
+    "total": 139029,
+    "calls": 3,
+    "costUsd": 0.23171280000000002
+  }
+}

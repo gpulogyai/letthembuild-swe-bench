@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-claude",
+  "instance_id": "psf__requests-2931",
+  "repo": "psf/requests",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T17:30:57.132Z",
+  "wallSeconds": 61,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "requests/models.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 1,
+        "total": 121252
+      }
+    },
+    "total": 121252,
+    "calls": null,
+    "costUsd": null
+  }
+}

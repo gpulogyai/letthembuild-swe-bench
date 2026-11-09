@@ -1,5 +1,5 @@
 diff --git a/sympy/simplify/simplify.py b/sympy/simplify/simplify.py
-index c6b511f206..b0e919a902 100644
+index c6b511f206..d7b5a6f14f 100644
 --- a/sympy/simplify/simplify.py
 +++ b/sympy/simplify/simplify.py
 @@ -205,9 +205,9 @@ def posify(eq):
@@ -9,9 +9,9 @@ index c6b511f206..b0e919a902 100644
 -    symbol having the same name. This replacement will allow more symbolic
 -    processing of expressions, especially those involving powers and
 -    logarithms.
-+    symbol having the same name and the original assumptions. This replacement
-+    will allow more symbolic processing of expressions, especially those
-+    involving powers and logarithms.
++    symbol having the same name and all the original assumptions. This
++    replacement will allow more symbolic processing of expressions, especially
++    those involving powers and logarithms.
  
      A dictionary that can be sent to subs to restore eq to its original
      symbols is also returned.

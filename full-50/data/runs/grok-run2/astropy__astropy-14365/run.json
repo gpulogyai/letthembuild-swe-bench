@@ -1,0 +1,33 @@
+{
+  "setup": "grok-run2",
+  "instance_id": "astropy__astropy-14365",
+  "repo": "astropy/astropy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-06T07:55:13.953Z",
+  "wallSeconds": 318,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "astropy/io/ascii/qdp.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 50797,
+        "cacheRead": 1026688,
+        "cacheWrite": 0,
+        "output": 10839,
+        "total": 1088324
+      }
+    },
+    "total": 1088324,
+    "calls": 24,
+    "costUsd": null
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "setup": "grok",
+  "instance_id": "django__django-14580",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T06:39:17.348Z",
+  "wallSeconds": 70,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/db/migrations/serializer.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 44407,
+        "cacheRead": 430848,
+        "cacheWrite": 0,
+        "output": 4101,
+        "total": 479356
+      }
+    },
+    "total": 479356,
+    "calls": 11,
+    "costUsd": null
+  }
+}

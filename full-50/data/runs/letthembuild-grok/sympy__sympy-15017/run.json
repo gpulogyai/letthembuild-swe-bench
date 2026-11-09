@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-grok",
+  "instance_id": "sympy__sympy-15017",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-06T07:19:26.914Z",
+  "wallSeconds": 429,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/tensor/array/dense_ndim_array.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "turns": 1,
+        "total": 1266939
+      }
+    },
+    "total": 1266939,
+    "calls": null,
+    "costUsd": null
+  }
+}

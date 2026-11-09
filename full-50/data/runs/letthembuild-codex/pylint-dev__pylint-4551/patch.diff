@@ -1,90 +1,108 @@
 diff --git a/pylint/pyreverse/diagrams.py b/pylint/pyreverse/diagrams.py
-index bf9f67af6..4f69b227b 100644
+index bf9f67af6..f5d750d6d 100644
 --- a/pylint/pyreverse/diagrams.py
 +++ b/pylint/pyreverse/diagrams.py
-@@ -122,7 +122,7 @@ class ClassDiagram(Figure, FilterMixIn):
+@@ -119,6 +119,11 @@ class ClassDiagram(Figure, FilterMixIn):
+         """return class names if needed in diagram"""
+         names = []
+         for node in nodes:
++            if isinstance(node, (astroid.Name, astroid.Attribute, astroid.Subscript)):
++                node_name = node.as_string()
++                if node_name not in names:
++                    names.append(node_name)
++                continue
              if isinstance(node, astroid.Instance):
                  node = node._proxied
              if (
--                isinstance(node, astroid.ClassDef)
-+                isinstance(node, (astroid.ClassDef, astroid.Unknown))
-                 and hasattr(node, "name")
-                 and not self.has_node(node)
-             ):
 diff --git a/pylint/pyreverse/inspector.py b/pylint/pyreverse/inspector.py
-index 8fa122022..2283ad75b 100644
+index 8fa122022..19c39d4f4 100644
 --- a/pylint/pyreverse/inspector.py
 +++ b/pylint/pyreverse/inspector.py
-@@ -23,6 +23,54 @@ import astroid
- from pylint.pyreverse import utils
- 
- 
-+def get_annotation(node):
-+    """Return the annotation for an assignment or a function argument."""
-+    parent = node.parent
-+    if isinstance(parent, astroid.AnnAssign):
-+        return parent.annotation
-+    if isinstance(parent, astroid.Arguments):
-+        for arguments, annotations in (
-+            (parent.posonlyargs, parent.posonlyargs_annotations),
-+            (parent.args, parent.annotations),
-+            (parent.kwonlyargs, parent.kwonlyargs_annotations),
-+        ):
-+            for argument, annotation in zip(arguments or (), annotations or ()):
-+                if argument is node:
-+                    return annotation
-+    elif isinstance(parent, astroid.Assign) and isinstance(parent.value, astroid.Name):
-+        # An instance attribute may take its type from a constructor argument.
-+        for definition in parent.value.lookup(parent.value.name)[1]:
-+            if isinstance(definition.parent, astroid.Arguments):
-+                return get_annotation(definition)
-+    return None
-+
-+
-+def infer_node(node):
-+    """Infer assignment types, preferring an explicit annotation."""
-+    annotation = get_annotation(node)
-+    if annotation is None:
-+        return node.infer()
-+    if isinstance(annotation, (astroid.Name, astroid.Attribute)):
-+        try:
-+            inferred = set(annotation.infer())
-+            if inferred and all(
-+                isinstance(value, (astroid.ClassDef, astroid.Instance))
-+                for value in inferred
-+            ):
-+                return inferred
-+        except astroid.InferenceError:
-+            pass
-+    # Preserve forward references and parameterized types for display even
-+    # when astroid cannot infer a class from them.
-+    annotated_type = astroid.Unknown()
-+    annotated_type.name = (
-+        annotation.value
-+        if isinstance(annotation, astroid.Const) and isinstance(annotation.value, str)
-+        else annotation.as_string()
-+    )
-+    return {annotated_type}
-+
-+
- def _iface_hdlr(_):
-     """Handler used by interfaces to handle suspicious interface nodes."""
-     return True
-@@ -218,7 +266,7 @@ class Linker(IdGeneratorMixIn, utils.LocalsVisitor):
+@@ -218,7 +218,7 @@ class Linker(IdGeneratorMixIn, utils.LocalsVisitor):
                      self.visit_module(frame)
  
              current = frame.locals_type[node.name]
 -            values = set(node.infer())
-+            values = set(infer_node(node))
++            values = utils.infer_node(node)
              frame.locals_type[node.name] = list(set(current) | values)
          except astroid.InferenceError:
              pass
-@@ -230,7 +278,7 @@ class Linker(IdGeneratorMixIn, utils.LocalsVisitor):
+@@ -230,7 +230,7 @@ class Linker(IdGeneratorMixIn, utils.LocalsVisitor):
          handle instance_attrs_type
          """
          try:
 -            values = set(node.infer())
-+            values = set(infer_node(node))
++            values = utils.infer_node(node)
              current = set(parent.instance_attrs_type[node.attrname])
              parent.instance_attrs_type[node.attrname] = list(current | values)
          except astroid.InferenceError:
+diff --git a/pylint/pyreverse/utils.py b/pylint/pyreverse/utils.py
+index a24d227ee..88d40960c 100644
+--- a/pylint/pyreverse/utils.py
++++ b/pylint/pyreverse/utils.py
+@@ -20,6 +20,8 @@ import os
+ import re
+ import sys
+ 
++import astroid
++
+ RCFILE = ".pyreverserc"
+ 
+ 
+@@ -46,6 +48,56 @@ def insert_default_options():
+ 
+ 
+ # astroid utilities ###########################################################
++def get_annotation(node):
++    """Return the explicit type annotation for an assignment or argument."""
++    if isinstance(node.parent, astroid.AnnAssign):
++        return node.parent.annotation
++    if isinstance(node.parent, astroid.Arguments):
++        arguments = node.parent
++        for names, annotations in (
++            (arguments.posonlyargs, arguments.posonlyargs_annotations),
++            (arguments.args, arguments.annotations),
++            (arguments.kwonlyargs, arguments.kwonlyargs_annotations),
++        ):
++            for name, annotation in zip(names or (), annotations):
++                if name is node:
++                    return annotation
++    return None
++
++
++def infer_node(node):
++    """Infer attribute types, preferring annotations to default values."""
++    annotation = get_annotation(node)
++    if annotation is None and isinstance(node.parent, astroid.Assign):
++        value = node.parent.value
++        if isinstance(value, astroid.Name):
++            for definition in value.lookup(value.name)[1]:
++                annotation = get_annotation(definition)
++                if annotation is not None:
++                    break
++    if annotation is not None:
++        # Resolve string forward references in the annotation's original scope.
++        if isinstance(annotation, astroid.Const) and isinstance(annotation.value, str):
++            try:
++                reference = astroid.extract_node(annotation.value)
++            except astroid.AstroidSyntaxError:
++                return set(node.infer())
++            reference.parent = annotation.parent
++            annotation = reference
++        # Keep type parameters in the label instead of inferring only the container.
++        if isinstance(annotation, astroid.Subscript):
++            return {annotation}
++        try:
++            inferred = set(annotation.infer())
++        except astroid.InferenceError:
++            inferred = set()
++        if inferred and astroid.Uninferable not in inferred:
++            return inferred
++        if isinstance(annotation, (astroid.Name, astroid.Attribute)):
++            return {annotation}
++    return set(node.infer())
++
++
+ SPECIAL = re.compile(r"^__([^\W_]_*)+__$")
+ PRIVATE = re.compile(r"^__(_*[^\W_])+_?$")
+ PROTECTED = re.compile(r"^_\w*$")

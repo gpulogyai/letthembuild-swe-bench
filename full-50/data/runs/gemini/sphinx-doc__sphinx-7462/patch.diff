@@ -1,0 +1,71 @@
+diff --git a/sphinx/domains/python.py b/sphinx/domains/python.py
+index 3ca730e307..1e6c1b369c 100644
+--- a/sphinx/domains/python.py
++++ b/sphinx/domains/python.py
+@@ -97,10 +97,11 @@ def _parse_annotation(annotation: str) -> List[Node]:
+             return unparse(node.value)
+         elif isinstance(node, ast.List):
+             result = [addnodes.desc_sig_punctuation('', '[')]  # type: List[Node]
+-            for elem in node.elts:
+-                result.extend(unparse(elem))
+-                result.append(addnodes.desc_sig_punctuation('', ', '))
+-            result.pop()
++            if node.elts:
++                for elem in node.elts:
++                    result.extend(unparse(elem))
++                    result.append(addnodes.desc_sig_punctuation('', ', '))
++                result.pop()
+             result.append(addnodes.desc_sig_punctuation('', ']'))
+             return result
+         elif isinstance(node, ast.Module):
+@@ -114,11 +115,16 @@ def _parse_annotation(annotation: str) -> List[Node]:
+             result.append(addnodes.desc_sig_punctuation('', ']'))
+             return result
+         elif isinstance(node, ast.Tuple):
+-            result = []
+-            for elem in node.elts:
+-                result.extend(unparse(elem))
+-                result.append(addnodes.desc_sig_punctuation('', ', '))
+-            result.pop()
++            if node.elts:
++                result = []
++                for elem in node.elts:
++                    result.extend(unparse(elem))
++                    result.append(addnodes.desc_sig_punctuation('', ', '))
++                result.pop()
++            else:
++                result = [addnodes.desc_sig_punctuation('', '('),
++                          addnodes.desc_sig_punctuation('', ')')]
++
+             return result
+         else:
+             raise SyntaxError  # unsupported syntax
+diff --git a/sphinx/pycode/ast.py b/sphinx/pycode/ast.py
+index 4d8aa8955a..fb2a7152dd 100644
+--- a/sphinx/pycode/ast.py
++++ b/sphinx/pycode/ast.py
+@@ -114,7 +114,10 @@ def unparse(node: ast.AST) -> str:
+     elif isinstance(node, ast.UnaryOp):
+         return "%s %s" % (unparse(node.op), unparse(node.operand))
+     elif isinstance(node, ast.Tuple):
+-        return ", ".join(unparse(e) for e in node.elts)
++        if node.elts:
++            return ", ".join(unparse(e) for e in node.elts)
++        else:
++            return "()"
+     elif sys.version_info > (3, 6) and isinstance(node, ast.Constant):
+         # this branch should be placed at last
+         return repr(node.value)
+diff --git a/sphinx/util/typing.py b/sphinx/util/typing.py
+index eb38d232c9..155699326b 100644
+--- a/sphinx/util/typing.py
++++ b/sphinx/util/typing.py
+@@ -183,6 +183,8 @@ def _stringify_py36(annotation: Any) -> str:
+           hasattr(annotation, '__tuple_use_ellipsis__')):  # for Python 3.5
+         params = annotation.__tuple_params__
+         if params is not None:
++            if len(params) == 0:
++                return '%s[()]' % qualname
+             param_strings = [stringify(p) for p in params]
+             if annotation.__tuple_use_ellipsis__:
+                 param_strings.append('...')

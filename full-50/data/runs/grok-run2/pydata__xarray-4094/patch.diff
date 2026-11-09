@@ -1,0 +1,17 @@
+diff --git a/xarray/core/dataarray.py b/xarray/core/dataarray.py
+index b0df87495..fc3269f0b 100644
+--- a/xarray/core/dataarray.py
++++ b/xarray/core/dataarray.py
+@@ -1961,7 +1961,11 @@ class DataArray(AbstractArray, DataWithCoords):
+         # pull variables out of datarray
+         data_dict = {}
+         for k in variables:
+-            data_dict[k] = self.sel({variable_dim: k}).squeeze(drop=True)
++            # drop=True is required when the stacked coordinate has a single
++            # level (variables with only sample dimensions). Selecting that
++            # level otherwise leaves a scalar coordinate whose value differs
++            # for each variable, and Dataset construction raises MergeError.
++            data_dict[k] = self.sel({variable_dim: k}, drop=True).squeeze(drop=True)
+ 
+         # unstacked dataset
+         return Dataset(data_dict)

@@ -1,0 +1,21 @@
+diff --git a/sympy/core/mod.py b/sympy/core/mod.py
+index eae25630cc..3b448e3bca 100644
+--- a/sympy/core/mod.py
++++ b/sympy/core/mod.py
+@@ -139,6 +139,16 @@ def doit(p, q):
+                 net = prod_mod1*prod_mod
+                 return prod_non_mod*cls(net, q)
+ 
++            # (c*k) % q == ((c % q)*k) % q when k is an integer, so an integer
++            # coefficient can be reduced: Mod(3*i, 2) -> Mod(i, 2). A
++            # non-integer cofactor does not allow this, e.g. (6*x) % 4.
++            if (q.is_Integer and q is not S.One and
++                    all(t.is_integer for t in p.args)):
++                non_mod_l = [i % q if i.is_Integer else i for i in non_mod_l]
++                if any(t is S.Zero for t in non_mod_l):
++                    return S.Zero
++                p = Mul(*(non_mod_l + mod_l))
++
+         # XXX other possibilities?
+ 
+         # extract gcd; any further simplification should be done by the user

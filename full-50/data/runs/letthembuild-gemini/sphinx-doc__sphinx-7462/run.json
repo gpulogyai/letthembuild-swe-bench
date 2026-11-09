@@ -1,0 +1,32 @@
+{
+  "setup": "letthembuild-gemini",
+  "instance_id": "sphinx-doc__sphinx-7462",
+  "repo": "sphinx-doc/sphinx",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-05T02:47:30.105Z",
+  "wallSeconds": 417,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sphinx/domains/python.py",
+    "sphinx/pycode/ast.py",
+    "sphinx/util/typing.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "turns": 1,
+        "total": 967213
+      }
+    },
+    "total": 967213,
+    "calls": null,
+    "costUsd": null
+  }
+}
