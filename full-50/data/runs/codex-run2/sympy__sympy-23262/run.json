@@ -1,0 +1,33 @@
+{
+  "setup": "codex-run2",
+  "instance_id": "sympy__sympy-23262",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-05T13:49:10.542Z",
+  "wallSeconds": 36,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/utilities/lambdify.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 33742,
+        "cacheRead": 217728,
+        "cacheWrite": 0,
+        "output": 1311,
+        "total": 252781
+      }
+    },
+    "total": 252781,
+    "calls": null,
+    "costUsd": null
+  }
+}

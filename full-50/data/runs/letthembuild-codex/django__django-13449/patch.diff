@@ -1,5 +1,5 @@
 diff --git a/django/db/models/expressions.py b/django/db/models/expressions.py
-index 90d90119d0..2a446a6c4e 100644
+index 90d90119d0..d88c1dea60 100644
 --- a/django/db/models/expressions.py
 +++ b/django/db/models/expressions.py
 @@ -1253,7 +1253,7 @@ class OrderBy(BaseExpression):
@@ -11,18 +11,19 @@ index 90d90119d0..2a446a6c4e 100644
      template = '%(expression)s OVER (%(window)s)'
      # Although the main expression may either be an aggregate or an
      # expression with an aggregate function, the GROUP BY that will
-@@ -1332,6 +1332,15 @@ class Window(Expression):
+@@ -1332,6 +1332,16 @@ class Window(Expression):
              'window': ''.join(window_sql).strip()
          }, params
  
 +    def as_sqlite(self, compiler, connection):
-+        if isinstance(self.output_field, fields.DecimalField):
-+            # Cast to numeric outside of the window expression.
-+            clone = self.copy()
-+            clone.source_expression = self.source_expression.copy()
-+            clone.source_expression.output_field = fields.FloatField()
-+            return super(Window, clone).as_sqlite(compiler, connection)
-+        return self.as_sql(compiler, connection)
++        # Casting to numeric must be outside of the window expression.
++        copy = self.copy()
++        source_expression = self.source_expression
++        if copy.output_field.get_internal_type() == 'DecimalField':
++            source_expression = source_expression.copy()
++            source_expression.output_field = fields.FloatField()
++        copy.set_source_expressions([source_expression, self.partition_by, self.order_by, self.frame])
++        return super(Window, copy).as_sqlite(compiler, connection)
 +
      def __str__(self):
          return '{} OVER ({}{}{})'.format(

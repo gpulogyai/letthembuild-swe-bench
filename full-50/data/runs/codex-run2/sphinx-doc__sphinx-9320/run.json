@@ -1,0 +1,33 @@
+{
+  "setup": "codex-run2",
+  "instance_id": "sphinx-doc__sphinx-9320",
+  "repo": "sphinx-doc/sphinx",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-05T09:03:08.188Z",
+  "wallSeconds": 40,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sphinx/cmd/quickstart.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 14390,
+        "cacheRead": 161024,
+        "cacheWrite": 0,
+        "output": 1618,
+        "total": 177032
+      }
+    },
+    "total": 177032,
+    "calls": null,
+    "costUsd": null
+  }
+}

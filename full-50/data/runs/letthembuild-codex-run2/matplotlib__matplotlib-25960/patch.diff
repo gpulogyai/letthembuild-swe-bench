@@ -1,0 +1,24 @@
+diff --git a/lib/matplotlib/figure.py b/lib/matplotlib/figure.py
+index dab2bc4a5a..b194f4516d 100644
+--- a/lib/matplotlib/figure.py
++++ b/lib/matplotlib/figure.py
+@@ -1586,10 +1586,19 @@ default: %(va)s
+                       width_ratios=width_ratios,
+                       height_ratios=height_ratios)
+ 
++        if self.get_layout_engine() is None:
++            # Subfigures fill their parent without outer margins.  Keep the
++            # default spacing at zero when no layout engine is in use.
++            gs.update(left=0, right=1, bottom=0, top=1,
++                      wspace=wspace or 0, hspace=hspace or 0)
++
+         sfarr = np.empty((nrows, ncols), dtype=object)
+         for i in range(ncols):
+             for j in range(nrows):
+                 sfarr[j, i] = self.add_subfigure(gs[j, i], **kwargs)
++                if self.get_layout_engine() is None:
++                    sfarr[j, i]._redo_transform_rel_fig(
++                        bbox=gs[j, i].get_position(self))
+ 
+         if squeeze:
+             # Discarding unneeded dimensions that equal 1.  If we only have one

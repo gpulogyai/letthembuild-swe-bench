@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-grok",
+  "instance_id": "psf__requests-1921",
+  "repo": "psf/requests",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-06T06:08:52.034Z",
+  "wallSeconds": 257,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "requests/sessions.py"
+  ],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "turns": 1,
+        "total": 1103288
+      }
+    },
+    "total": 1103288,
+    "calls": null,
+    "costUsd": null
+  }
+}

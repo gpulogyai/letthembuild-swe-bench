@@ -1,0 +1,33 @@
+{
+  "setup": "grok",
+  "instance_id": "sphinx-doc__sphinx-9320",
+  "repo": "sphinx-doc/sphinx",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T07:57:52.104Z",
+  "wallSeconds": 221,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sphinx/cmd/quickstart.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 113035,
+        "cacheRead": 444288,
+        "cacheWrite": 0,
+        "output": 6731,
+        "total": 564054
+      }
+    },
+    "total": 564054,
+    "calls": 15,
+    "costUsd": null
+  }
+}

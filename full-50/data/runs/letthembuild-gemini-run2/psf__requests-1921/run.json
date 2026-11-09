@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-gemini-run2",
+  "instance_id": "psf__requests-1921",
+  "repo": "psf/requests",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T19:44:13.903Z",
+  "wallSeconds": 107,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "requests/sessions.py"
+  ],
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "turns": 1,
+        "total": 244775
+      }
+    },
+    "total": 244775,
+    "calls": null,
+    "costUsd": null
+  }
+}

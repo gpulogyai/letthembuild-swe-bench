@@ -1,0 +1,33 @@
+{
+  "setup": "grok",
+  "instance_id": "django__django-13837",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T06:32:30.643Z",
+  "wallSeconds": 149,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/utils/autoreload.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 102386,
+        "cacheRead": 276864,
+        "cacheWrite": 0,
+        "output": 10316,
+        "total": 389566
+      }
+    },
+    "total": 389566,
+    "calls": 10,
+    "costUsd": null
+  }
+}

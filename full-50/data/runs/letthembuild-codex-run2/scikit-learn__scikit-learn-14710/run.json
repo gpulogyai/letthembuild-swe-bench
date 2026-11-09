@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-codex-run2",
+  "instance_id": "scikit-learn__scikit-learn-14710",
+  "repo": "scikit-learn/scikit-learn",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-05T19:06:42.900Z",
+  "wallSeconds": 46,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sklearn/ensemble/_hist_gradient_boosting/gradient_boosting.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 1,
+        "total": 178321
+      }
+    },
+    "total": 178321,
+    "calls": null,
+    "costUsd": null
+  }
+}

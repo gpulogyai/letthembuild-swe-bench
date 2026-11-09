@@ -1,0 +1,33 @@
+{
+  "setup": "claude-code-run2",
+  "instance_id": "scikit-learn__scikit-learn-14710",
+  "repo": "scikit-learn/scikit-learn",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T22:43:52.064Z",
+  "wallSeconds": 26,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sklearn/ensemble/_hist_gradient_boosting/gradient_boosting.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 12,
+        "cacheRead": 264900,
+        "cacheWrite": 25643,
+        "output": 1643,
+        "total": 292198
+      }
+    },
+    "total": 292198,
+    "calls": 6,
+    "costUsd": 0.291032
+  }
+}

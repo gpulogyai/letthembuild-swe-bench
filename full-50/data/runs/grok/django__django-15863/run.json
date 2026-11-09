@@ -1,0 +1,37 @@
+{
+  "setup": "grok",
+  "instance_id": "django__django-15863",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T07:00:59.827Z",
+  "wallSeconds": 143,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "default_1.sqlite3",
+    "default_2.sqlite3",
+    "django/template/defaultfilters.py",
+    "other_1.sqlite3",
+    "other_2.sqlite3"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "grok:grok-4.7": {
+        "uncached": 102886,
+        "cacheRead": 405760,
+        "cacheWrite": 0,
+        "output": 8210,
+        "total": 516856
+      }
+    },
+    "total": 516856,
+    "calls": 13,
+    "costUsd": null
+  }
+}

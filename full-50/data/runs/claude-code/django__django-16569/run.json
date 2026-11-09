@@ -1,0 +1,47 @@
+{
+  "setup": "claude-code",
+  "instance_id": "django__django-16569",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T06:17:56.015Z",
+  "wallSeconds": 26,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/forms/formsets.py",
+    "tests/default_1.sqlite3",
+    "tests/default_2.sqlite3",
+    "tests/default_3.sqlite3",
+    "tests/default_4.sqlite3",
+    "tests/default_5.sqlite3",
+    "tests/default_6.sqlite3",
+    "tests/default_7.sqlite3",
+    "tests/other_1.sqlite3",
+    "tests/other_2.sqlite3",
+    "tests/other_3.sqlite3",
+    "tests/other_4.sqlite3",
+    "tests/other_5.sqlite3",
+    "tests/other_6.sqlite3",
+    "tests/other_7.sqlite3"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 14,
+        "cacheRead": 299811,
+        "cacheWrite": 23408,
+        "output": 1776,
+        "total": 325009
+      }
+    },
+    "total": 325009,
+    "calls": 8,
+    "costUsd": 0.2828022
+  }
+}

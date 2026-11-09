@@ -1,0 +1,85 @@
+diff --git a/django/db/backends/base/operations.py b/django/db/backends/base/operations.py
+index 2e283a3193..467b7a45bb 100644
+--- a/django/db/backends/base/operations.py
++++ b/django/db/backends/base/operations.py
+@@ -105,6 +105,9 @@ class BaseDatabaseOperations:
+         """
+         raise NotImplementedError('subclasses of BaseDatabaseOperations may require a date_interval_sql() method')
+ 
++    def format_for_duration_arithmetic(self, sql):
++        raise NotImplementedError('subclasses of BaseDatabaseOperations may require a format_for_duration_arithmetic() method')
++
+     def date_trunc_sql(self, lookup_type, field_name):
+         """
+         Given a lookup_type of 'year', 'month', or 'day', return the SQL that
+diff --git a/django/db/backends/sqlite3/base.py b/django/db/backends/sqlite3/base.py
+index 31e8a55a43..0a8a965e75 100644
+--- a/django/db/backends/sqlite3/base.py
++++ b/django/db/backends/sqlite3/base.py
+@@ -559,6 +559,8 @@ def _sqlite_format_dtdelta(conn, lhs, rhs):
+             out = real_lhs - real_rhs
+     except (ValueError, TypeError):
+         return None
++    if isinstance(out, datetime.timedelta):
++        return duration_microseconds(out)
+     # typecast_timestamp returns a date or a datetime without timezone.
+     # It will be formatted as "%Y-%m-%d" or "%Y-%m-%d %H:%M:%S[.%f]"
+     return str(out)
+diff --git a/django/db/models/expressions.py b/django/db/models/expressions.py
+index a156c5e881..ee6cb4be98 100644
+--- a/django/db/models/expressions.py
++++ b/django/db/models/expressions.py
+@@ -57,7 +57,7 @@ class Combinable:
+         if not hasattr(other, 'resolve_expression'):
+             # everything must be resolvable to an expression
+             if isinstance(other, datetime.timedelta):
+-                other = DurationValue(other, output_field=fields.DurationField())
++                other = Value(other, output_field=fields.DurationField())
+             else:
+                 other = Value(other)
+ 
+@@ -480,27 +480,29 @@ class CombinedExpression(SQLiteNumericMixin, Expression):
+ 
+ class DurationExpression(CombinedExpression):
+     def compile(self, side, compiler, connection):
+-        if not isinstance(side, DurationValue):
+-            try:
+-                output = side.output_field
+-            except FieldError:
+-                pass
+-            else:
+-                if output.get_internal_type() == 'DurationField':
+-                    sql, params = compiler.compile(side)
+-                    return connection.ops.format_for_duration_arithmetic(sql), params
++        try:
++            output = side.output_field
++        except FieldError:
++            pass
++        else:
++            if output.get_internal_type() == 'DurationField':
++                sql, params = compiler.compile(side)
++                return connection.ops.format_for_duration_arithmetic(sql), params
+         return compiler.compile(side)
+ 
+     def as_sql(self, compiler, connection):
++        try:
++            has_duration_output = self.output_field.get_internal_type() == 'DurationField'
++        except FieldError:
++            has_duration_output = False
++
+         connection.ops.check_expression_support(self)
+         expressions = []
+         expression_params = []
+-        sql, params = self.compile(self.lhs, compiler, connection)
+-        expressions.append(sql)
+-        expression_params.extend(params)
+-        sql, params = self.compile(self.rhs, compiler, connection)
+-        expressions.append(sql)
+-        expression_params.extend(params)
++        for side in (self.lhs, self.rhs):
++            sql, params = compiler.compile(side) if has_duration_output else self.compile(side, compiler, connection)
++            expressions.append(sql)
++            expression_params.extend(params)
+         # order of precedence
+         expression_wrapper = '(%s)'
+         sql = connection.ops.combine_duration_expression(self.connector, expressions)

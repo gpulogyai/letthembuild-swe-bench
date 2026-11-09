@@ -1,5 +1,5 @@
 diff --git a/requests/models.py b/requests/models.py
-index 99260453..d5a9e72a 100644
+index 99260453..42351417 100644
 --- a/requests/models.py
 +++ b/requests/models.py
 @@ -386,13 +386,14 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
@@ -13,7 +13,7 @@ index 99260453..d5a9e72a 100644
              body.seek(0, 0)
          elif body is not None:
              self.headers['Content-Length'] = str(len(body))
-+        elif self.method not in ('GET', 'HEAD') and 'Content-Length' not in self.headers:
++        elif self.method not in ('GET', 'HEAD'):
 +            self.headers['Content-Length'] = '0'
  
      def prepare_auth(self, auth):

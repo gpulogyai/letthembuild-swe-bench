@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-gemini",
+  "instance_id": "scikit-learn__scikit-learn-13439",
+  "repo": "scikit-learn/scikit-learn",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-05T02:41:13.668Z",
+  "wallSeconds": 72,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sklearn/pipeline.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "turns": 1,
+        "total": 99135
+      }
+    },
+    "total": 99135,
+    "calls": null,
+    "costUsd": null
+  }
+}

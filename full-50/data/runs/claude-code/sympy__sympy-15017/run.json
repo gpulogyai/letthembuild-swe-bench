@@ -1,0 +1,35 @@
+{
+  "setup": "claude-code",
+  "instance_id": "sympy__sympy-15017",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T06:35:22.737Z",
+  "wallSeconds": 97,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/tensor/array/dense_ndim_array.py",
+    "sympy/tensor/array/sparse_ndim_array.py",
+    "sympy/tensor/array/tests/test_immutable_ndim_array.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 34,
+        "cacheRead": 839796,
+        "cacheWrite": 36022,
+        "output": 5889,
+        "total": 881741
+      }
+    },
+    "total": 881741,
+    "calls": 17,
+    "costUsd": 0.5740512
+  }
+}

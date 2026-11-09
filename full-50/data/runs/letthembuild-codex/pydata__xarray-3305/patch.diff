@@ -15,7 +15,7 @@ index d6f0da427..fae086e85 100644
  
              else:
 diff --git a/xarray/core/variable.py b/xarray/core/variable.py
-index 2e9906ce5..1bbcf7007 100644
+index 2e9906ce5..58f5488dd 100644
 --- a/xarray/core/variable.py
 +++ b/xarray/core/variable.py
 @@ -1592,7 +1592,7 @@ class Variable(
@@ -27,19 +27,18 @@ index 2e9906ce5..1bbcf7007 100644
          """Compute the qth quantile of the data along the specified dimension.
  
          Returns the qth quantiles(s) of the array elements.
-@@ -1616,6 +1616,11 @@ class Variable(
+@@ -1615,6 +1615,10 @@ class Variable(
+                 * higher: ``j``.
                  * nearest: ``i`` or ``j``, whichever is nearest.
                  * midpoint: ``(i + j) / 2``.
- 
 +        keep_attrs : bool, optional
 +            If True, the variable's attributes (`attrs`) will be copied from
 +            the original object to the new one. If False (default), the new
 +            object will be returned without attributes.
-+
+ 
          Returns
          -------
-         quantiles : Variable
-@@ -1658,7 +1663,10 @@ class Variable(
+@@ -1658,7 +1662,10 @@ class Variable(
          qs = np.nanpercentile(
              self.data, q * 100.0, axis=axis, interpolation=interpolation
          )

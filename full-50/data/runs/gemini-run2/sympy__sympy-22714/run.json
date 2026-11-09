@@ -1,0 +1,34 @@
+{
+  "setup": "gemini-run2",
+  "instance_id": "sympy__sympy-22714",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T15:10:11.455Z",
+  "wallSeconds": 722,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/geometry/point.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "gemini:gemini-4-argon-high": {
+        "uncached": 160925,
+        "cacheRead": 3203096,
+        "cacheWrite": 0,
+        "output": 43800,
+        "total": 3407821,
+        "reportedTotal": 185684
+      }
+    },
+    "total": 3407821,
+    "calls": 1,
+    "costUsd": null
+  }
+}

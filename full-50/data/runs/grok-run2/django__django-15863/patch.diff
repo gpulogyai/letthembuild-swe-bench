@@ -1,0 +1,28 @@
+diff --git a/default_1.sqlite3 b/default_1.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/default_2.sqlite3 b/default_2.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/django/template/defaultfilters.py b/django/template/defaultfilters.py
+index 7a5b28d159..017b36e4df 100644
+--- a/django/template/defaultfilters.py
++++ b/django/template/defaultfilters.py
+@@ -151,7 +151,10 @@ def floatformat(text, arg=-1):
+             use_l10n = False
+             arg = arg[:-1] or -1
+     try:
+-        input_val = repr(text)
++        # Use str(), not repr(). Decimal's repr() is "Decimal('...')", which
++        # is not a valid Decimal literal, so the value fell through to a
++        # float conversion and lost precision.
++        input_val = str(text)
+         d = Decimal(input_val)
+     except InvalidOperation:
+         try:
+diff --git a/other_1.sqlite3 b/other_1.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/other_2.sqlite3 b/other_2.sqlite3
+new file mode 100644
+index 0000000000..e69de29bb2

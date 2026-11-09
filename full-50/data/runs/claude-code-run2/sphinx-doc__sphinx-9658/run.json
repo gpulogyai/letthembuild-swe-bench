@@ -1,0 +1,34 @@
+{
+  "setup": "claude-code-run2",
+  "instance_id": "sphinx-doc__sphinx-9658",
+  "repo": "sphinx-doc/sphinx",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-04T22:45:39.607Z",
+  "wallSeconds": 106,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sphinx/ext/autodoc/mock.py",
+    "sphinx/util/typing.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 26,
+        "cacheRead": 645878,
+        "cacheWrite": 33751,
+        "output": 6575,
+        "total": 686230
+      }
+    },
+    "total": 686230,
+    "calls": 13,
+    "costUsd": 0.5307875999999999
+  }
+}

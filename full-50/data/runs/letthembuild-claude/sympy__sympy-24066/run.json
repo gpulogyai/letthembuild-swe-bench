@@ -1,0 +1,30 @@
+{
+  "setup": "letthembuild-claude",
+  "instance_id": "sympy__sympy-24066",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-08T17:55:15.913Z",
+  "wallSeconds": 27,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/physics/units/unitsystem.py"
+  ],
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 1,
+        "total": 48103
+      }
+    },
+    "total": 48103,
+    "calls": null,
+    "costUsd": null
+  }
+}
