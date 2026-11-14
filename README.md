@@ -1,41 +1,44 @@
-<sub>LETTHEMBUILD BENCHMARK · SWE-BENCH VERIFIED · NOVEMBER 2026 · 50 ISSUES · FOUR MODELS</sub>
+<sub>LETTHEMBUILD BENCHMARK · SWE-BENCH VERIFIED · NOVEMBER 2026 · 50 ISSUES · CLAUDE AND CODEX</sub>
 
 # Same model, same fixes, fewer tokens: LetThemBuild against each model's own CLI
 
-We gave Claude, Gemini, Codex and Grok the same 50 real GitHub issues two ways: in the model's own command-line
+We gave Claude and Codex the same 50 real GitHub issues two ways: in the model's own command-line
 tool, and in LetThemBuild with that model as the only seat, running the same CLI underneath. The issues come from
 [SWE-bench Verified](https://www.swebench.com/), the benchmark coding agents are measured on, and every patch was
 graded by the official SWE-bench harness against the project's own tests. Each setup ran every issue twice. This is
 how many tokens each took and how many issues each solved. Every patch, transcript and token count is in this
 repository, so you can check the numbers yourself.
 
+> **Gemini and Grok results withdrawn (14 November 2026).** We also ran Gemini and Grok. Their figures are withdrawn
+> while we run them again with web access off and the workspace kept apart from the benchmark's own files. Their
+> runs stay in `full-50/data` for reference, but they are not part of the results below.
+
 ## What we found
 
-- **Every model used fewer tokens inside LetThemBuild than in its own CLI.** Claude −55%, Gemini −38%, Codex −9%,
-  Grok −6%, over all 50 issues and both runs.
-- **It solved the same number of issues.** Across the two runs each model solved within half an issue of its own
-  CLI: Claude 43.5 against 43.5, Gemini 38 against 38.5, Codex 41.5 against 41, Grok 46.5 against 46.5.
-- **For Claude and Gemini the saving is beyond run-to-run variation.** The 95% range is −59% to −51% for Claude and
-  −53% to −24% for Gemini. LetThemBuild with Claude used fewer tokens than Claude Code on 49 of the 50 issues.
-- **For Codex and Grok it is smaller and less certain.** Codex's range is −17% to +0.3%; Grok's, −19% to +11%,
-  includes no difference at all, and on the shortest fixes Grok used more tokens inside LetThemBuild.
+- **Both models used fewer tokens inside LetThemBuild than in their own CLI.** Claude −55% and Codex −9%, over all
+  50 issues and both runs.
+- **They solved about as many issues.** Across the two runs: Claude 43.5 against 43.5 for Claude Code, Codex 41.5
+  against 41 for the Codex CLI. With 50 issues that means no detectable difference, not proof of equal quality.
+- **For Claude the saving is beyond run-to-run variation.** The 95% range is −59% to −51%, and LetThemBuild with
+  Claude used fewer tokens than Claude Code on 49 of the 50 issues.
+- **For Codex it is smaller and less certain.** Its range, −17% to +0.3%, comes close to no difference.
 
 ## Tokens for the 50 issues
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/full-50-tokens-dark.svg">
-  <img alt="Tokens for all 50 issues, mean of two runs: Claude Code 16.1M, LetThemBuild with Claude 7.2M (−55%); Antigravity CLI 168M, LetThemBuild with Gemini 104M (−38%); Codex CLI 14.6M, LetThemBuild with Codex 13.3M (−9%); Grok CLI 55.4M, LetThemBuild with Grok 52.1M (−6%)." src="charts/full-50-tokens-light.svg" width="820">
+  <img alt="Tokens for all 50 issues, mean of two runs: Claude Code 16.1M, LetThemBuild with Claude 7.2M (−55%); Codex CLI 14.6M, LetThemBuild with Codex 13.3M (−9%)." src="charts/full-50-tokens-light.svg" width="820">
 </picture>
 
-Each model's own CLI sits directly above LetThemBuild running that model. The models differ twelvefold in how many
-tokens they spend, so each pair is drawn against its own CLI; the labels carry the totals. Tokens are everything
+Each model's own CLI sits directly above LetThemBuild running that model. Each pair is drawn against its own CLI; the labels
+carry the totals. Tokens are everything
 the model read and wrote: fresh input, cache reads, cache writes and output, as each tool reports them.
 
 ## Issues solved
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/full-50-solved-dark.svg">
-  <img alt="Issues solved out of 50 in each of two runs: Claude Code 45 and 42, LetThemBuild with Claude 43 and 44; Antigravity CLI 39 and 38, LetThemBuild with Gemini 38 and 38; Codex CLI 42 and 40, LetThemBuild with Codex 42 and 41; Grok CLI 46 and 47, LetThemBuild with Grok 47 and 46." src="charts/full-50-solved-light.svg" width="820">
+  <img alt="Issues solved out of 50 in each of two runs: Claude Code 45 and 42, LetThemBuild with Claude 43 and 44; Codex CLI 42 and 40, LetThemBuild with Codex 42 and 41." src="charts/full-50-solved-light.svg" width="820">
 </picture>
 
 ## Every setup
@@ -44,23 +47,19 @@ the model read and wrote: fresh input, cache reads, cache writes and output, as 
 |---|---|---:|---:|---:|---:|---|---:|
 | Claude Code alone | claude-opus-5-5 | 45 · 42 | 17.72M · 14.46M | 16.09M | | | |
 | **LetThemBuild · Claude** | claude-opus-5-5 | **43 · 44** | **7.39M · 7.04M** | **7.22M** | **−55.1%** | −59.4% to −50.5% | 49 of 50 |
-| Antigravity CLI alone | gemini-4-argon-high | 39 · 38 | 173.11M · 162.81M | 167.96M | | | |
-| **LetThemBuild · Gemini** | gemini-4-argon-high | **38 · 38** | **102.64M · 105.73M** | **104.19M** | **−38.0%** | −52.8% to −23.5% | 41 of 50 |
 | Codex CLI alone | gpt-6.1-sol | 42 · 40 | 15.10M · 14.05M | 14.57M | | | |
 | **LetThemBuild · Codex** | gpt-6.1-sol | **42 · 41** | **12.73M · 13.88M** | **13.30M** | **−8.7%** | −16.8% to +0.3% | 33 of 50 |
-| Grok CLI alone | grok-4.7 | 46 · 47 | 56.74M · 54.15M | 55.44M | | | |
-| **LetThemBuild · Grok** | grok-4.7 | **47 · 46** | **52.67M · 51.54M** | **52.11M** | **−6.0%** | −19.4% to +11.0% | 25 of 50 |
 
 An issue's tokens are the mean of its two runs. The range comes from resampling the 50 issues 10,000 times,
 keeping each issue's runs together, with a fixed seed.
 
 ## By difficulty
 
-| SWE-bench difficulty | Issues | Claude | Gemini | Codex | Grok |
-|---|---:|---:|---:|---:|---:|
-| Under 15 minutes | 21 | −55.5% | −34.7% | −3.5% | +24.9% |
-| 15 minutes – 1 hour | 25 | −54.8% | −46.1% | −11.1% | −17.7% |
-| 1 – 4 hours | 4 | −55.5% | −11.4% | −11.8% | −11.0% |
+| SWE-bench difficulty | Issues | Claude | Codex |
+|---|---:|---:|---:|
+| Under 15 minutes | 21 | −55.5% | −3.5% |
+| 15 minutes – 1 hour | 25 | −54.8% | −11.1% |
+| 1 – 4 hours | 4 | −55.5% | −11.8% |
 
 Change in tokens from the model's own CLI to LetThemBuild with that model. Difficulty is SWE-bench Verified's own
 label, not anything measured here. Only four issues carry the 1–4 hour label, too few to read much into on their
@@ -81,8 +80,7 @@ That 45k is Claude Code as it was installed here, with this developer's plugins 
 starts nearer 32k. Scaling Claude Code's runs to that figure would put Claude's saving at about −40% rather than
 −55%. That is our estimate, not a measured run.
 
-For Gemini the seat's runs were shorter as well: the Antigravity CLI on its own reached the 40-minute limit on four
-and six of its 50 runs, and inside LetThemBuild on two and two. For Codex and Grok the difference is small either way.
+For Codex the difference is small either way.
 
 ## How the test was run
 
@@ -106,23 +104,21 @@ rebuilds both lists. The 50 span nine projects and all three difficulty bands:
 | Setup | What ran | Permissions |
 |---|---|---|
 | Claude Code alone | Claude Code 2.1.311, `claude -p`, with the settings, plugins and connectors installed on the test Mac | `--permission-mode auto` |
-| Antigravity CLI alone | Antigravity CLI 1.5.3, `agy -p` | `--dangerously-skip-permissions` |
 | Codex CLI alone | Codex CLI 0.165.0, `codex exec` | `--sandbox workspace-write` |
-| Grok CLI alone | Grok CLI 1.0.70, `grok --prompt-file` | `--permission-mode auto --no-subagents` |
-| LetThemBuild · Gemini, Codex, Grok | LetThemBuild desktop 1.1.369 with brief 2026-11-05.3, `run` in a terminal; its one seat runs that model's CLI | `--permission auto` |
+| LetThemBuild · Codex | LetThemBuild desktop 1.1.369 with brief 2026-11-05.3, `run` in a terminal; its one seat runs that model's CLI | `--permission auto` |
 | LetThemBuild · Claude | LetThemBuild desktop, the build after 1.1.369: brief 2026-11-08.1 and the lean start for Claude Code seats (a setting, on by default) | `--permission auto` |
 
 Inside LetThemBuild the seat is the same CLI, on the same subscription and the same model, as the setup it is
 compared with; what differs is what LetThemBuild sends it and how it starts it. The rooms had one seat, no
 reviewers and ranking off, and ran a single round. Every run started from the same checkout at the issue's base
 commit with a 40-minute limit, on one Apple M5 Mac (24 GB, macOS 26.3), between 4 and 8 November 2026. A run that
-reached the limit was graded as it stood and not run again; only Gemini's did. A run a subscription's usage limit
+reached the limit would have been graded as it stood; no Claude or Codex run did. A run a subscription's usage limit
 cut short was discarded and run again once the limit had reset.
 
 ### Measurement
 
-- **Tokens:** each tool's own count. Claude Code's final `modelUsage`, the sum of Codex's per-turn `usage`, the
-  Antigravity and Grok CLIs' own usage records, and LetThemBuild's per-call record of what its seat's CLI reported
+- **Tokens:** each tool's own count. Claude Code's final `modelUsage`, the sum of Codex's per-turn `usage`, and
+  LetThemBuild's per-call record of what its seat's CLI reported
   (`usage.jsonl`). All include cache reads.
 - **Solved:** the official harness, `swebench` 5.0.2, `run_evaluation` against `SWE-bench/SWE-bench_Verified`, in
   Docker 29.1.3. A run's patch is everything it changed against the base commit, minus the tools' own folders.
@@ -131,12 +127,12 @@ cut short was discarded and run again once the limit had reset.
 
 ## What this does not show
 
-- **Fifty issues, two runs each.** Agentic runs vary from run to run; the ranges above say how much. Codex's and
-  Grok's differences are within that variation or close to it.
+- **Fifty issues, two runs each.** Agentic runs vary from run to run; the ranges above say how much. Codex's
+  difference is within that variation or close to it.
 - **Claude's comparison depends on what is installed.** Claude Code was measured as it runs on a working
   developer's Mac. On a machine with nothing added the gap is smaller; our estimate is above.
-- **Two LetThemBuild builds.** Claude's seat ran a newer build than the other three, with a shorter brief and the
-  lean start. The other models have not been rerun on it.
+- **Two LetThemBuild builds.** Claude's seat ran a newer build than Codex's, with a shorter brief and the lean
+  start. Codex has not been rerun on it.
 - **One seat only.** These are single-seat rooms. A room with reviewers reads the problem more than once and costs
   more tokens; that is a different measurement.
 - **One machine, one week's models.** Results will move as models and tools change; versions and dates are above.
@@ -158,9 +154,7 @@ Print every figure in the tables above, and redraw the charts:
 
 ```bash
 node harness/verdict.mjs full-50 claude-code,claude-code-run2 letthembuild-claude,letthembuild-claude-run2
-node harness/verdict.mjs full-50 gemini,gemini-run2 letthembuild-gemini,letthembuild-gemini-run2
 node harness/verdict.mjs full-50 codex,codex-run2 letthembuild-codex,letthembuild-codex-run2
-node harness/verdict.mjs full-50 grok,grok-run2 letthembuild-grok,letthembuild-grok-run2
 node harness/charts-full.mjs
 ```
 
@@ -200,8 +194,8 @@ harness/                         select_tasks.py, prepare.py, run.mjs, grade.mjs
                                  charts-full.mjs, export-public.mjs, verdict.mjs
 ```
 
-Setups are `claude-code`, `gemini`, `codex`, `grok` and `letthembuild-<model>`, each with a `-run2` for its second
-run. Transcripts are the tools' own streams with machine details removed: home-folder paths and email addresses
+Setups are `claude-code`, `codex` and `letthembuild-<model>`, each with a `-run2` for its second run. The
+`gemini`, `grok`, `letthembuild-gemini` and `letthembuild-grok` folders hold the withdrawn runs. Transcripts are the tools' own streams with machine details removed: home-folder paths and email addresses
 are replaced, and the parts that describe the machine rather than the run (app settings, other conversations,
 installed plugins, connectors and commands, a listing of the home folder or of the shell's environment) are left
 out. `harness/export-public.mjs` is exactly what did that.
