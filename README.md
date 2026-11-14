@@ -12,6 +12,11 @@ repository, so you can check the numbers yourself.
 > **Gemini and Grok results withdrawn (14 November 2026).** We also ran Gemini and Grok. Their figures are withdrawn
 > while we run them again with web access off and the workspace kept apart from the benchmark's own files. Their
 > runs stay in `full-50/data` for reference, but they are not part of the results below.
+>
+> **A second run is pre-registered.** All four models, on the 50 held-out issues of the same seeded draw, with every
+> setup isolated from the network and the benchmark's own files. The plan, the frozen versions and the analysis
+> were published before the first run: [`v2/PREREGISTRATION.md`](v2/PREREGISTRATION.md), with the harness in
+> [`v2/harness/`](v2/harness).
 
 ## What we found
 
