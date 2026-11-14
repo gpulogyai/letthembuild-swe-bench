@@ -17,9 +17,7 @@ const THEMES = {
 };
 const MODELS = [
   { family: "claude", cli: "claude-code", ltb: "letthembuild-claude", cliName: "Claude Code", ltbName: "LTB · Claude" },
-  { family: "gemini", cli: "gemini", ltb: "letthembuild-gemini", cliName: "Antigravity CLI", ltbName: "LTB · Gemini" },
   { family: "codex", cli: "codex", ltb: "letthembuild-codex", cliName: "Codex CLI", ltbName: "LTB · Codex" },
-  { family: "grok", cli: "grok", ltb: "letthembuild-grok", cliName: "Grok CLI", ltbName: "LTB · Grok" },
 ];
 const SANS = "-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif";
 const MONO = "ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace";
