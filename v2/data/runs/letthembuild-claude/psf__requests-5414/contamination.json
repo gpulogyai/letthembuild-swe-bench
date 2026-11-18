@@ -1,7 +1,9 @@
 {
   "clean": true,
   "reached": [],
-  "attempted": [],
+  "attempted": [
+    "upstream URL: github.com/psf/requests/pull/2238"
+  ],
   "recall": [],
   "notes": [
     "telemetry or asset host refused: lh3.googleusercontent.com (1)",

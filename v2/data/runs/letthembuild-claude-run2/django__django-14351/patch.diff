@@ -1,8 +1,8 @@
 diff --git a/django/db/models/fields/related_lookups.py b/django/db/models/fields/related_lookups.py
-index d745ecd5f9..e9a166a2c5 100644
+index d745ecd5f9..112f5e5f18 100644
 --- a/django/db/models/fields/related_lookups.py
 +++ b/django/db/models/fields/related_lookups.py
-@@ -45,18 +45,36 @@ def get_normalized_value(value, lhs):
+@@ -45,18 +45,37 @@ def get_normalized_value(value, lhs):
  
  class RelatedIn(In):
      def get_prep_lookup(self):
@@ -43,7 +43,8 @@ index d745ecd5f9..e9a166a2c5 100644
 +                ):
 +                    # A case like
 +                    # Restaurant.objects.filter(place__in=restaurant_qs), where
-+                    # place is a OneToOneField and the primary key of Restaurant.
++                    # place is a OneToOneField and the primary key of
++                    # Restaurant.
 +                    target_field = self.lhs.field.name
 +                else:
 +                    target_field = self.lhs.field.target_field.name
@@ -51,7 +52,7 @@ index d745ecd5f9..e9a166a2c5 100644
          return super().get_prep_lookup()
  
      def as_sql(self, compiler, connection):
-@@ -85,20 +103,7 @@ class RelatedIn(In):
+@@ -85,20 +104,7 @@ class RelatedIn(In):
                          [source.name for source in self.lhs.sources], self.rhs),
                      AND)
              return root_constraint.as_sql(compiler, connection)
@@ -74,24 +75,25 @@ index d745ecd5f9..e9a166a2c5 100644
  
  class RelatedLookupMixin:
 diff --git a/django/db/models/lookups.py b/django/db/models/lookups.py
-index 5089737034..0a27e61504 100644
+index 5089737034..4b4b2e6731 100644
 --- a/django/db/models/lookups.py
 +++ b/django/db/models/lookups.py
-@@ -376,6 +376,13 @@ class IntegerLessThan(IntegerFieldFloatRounding, LessThan):
+@@ -376,6 +376,14 @@ class IntegerLessThan(IntegerFieldFloatRounding, LessThan):
  class In(FieldGetDbPrepValueIterableMixin, BuiltinLookup):
      lookup_name = 'in'
  
 +    def get_prep_lookup(self):
 +        from django.db.models.sql.query import Query  # avoid circular import
-+        if isinstance(self.rhs, Query) and not self.rhs.has_select_fields:
-+            self.rhs.clear_select_clause()
-+            self.rhs.add_fields(['pk'])
++        if isinstance(self.rhs, Query):
++            if not self.rhs.has_select_fields:
++                self.rhs.clear_select_clause()
++                self.rhs.add_fields(['pk'])
 +        return super().get_prep_lookup()
 +
      def process_rhs(self, compiler, connection):
          db_rhs = getattr(self.rhs, '_db', None)
          if db_rhs is not None and db_rhs != connection.alias:
-@@ -401,9 +408,6 @@ class In(FieldGetDbPrepValueIterableMixin, BuiltinLookup):
+@@ -401,9 +409,6 @@ class In(FieldGetDbPrepValueIterableMixin, BuiltinLookup):
              placeholder = '(' + ', '.join(sqls) + ')'
              return (placeholder, sqls_params)
          else:

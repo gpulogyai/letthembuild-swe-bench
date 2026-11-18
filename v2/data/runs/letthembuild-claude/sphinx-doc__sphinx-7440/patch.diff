@@ -1,5 +1,5 @@
 diff --git a/sphinx/domains/std.py b/sphinx/domains/std.py
-index d820cfe5c..d707d30fb 100644
+index d820cfe5c..6bce1cd90 100644
 --- a/sphinx/domains/std.py
 +++ b/sphinx/domains/std.py
 @@ -305,7 +305,7 @@ def make_glossary_term(env: "BuildEnvironment", textnodes: Iterable[Node], index
@@ -29,7 +29,7 @@ index d820cfe5c..d707d30fb 100644
          elif typ == 'citation':
              warnings.warn('pending_xref(domain=std, type=citation) is deprecated: %r' % node,
                            RemovedInSphinx40Warning)
-@@ -938,12 +940,30 @@ class StandardDomain(Domain):
+@@ -923,6 +925,24 @@ class StandardDomain(Domain):
          return make_refnode(builder, fromdocname, docname,
                              labelid, contnode)
  
@@ -40,36 +40,26 @@ index d820cfe5c..d707d30fb 100644
 +                                        target, node, contnode)
 +        if result:
 +            return result
-+        else:
-+            # fallback to case insensitive match
-+            ltarget = target.lower()
-+            for objtype, term in self.objects:
-+                if objtype == 'term' and term.lower() == ltarget:
-+                    docname, labelid = self.objects[objtype, term]
-+                    return make_refnode(builder, fromdocname, docname,
-+                                        labelid, contnode)
 +
-+            return None
++        # fall back to a case-insensitive match
++        ltarget = target.lower()
++        for objtype, term in self.objects:
++            if objtype == 'term' and term.lower() == ltarget:
++                docname, labelid = self.objects[objtype, term]
++                return make_refnode(builder, fromdocname, docname,
++                                    labelid, contnode)
 +
-     def resolve_any_xref(self, env: "BuildEnvironment", fromdocname: str,
-                          builder: "Builder", target: str, node: pending_xref,
-                          contnode: Element) -> List[Tuple[str, Element]]:
-         results = []  # type: List[Tuple[str, Element]]
-         ltarget = target.lower()  # :ref: lowercases its target automatically
--        for role in ('ref', 'option'):  # do not try "keyword"
-+        for role in ('ref', 'option', 'term'):  # do not try "keyword"
-             res = self.resolve_xref(env, fromdocname, builder, role,
-                                     ltarget if role == 'ref' else target,
-                                     node, contnode)
-@@ -951,9 +971,9 @@ class StandardDomain(Domain):
-                 results.append(('std:' + role, res))
++        return None
++
+     def _resolve_obj_xref(self, env: "BuildEnvironment", fromdocname: str,
+                           builder: "Builder", typ: str, target: str,
+                           node: pending_xref, contnode: Element) -> Element:
+@@ -952,8 +972,6 @@ class StandardDomain(Domain):
          # all others
          for objtype in self.object_types:
--            key = (objtype, target)
-             if objtype == 'term':
+             key = (objtype, target)
+-            if objtype == 'term':
 -                key = (objtype, ltarget)
-+                continue  # already resolved above
-+            key = (objtype, target)
              if key in self.objects:
                  docname, labelid = self.objects[key]
                  results.append(('std:' + self.role_for_objtype(objtype),

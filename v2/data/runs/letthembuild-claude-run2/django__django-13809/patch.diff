@@ -43,7 +43,7 @@ index b7f6e175be..d2d39a7317 100644
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
 diff --git a/docs/releases/4.0.txt b/docs/releases/4.0.txt
-index 52531c1266..ed991fb672 100644
+index 52531c1266..d5020d95c7 100644
 --- a/docs/releases/4.0.txt
 +++ b/docs/releases/4.0.txt
 @@ -153,7 +153,8 @@ Logging
@@ -51,8 +51,8 @@ index 52531c1266..ed991fb672 100644
  ~~~~~~~~~~~~~~~~~~~
  
 -* ...
-+* The :djadmin:`runserver` management command now supports the
-+  :option:`--skip-checks` option.
++* The new :option:`runserver --skip-checks` option allows skipping system
++  checks.
  
  Migrations
  ~~~~~~~~~~

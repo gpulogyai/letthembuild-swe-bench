@@ -1,0 +1,12 @@
+{
+  "clean": true,
+  "reached": [],
+  "attempted": [],
+  "recall": [],
+  "notes": [
+    "telemetry or asset host refused: lh3.googleusercontent.com (1)",
+    "telemetry or asset host refused: play.googleapis.com (3)",
+    "package index: pypi.org (2)",
+    "package index: files.pythonhosted.org (1)"
+  ]
+}

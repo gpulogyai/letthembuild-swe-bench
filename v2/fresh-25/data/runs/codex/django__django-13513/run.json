@@ -1,0 +1,40 @@
+{
+  "setup": "codex",
+  "instance_id": "django__django-13513",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-18T01:51:21.837Z",
+  "wallSeconds": 61,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/views/debug.py"
+  ],
+  "versions": {
+    "claude": "2.1.325 (Claude Code)",
+    "codex": "codex-cli 0.169.0",
+    "agy": "1.5.10",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 18913,
+        "cacheRead": 86400,
+        "cacheWrite": 0,
+        "output": 871,
+        "total": 106184
+      }
+    },
+    "total": 106184,
+    "calls": 1,
+    "costUsd": null,
+    "complete": true
+  }
+}

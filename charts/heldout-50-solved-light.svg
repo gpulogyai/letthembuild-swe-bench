@@ -14,21 +14,21 @@
 <text x="538.4000000000001" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">40</text>
 <line x1="630" x2="630" y1="52" y2="256" stroke="#dde1e7"/>
 <text x="630" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">50</text>
-<line x1="0" x2="820" y1="172" y2="172" stroke="#dde1e7" stroke-dasharray="3 4"/>
+<line x1="0" x2="820" y1="132" y2="132" stroke="#dde1e7" stroke-dasharray="3 4"/>
 <text x="160" y="77" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Claude Code</text>
 <path d="M172,61H616.8399999999999a4,4 0 0 1 4,4V79a4,4 0 0 1 -4,4H172Z" fill="#e0773c" fill-opacity="0.4"/>
 <text x="628.8399999999999" y="76.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">49 and 49 of 50</text>
-<text x="160" y="117" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Claude</text>
+<text x="160" y="117" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Claude*</text>
 <path d="M172,101H603.0999999999999a4,4 0 0 1 4,4V119a4,4 0 0 1 -4,4H172Z" fill="#e0773c"/>
 <text x="615.0999999999999" y="116.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d" font-weight="600">47 and 48 of 50</text>
-<text x="160" y="157" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Claude, trimmed*</text>
-<path d="M172,141H603.0999999999999a4,4 0 0 1 4,4V159a4,4 0 0 1 -4,4H172Z" fill="#e0773c"/>
-<text x="615.0999999999999" y="156.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d" font-weight="600">47 and 48 of 50</text>
-<text x="160" y="197" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Codex CLI</text>
-<path d="M172,181H561.88a4,4 0 0 1 4,4V199a4,4 0 0 1 -4,4H172Z" fill="#10a37f" fill-opacity="0.4"/>
-<text x="573.88" y="196.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">43 and 43 of 50</text>
-<text x="160" y="237" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Codex</text>
-<path d="M172,221H571.04a4,4 0 0 1 4,4V239a4,4 0 0 1 -4,4H172Z" fill="#10a37f"/>
-<text x="583.04" y="236.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d" font-weight="600">44 and 44 of 50</text>
-<text x="20" y="298" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="12.5" fill="#59606b">Solved out of 50 in each run, official SWE-bench harness; bar length is the mean. * Added later.</text>
+<text x="160" y="157" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Codex CLI</text>
+<path d="M172,141H561.88a4,4 0 0 1 4,4V159a4,4 0 0 1 -4,4H172Z" fill="#10a37f" fill-opacity="0.4"/>
+<text x="573.88" y="156.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">43 and 43 of 50</text>
+<text x="160" y="197" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Codex, first</text>
+<path d="M172,181H571.04a4,4 0 0 1 4,4V199a4,4 0 0 1 -4,4H172Z" fill="#10a37f"/>
+<text x="583.04" y="196.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d" font-weight="600">44 and 44 of 50</text>
+<text x="160" y="237" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Codex, rerun</text>
+<path d="M172,221H557.3a4,4 0 0 1 4,4V239a4,4 0 0 1 -4,4H172Z" fill="#10a37f"/>
+<text x="569.3" y="236.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d" font-weight="600">42 and 43 of 50</text>
+<text x="20" y="298" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="12.5" fill="#59606b">Solved out of 50 in each run, official SWE-bench harness; bar length is the mean. * Brief settled after the pre-registered run.</text>
 </svg>
