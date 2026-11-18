@@ -53,4 +53,15 @@ as "no detectable difference" unless the interval excludes zero. All four models
 
 ## Changes after the first held-out run
 
-None.
+- 2026-11-14, driver only: run-all.sh takes a lock so a second copy cannot start. A second copy did start once; the five
+  runs it touched were deleted and rerun.
+- 2026-11-14, driver only: run.mjs exits once its result line is written. A provider connection left open by the CLI
+  had kept one finished run's process alive for four hours, and its lane waited behind it. No run's result changed.
+- 2026-11-14, added arm: LetThemBuild + Claude with a trimmed Claude Code lead brief (build a8cb60835), two runs on the
+  same 50 issues under tags trim1 and trim2. The trim was chosen after this run's Claude results were seen, and tested
+  first on 15 tuning issues; it is reported as an added, post-hoc arm beside the pre-registered ones, which are
+  unchanged. Its Claude Code comparison is the pre-registered cc runs, made earlier the same day.
+- 2026-11-15, driver only: run.mjs reads an optional SWE_DATA issue file, for a separate experiment on 25 other
+  Verified issues. Unset, as in every pre-registered run, it reads the same 100 issues as before.
+- 2026-11-17, reporting: the results for Claude and Codex are published while the Gemini and Grok runs, held by
+  their plans' usage limits, continue. Those two are added when they finish, under the same analysis.

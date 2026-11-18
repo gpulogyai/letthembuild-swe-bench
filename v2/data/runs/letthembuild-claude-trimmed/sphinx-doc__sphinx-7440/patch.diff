@@ -1,0 +1,65 @@
+diff --git a/sphinx/domains/std.py b/sphinx/domains/std.py
+index d820cfe5c..6bce1cd90 100644
+--- a/sphinx/domains/std.py
++++ b/sphinx/domains/std.py
+@@ -305,7 +305,7 @@ def make_glossary_term(env: "BuildEnvironment", textnodes: Iterable[Node], index
+         term['ids'].append(node_id)
+ 
+     std = cast(StandardDomain, env.get_domain('std'))
+-    std.note_object('term', termtext.lower(), node_id, location=term)
++    std.note_object('term', termtext, node_id, location=term)
+ 
+     # add an index entry too
+     indexnode = addnodes.index()
+@@ -565,7 +565,7 @@ class StandardDomain(Domain):
+         # links to tokens in grammar productions
+         'token':   TokenXRefRole(),
+         # links to terms in glossary
+-        'term':    XRefRole(lowercase=True, innernodeclass=nodes.inline,
++        'term':    XRefRole(innernodeclass=nodes.inline,
+                             warn_dangling=True),
+         # links to headings or arbitrary labels
+         'ref':     XRefRole(lowercase=True, innernodeclass=nodes.inline,
+@@ -784,6 +784,8 @@ class StandardDomain(Domain):
+             resolver = self._resolve_doc_xref
+         elif typ == 'option':
+             resolver = self._resolve_option_xref
++        elif typ == 'term':
++            resolver = self._resolve_term_xref
+         elif typ == 'citation':
+             warnings.warn('pending_xref(domain=std, type=citation) is deprecated: %r' % node,
+                           RemovedInSphinx40Warning)
+@@ -923,6 +925,24 @@ class StandardDomain(Domain):
+         return make_refnode(builder, fromdocname, docname,
+                             labelid, contnode)
+ 
++    def _resolve_term_xref(self, env: "BuildEnvironment", fromdocname: str,
++                           builder: "Builder", typ: str, target: str,
++                           node: pending_xref, contnode: Element) -> Element:
++        result = self._resolve_obj_xref(env, fromdocname, builder, typ,
++                                        target, node, contnode)
++        if result:
++            return result
++
++        # fall back to a case-insensitive match
++        ltarget = target.lower()
++        for objtype, term in self.objects:
++            if objtype == 'term' and term.lower() == ltarget:
++                docname, labelid = self.objects[objtype, term]
++                return make_refnode(builder, fromdocname, docname,
++                                    labelid, contnode)
++
++        return None
++
+     def _resolve_obj_xref(self, env: "BuildEnvironment", fromdocname: str,
+                           builder: "Builder", typ: str, target: str,
+                           node: pending_xref, contnode: Element) -> Element:
+@@ -952,8 +972,6 @@ class StandardDomain(Domain):
+         # all others
+         for objtype in self.object_types:
+             key = (objtype, target)
+-            if objtype == 'term':
+-                key = (objtype, ltarget)
+             if key in self.objects:
+                 docname, labelid = self.objects[key]
+                 results.append(('std:' + self.role_for_objtype(objtype),

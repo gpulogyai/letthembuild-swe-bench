@@ -1,0 +1,11 @@
+{
+  "clean": true,
+  "reached": [],
+  "attempted": [
+    "network: github.com refused (4)"
+  ],
+  "recall": [],
+  "notes": [
+    "telemetry or asset host refused: mcp-proxy.anthropic.com (20)"
+  ]
+}

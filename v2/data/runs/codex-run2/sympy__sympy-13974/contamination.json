@@ -1,0 +1,17 @@
+{
+  "clean": true,
+  "reached": [],
+  "attempted": [],
+  "recall": [],
+  "notes": [
+    "telemetry or asset host refused: sdmntpreastus3.oaiusercontent.com (1)",
+    "telemetry or asset host refused: sdmntprsouthcentralus.oaiusercontent.com (9)",
+    "telemetry or asset host refused: sdmntprwestus.oaiusercontent.com (2)",
+    "telemetry or asset host refused: sdmntprcentralus.oaiusercontent.com (4)",
+    "telemetry or asset host refused: sdmntprnorthcentralus.oaiusercontent.com (1)",
+    "telemetry or asset host refused: sdmntprcacentral.oaiusercontent.com (1)",
+    "telemetry or asset host refused: sdmntprsoutheastus3.oaiusercontent.com (1)",
+    "telemetry or asset host refused: sdmntprwestus3.oaiusercontent.com (1)",
+    "package index: pypi.org (1)"
+  ]
+}

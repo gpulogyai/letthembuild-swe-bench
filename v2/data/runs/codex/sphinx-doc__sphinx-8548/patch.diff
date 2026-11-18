@@ -1,0 +1,63 @@
+diff --git a/sphinx/ext/autodoc/__init__.py b/sphinx/ext/autodoc/__init__.py
+index ddfd2b365..183536eb3 100644
+--- a/sphinx/ext/autodoc/__init__.py
++++ b/sphinx/ext/autodoc/__init__.py
+@@ -2219,10 +2219,9 @@ class UninitializedInstanceAttributeMixin(DataDocumenterMixinBase):
+                 super().should_suppress_value_header())
+ 
+     def get_doc(self, encoding: str = None, ignore: int = None) -> List[List[str]]:
+-        if self.object is UNINITIALIZED_ATTR:
+-            comment = self.get_attribute_comment(self.parent)
+-            if comment:
+-                return [comment]
++        comment = self.get_attribute_comment(self.parent)
++        if comment:
++            return [comment]
+ 
+         return super().get_doc(encoding, ignore)  # type: ignore
+ 
+diff --git a/sphinx/ext/autodoc/importer.py b/sphinx/ext/autodoc/importer.py
+index d6e73d36a..2ee038d76 100644
+--- a/sphinx/ext/autodoc/importer.py
++++ b/sphinx/ext/autodoc/importer.py
+@@ -14,7 +14,7 @@ import warnings
+ from typing import Any, Callable, Dict, List, Mapping, NamedTuple, Optional, Tuple
+ 
+ from sphinx.deprecation import RemovedInSphinx40Warning, deprecated_alias
+-from sphinx.pycode import ModuleAnalyzer
++from sphinx.pycode import ModuleAnalyzer, PycodeError
+ from sphinx.util import logging
+ from sphinx.util.inspect import (getannotations, getmro, getslots, isclass, isenumclass,
+                                  safe_getattr)
+@@ -307,13 +307,24 @@ def get_class_members(subject: Any, objpath: List[str], attrgetter: Callable,
+         except AttributeError:
+             pass
+ 
+-    if analyzer:
+-        # append instance attributes (cf. self.attr1) if analyzer knows
+-        namespace = '.'.join(objpath)
+-        for (ns, name), docstring in analyzer.attr_docs.items():
+-            if namespace == ns and name not in members:
+-                members[name] = ClassAttribute(subject, name, INSTANCEATTR,
+-                                               '\n'.join(docstring))
++    for cls in getmro(subject):
++        try:
++            if cls is subject and analyzer:
++                cls_analyzer = analyzer
++                namespace = '.'.join(objpath)
++            else:
++                cls_analyzer = ModuleAnalyzer.for_module(cls.__module__)
++                namespace = cls.__qualname__
++
++            for (ns, name), docstring in cls_analyzer.find_attr_docs().items():
++                if namespace == ns:
++                    if name not in members:
++                        members[name] = ClassAttribute(cls, name, INSTANCEATTR,
++                                                       '\n'.join(docstring))
++                    elif members[name].docstring is None:
++                        members[name].docstring = '\n'.join(docstring)
++        except (AttributeError, PycodeError):
++            pass
+ 
+     return members
+ 

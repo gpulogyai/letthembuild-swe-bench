@@ -19,7 +19,8 @@ import { startProxy } from "./proxy.mjs";
 import { check } from "./contam.mjs";
 
 const V2 = import.meta.dirname, H = os.homedir();
-const DATA = join(H, "ltb-tokenbench/swe/verified-100.json");
+// SWE_DATA points a separate experiment at another issue file; unset, it is the pre-registered 100.
+const DATA = process.env.SWE_DATA || join(H, "ltb-tokenbench/swe/verified-100.json");
 // The LetThemBuild bench build's desktop folder, for the LetThemBuild setups (set in local.env, which run-all.sh reads).
 const LTB_DESKTOP = process.env.LTB_DESKTOP ?? "";
 const LTB_DATA_TEMPLATE = join(V2, "ltb-data-template");
@@ -160,4 +161,5 @@ if (isLtb && existsSync(ltbData)) {
 writeFileSync(join(out, "contamination.json"), JSON.stringify(verdict, null, 2));
 returnHome(home);
 rmSync(slot, { recursive: true, force: true });
-console.log(`${armTagged} ${id}: exit ${code}${timedOut ? " TIMEOUT" : ""}${failed ? " FAILED" : ""}, ${Math.round((ended - started) / 1000)}s, ${usage.total} tokens, ${files.length} files, patch ${patch.length}B, contamination ${verdict.clean ? "clean" : "REACHED: " + verdict.reached.join("; ")}${verdict.attempted.length ? " / tried: " + verdict.attempted.join("; ") : ""}${verdict.recall.length ? " / recall: " + verdict.recall.join("; ") : ""}`);
+process.stdout.write(`${armTagged} ${id}: exit ${code}${timedOut ? " TIMEOUT" : ""}${failed ? " FAILED" : ""}, ${Math.round((ended - started) / 1000)}s, ${usage.total} tokens, ${files.length} files, patch ${patch.length}B, contamination ${verdict.clean ? "clean" : "REACHED: " + verdict.reached.join("; ")}${verdict.attempted.length ? " / tried: " + verdict.attempted.join("; ") : ""}${verdict.recall.length ? " / recall: " + verdict.recall.join("; ") : ""}` + "\n", () => process.exit(0));
+// Exit once the line is out, so a provider connection the CLI leaves open cannot hold the run's lane.

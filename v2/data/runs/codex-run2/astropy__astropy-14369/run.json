@@ -1,0 +1,41 @@
+{
+  "setup": "codex-run2",
+  "instance_id": "astropy__astropy-14369",
+  "repo": "astropy/astropy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-14T23:30:19.697Z",
+  "wallSeconds": 95,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "astropy/units/format/cds.py",
+    "astropy/units/format/cds_parsetab.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.9",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 14851,
+        "cacheRead": 170112,
+        "cacheWrite": 0,
+        "output": 3042,
+        "total": 188005
+      }
+    },
+    "total": 188005,
+    "calls": 1,
+    "costUsd": null,
+    "complete": true
+  }
+}

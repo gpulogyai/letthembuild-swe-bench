@@ -1,0 +1,64 @@
+diff --git a/sphinx/domains/std.py b/sphinx/domains/std.py
+index d820cfe5c..7042fb341 100644
+--- a/sphinx/domains/std.py
++++ b/sphinx/domains/std.py
+@@ -305,7 +305,7 @@ def make_glossary_term(env: "BuildEnvironment", textnodes: Iterable[Node], index
+         term['ids'].append(node_id)
+ 
+     std = cast(StandardDomain, env.get_domain('std'))
+-    std.note_object('term', termtext.lower(), node_id, location=term)
++    std.note_object('term', termtext, node_id, location=term)
+ 
+     # add an index entry too
+     indexnode = addnodes.index()
+@@ -565,7 +565,7 @@ class StandardDomain(Domain):
+         # links to tokens in grammar productions
+         'token':   TokenXRefRole(),
+         # links to terms in glossary
+-        'term':    XRefRole(lowercase=True, innernodeclass=nodes.inline,
++        'term':    XRefRole(innernodeclass=nodes.inline,
+                             warn_dangling=True),
+         # links to headings or arbitrary labels
+         'ref':     XRefRole(lowercase=True, innernodeclass=nodes.inline,
+@@ -933,11 +933,23 @@ class StandardDomain(Domain):
+                 break
+         else:
+             docname, labelid = '', ''
++            if 'term' in objtypes:
++                # glossary terms are case-sensitive; fall back to a
++                # case-insensitive match for compatibility
++                docname, labelid = self._find_term(target) or ('', '')
+         if not docname:
+             return None
+         return make_refnode(builder, fromdocname, docname,
+                             labelid, contnode)
+ 
++    def _find_term(self, target: str) -> Tuple[str, str]:
++        """Find a glossary term case-insensitively."""
++        ltarget = target.lower()
++        for (objtype, name), (docname, labelid) in self.objects.items():
++            if objtype == 'term' and name.lower() == ltarget:
++                return docname, labelid
++        return None
++
+     def resolve_any_xref(self, env: "BuildEnvironment", fromdocname: str,
+                          builder: "Builder", target: str, node: pending_xref,
+                          contnode: Element) -> List[Tuple[str, Element]]:
+@@ -952,10 +964,14 @@ class StandardDomain(Domain):
+         # all others
+         for objtype in self.object_types:
+             key = (objtype, target)
+-            if objtype == 'term':
+-                key = (objtype, ltarget)
+             if key in self.objects:
+-                docname, labelid = self.objects[key]
++                result = self.objects[key]
++            elif objtype == 'term':
++                result = self._find_term(target)
++            else:
++                result = None
++            if result:
++                docname, labelid = result
+                 results.append(('std:' + self.role_for_objtype(objtype),
+                                 make_refnode(builder, fromdocname, docname,
+                                              labelid, contnode)))
