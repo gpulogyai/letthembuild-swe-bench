@@ -1,0 +1,40 @@
+{
+  "setup": "codex",
+  "instance_id": "psf__requests-5414",
+  "repo": "psf/requests",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-14T17:18:54.871Z",
+  "wallSeconds": 28,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "requests/models.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.9",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 10098,
+        "cacheRead": 71936,
+        "cacheWrite": 0,
+        "output": 683,
+        "total": 82717
+      }
+    },
+    "total": 82717,
+    "calls": 1,
+    "costUsd": null,
+    "complete": true
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "setup": "letthembuild-claude-trimmed-run2",
+  "instance_id": "scikit-learn__scikit-learn-13779",
+  "repo": "scikit-learn/scikit-learn",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-15T01:46:15.715Z",
+  "wallSeconds": 26,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sklearn/ensemble/voting.py"
+  ],
+  "versions": {
+    "claude": "2.1.325 (Claude Code)",
+    "codex": "codex-cli 0.169.0",
+    "agy": "1.5.9",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "ltbBuild": "a8cb6083564f9457316d50e1c56600bc328c4fa7",
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 1,
+        "uncached": 12,
+        "cacheRead": 79928,
+        "cacheWrite": 11946,
+        "output": 1669,
+        "total": 93555
+      }
+    },
+    "total": 93555,
+    "calls": null,
+    "costUsd": null,
+    "complete": true
+  }
+}

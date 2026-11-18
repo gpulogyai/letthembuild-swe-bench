@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 312" width="820" role="img">
+<rect width="820" height="312" rx="14" fill="#ffffff"/>
+<rect x="20" y="16" width="14" height="14" rx="3" fill="#59606b" fill-opacity="0.4"/><text x="42" y="28" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="14" fill="#59606b">the model's own CLI</text>
+<rect x="210" y="16" width="14" height="14" rx="3" fill="#59606b"/><text x="232" y="28" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="14" fill="#59606b">LetThemBuild, that model as its one seat</text>
+<line x1="172" x2="172" y1="52" y2="256" stroke="#dde1e7"/>
+<text x="172" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">0%</text>
+<line x1="263.6" x2="263.6" y1="52" y2="256" stroke="#dde1e7"/>
+<text x="263.6" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">25%</text>
+<line x1="355.20000000000005" x2="355.20000000000005" y1="52" y2="256" stroke="#dde1e7"/>
+<text x="355.20000000000005" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">50%</text>
+<line x1="446.8" x2="446.8" y1="52" y2="256" stroke="#dde1e7"/>
+<text x="446.8" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">75%</text>
+<line x1="538.4000000000001" x2="538.4000000000001" y1="52" y2="256" stroke="#dde1e7"/>
+<text x="538.4000000000001" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">100%</text>
+<line x1="630" x2="630" y1="52" y2="256" stroke="#dde1e7"/>
+<text x="630" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#59606b">125%</text>
+<line x1="0" x2="820" y1="172" y2="172" stroke="#dde1e7" stroke-dasharray="3 4"/>
+<text x="160" y="77" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Claude Code</text>
+<path d="M172,61H534.4000000000001a4,4 0 0 1 4,4V79a4,4 0 0 1 -4,4H172Z" fill="#e0773c" fill-opacity="0.4"/>
+<text x="546.4000000000001" y="76.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">13.2M</text>
+<text x="160" y="117" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Claude</text>
+<path d="M172,101H405.2799894229022a4,4 0 0 1 4,4V119a4,4 0 0 1 -4,4H172Z" fill="#e0773c"/>
+<text x="417.2799894229022" y="116.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d" font-weight="600">8.6M  (−35%)</text>
+<text x="160" y="157" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Claude, trimmed*</text>
+<path d="M172,141H352.30859976224195a4,4 0 0 1 4,4V159a4,4 0 0 1 -4,4H172Z" fill="#e0773c"/>
+<text x="364.30859976224195" y="156.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d" font-weight="600">6.7M  (−50%)</text>
+<text x="160" y="197" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">Codex CLI</text>
+<path d="M172,181H534.4000000000001a4,4 0 0 1 4,4V199a4,4 0 0 1 -4,4H172Z" fill="#10a37f" fill-opacity="0.4"/>
+<text x="546.4000000000001" y="196.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d">7.0M</text>
+<text x="160" y="237" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#15181d">LTB · Codex</text>
+<path d="M172,221H592.9914490068696a4,4 0 0 1 4,4V239a4,4 0 0 1 -4,4H172Z" fill="#10a37f"/>
+<text x="604.9914490068696" y="236.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#15181d" font-weight="600">8.2M  (+16%)</text>
+<text x="20" y="298" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="12.5" fill="#59606b">Tokens, 50 held-out issues, mean of two runs; bars relative to each model's own CLI. * Added later.</text>
+</svg>

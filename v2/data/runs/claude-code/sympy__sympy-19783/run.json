@@ -1,0 +1,41 @@
+{
+  "setup": "claude-code",
+  "instance_id": "sympy__sympy-19783",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-14T18:22:37.402Z",
+  "wallSeconds": 27,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/physics/quantum/dagger.py",
+    "sympy/physics/quantum/operator.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.9",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 12,
+        "cacheRead": 190034,
+        "cacheWrite": 11200,
+        "output": 2411,
+        "total": 203657
+      }
+    },
+    "total": 203657,
+    "calls": 9,
+    "costUsd": 0.1758748,
+    "complete": true
+  }
+}

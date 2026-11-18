@@ -25,6 +25,9 @@ lane() { # lane <cli-arm> <ltb-arm>
   echo "$(date -u +%FT%TZ) lane $1 done"
 }
 mkdir -p logs
+# One driver at a time: two would run the same issue in the same folders and spoil both runs.
+if ! mkdir logs/run-all.lock 2>/dev/null; then echo "run-all.sh is already running (logs/run-all.lock); not starting a second one"; exit 1; fi
+trap 'rmdir logs/run-all.lock 2>/dev/null' EXIT
 for pair in "cc ltb-claude" "codex ltb-codex" "agy ltb-gemini" "grok ltb-grok"; do
   set -- $pair
   case $1 in cc) fam=claude ;; codex) fam=codex ;; agy) fam=gemini ;; grok) fam=grok ;; esac
