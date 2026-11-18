@@ -21,21 +21,18 @@ This is a 50-issue sample, two runs per setup, not a leaderboard result.
 
 - **Claude used 50% fewer tokens as a LetThemBuild seat than in Claude Code** (95% range −53% to −46%), fewer on
   all 50 issues, at about the same cost (−3%, range −8% to +2%). It solved 47.5 against 49 for Claude Code
-  (difference −1.5, 95% interval −4 to 0): no detectable difference, only just. This is the brief LetThemBuild
-  ships; it was settled after the pre-registered run, as [The brief](#the-brief) explains.
-- **Codex used about as many tokens as a LetThemBuild seat as in the Codex CLI:** 2% fewer (95% range −11% to
-  +7%), solving 42.5 against 43 (−0.5, interval −2.5 to +1). A first run of this setup showed 16% more; it kept
-  Codex's own sandbox, which macOS cannot run inside the harness's, and was run again as LetThemBuild runs Codex
-  under its own sandbox. See [Codex, run again](#codex-run-again).
-- **With the brief LetThemBuild now gives it, Codex used 31% fewer tokens than the Codex CLI** (−42% to −20%), fewer
-  on 22 of 25 issues, in less time, on 25 other Verified issues: solved 20 against 21.5 (−1.5, interval −3 to 0), no
-  detectable difference, only just. This was added after the results above and is reported apart from them.
+  (difference −1.5, 95% interval −4 to 0): no detectable difference, only just.
+- **Codex used 33% fewer tokens as a LetThemBuild seat than in the Codex CLI** (95% range −41% to −25%), fewer on
+  46 of 50 issues, in less time. It solved 44 against 43 for the Codex CLI (difference +1, 95% interval −1 to +3):
+  no detectable difference.
+- **Both are the setups LetThemBuild ships.** Each was settled after the pre-registered run, as
+  [The brief](#the-brief) explains, and the pre-registered build's runs are published beside them.
 
 ## Tokens
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/heldout-50-tokens-dark.svg">
-  <img alt="Tokens for the 50 held-out issues, mean of two runs: Claude Code 13.2M, LetThemBuild with Claude 6.7M (−50%); Codex CLI 7.0M, LetThemBuild with Codex 8.2M (+16%) in its first run and 6.9M (−2%) run again." src="charts/heldout-50-tokens-light.svg" width="820">
+  <img alt="Tokens for the 50 held-out issues, mean of two runs: Claude Code 13.2M, LetThemBuild with Claude 6.7M (−50%); Codex CLI 7.0M, LetThemBuild with Codex 4.7M (−33%)." src="charts/heldout-50-tokens-light.svg" width="820">
 </picture>
 
 Tokens are everything the model read and wrote: fresh input, cache reads, cache writes and output, as each tool
@@ -45,7 +42,7 @@ reports them.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/heldout-50-solved-dark.svg">
-  <img alt="Issues solved out of 50 in each of two runs: Claude Code 49 and 49, LetThemBuild with Claude 47 and 48; Codex CLI 43 and 43, LetThemBuild with Codex 44 and 44 in its first run and 42 and 43 run again." src="charts/heldout-50-solved-light.svg" width="820">
+  <img alt="Issues solved out of 50 in each of two runs: Claude Code 49 and 49, LetThemBuild with Claude 47 and 48; Codex CLI 43 and 43, LetThemBuild with Codex 44 and 44." src="charts/heldout-50-solved-light.svg" width="820">
 </picture>
 
 ## Every setup
@@ -55,23 +52,19 @@ reports them.
 | Claude Code alone | claude-opus-5-5 | 49 · 49 | 12.82M · 13.65M | 13.24M | | | | 30 min |
 | **LetThemBuild · Claude*** | claude-opus-5-5 | **47 · 48** | **6.64M · 6.68M** | **6.66M** | **−49.7%** | −53.2% to −46.1% | 50 of 50 | 34 min |
 | Codex CLI alone | gpt-6.1-sol | 43 · 43 | 7.21M · 6.86M | 7.03M | | | | 36 min |
-| LetThemBuild · Codex, first run† | gpt-6.1-sol | 44 · 44 | 8.14M · 8.17M | 8.16M | +16.0% | +4.3% to +28.7% | 12 of 50 | 67 min |
-| **LetThemBuild · Codex, run again†** | gpt-6.1-sol | **42 · 43** | **6.83M · 6.75M** | **6.88M** | **−2.2%** | −10.8% to +6.6% | 20 of 50 | 44 min |
+| **LetThemBuild · Codex*** | gpt-6.1-sol | **44 · 44** | **4.68M · 4.68M** | **4.68M** | **−33.5%** | −41.1% to −25.2% | 46 of 50 | 32 min |
 
-\* The brief LetThemBuild ships, settled after the pre-registered results were seen; the pre-registered build's
-brief is reported in [The brief](#the-brief). † See [Codex, run again](#codex-run-again): one of its runs,
-matplotlib-24627 in run 1, ended without a token count and is counted as unsolved and left out of that issue's token
-mean, as pre-registered. An issue's tokens are the mean of its two runs.
-The ranges come from resampling the 50 issues 10,000 times, keeping each issue's runs together, with a fixed seed.
-Time per run is the wall-clock time for all 50 issues, mean of the two runs.
+\* The brief LetThemBuild ships, settled after the pre-registered results were seen; see [The brief](#the-brief).
+An issue's tokens are the mean of its two runs. The ranges come from resampling the 50 issues 10,000 times, keeping
+each issue's runs together, with a fixed seed. Time per run is the wall-clock time for all 50 issues, mean of the
+two runs.
 
 ### Issues solved, with intervals
 
 | Model | Own CLI | LetThemBuild | Difference | 95% interval | Reading |
 |---|---:|---:|---:|---|---|
 | Claude* | 49 | 47.5 | −1.5 | −4 to 0 | no detectable difference |
-| Codex, first run† | 43 | 44 | +1 | 0 to +2.5 | no detectable difference |
-| Codex, run again† | 43 | 42.5 | −0.5 | −2.5 to +1 | no detectable difference |
+| Codex* | 43 | 44 | +1 | −1 to +3 | no detectable difference |
 
 Mean of the two runs. The interval is from the same resampling as the token ranges; a difference counts as
 detectable only when its interval excludes zero, as pre-registered.
@@ -87,66 +80,44 @@ Cost is not a pre-registered outcome; it is here because tokens alone hide it. P
 claude-opus-5-5: input $4, cache read $0.20, cache write $5 (the five-minute cache), output $20. Claude Code
 writes to the one-hour cache, at $8 a million; at that price every setup costs more and the comparison barely moves.
 
-## Why the two models went different ways
+## Where the saving comes from
 
 A LetThemBuild seat reads LetThemBuild's own brief with every call: how to check a change, how to report it to the
 room. What that costs depends on what the CLI already carries.
 
-- **Claude Code starts heavy, so the seat saves.** As a seat it starts without the tools and instructions the room
-  already covers, and that saving is larger than the brief.
-- **The brief keeps to what only the room knows.** It leaves out the step-by-step narration Claude Code does by
-  itself, says how a change was checked once, and tries a test setup that will not run once before reporting it,
-  so the seat neither writes more nor searches more than Claude Code does.
-- **The Codex CLI already starts lean, so a full brief only breaks even.** Run as LetThemBuild runs it, the Codex
-  seat used about as many tokens as the Codex CLI alone with the full brief. The short brief removes what Codex's
-  own instructions already cover, and with it the seat used 31% fewer.
+- **Claude Code starts heavy.** As a seat it starts without the tools and instructions the room already covers,
+  and that saving is larger than the brief.
+- **The Codex CLI starts lean, so the brief has to be short.** Codex's own instructions already say how to work in
+  a repository; the brief for Codex seats leaves that out and keeps to what only the room knows.
+- **For both, the brief says each thing once.** It leaves out step-by-step narration the CLI does by itself, says
+  how a change was checked once, and tries a test setup that will not run once before reporting it, so the seat
+  neither writes more nor searches more than the CLI does alone.
 
 ## The brief
 
-The pre-registered LetThemBuild build (8fa13171e) carried the brief as it was on 14 November 2026. On the held-out
-50 its Claude seat used 35% fewer tokens than Claude Code (8.57M, range −39.6% to −30.4%) and solved 47 and 48, but
-cost 13% more at list price (+7.3% to +18.4%): the saving was in cache reads, which are cheap, while the seat made
-954 tool calls over the two runs to Claude Code's 743, wrote 87% more text between steps and gave answers 60%
-longer, and output and cache writes are the expensive tokens.
+Each seat's brief was settled after the pre-registered run and tested on the same 50 held-out issues, two runs,
+under the same harness, against the pre-registered runs of its own CLI. Because they were chosen after seeing
+results, both are listed under Changes in the pre-registration, and every earlier setup's runs are published
+unchanged.
 
-The brief was then shortened (build a8cb60835), tested first on 15 issues from the earlier run, and run twice on
-the same 50 held-out issues under the same harness, compared with the pre-registered Claude Code runs made earlier
-the same day. That is the brief LetThemBuild ships and the one reported above. Because it was chosen after seeing the
-pre-registered results, it is listed under Changes in the pre-registration, and the pre-registered build's runs are
-published unchanged as `letthembuild-claude-first-brief`.
+**Claude.** The pre-registered build (8fa13171e) carried the brief as it was on 14 November 2026. Its Claude seat
+used 35% fewer tokens than Claude Code (8.57M, range −39.6% to −30.4%) and solved 47 and 48, but cost 13% more at
+list price (+7.3% to +18.4%): the saving was in cache reads, which are cheap, while the seat made 954 tool calls
+over the two runs to Claude Code's 743, wrote 87% more text between steps and gave answers 60% longer, and output
+and cache writes are the expensive tokens. The brief was then shortened (build a8cb60835), tried first on 15 issues
+from the earlier run, and run on the held-out 50. Published as `letthembuild-claude-first-brief` (pre-registered)
+and `letthembuild-claude` (shipped).
 
-## Codex, run again
-
-The harness's kernel profile stands in for every setup's sandbox, so the Codex CLI alone ran with its own sandbox
-off. The first LetThemBuild · Codex runs instead kept Codex's own sandbox on. macOS cannot start one sandbox inside
-another, so every command the seat ran asked for approval, and Codex sent each request to its reviewer, a second
-model that writes its own session log. Those tokens were not in the seat's count.
-
-The setup was run again on the same 50 issues, two runs, with one change: the seat runs as LetThemBuild runs Codex
-under its own sandbox, where Codex's sandbox is off and no reviewer is called. Codex's own session logs were kept for
-every run, so every session it started is counted; no run started a second one. The Codex-alone runs are the
-pre-registered ones, unchanged. The change is listed in [`v2/PREREGISTRATION.md`](v2/PREREGISTRATION.md).
-
-On one issue measured both ways outside these runs (django-13449), the first setup's seat counted 202k tokens while its reviewer spent another 172k;
-run again, the same issue took 154k in all. So the first run's +16% understated what that setup cost.
-
-## The short brief for Codex, on 25 other issues
-
-LetThemBuild gives Claude Code seats a short brief that leaves out what Claude Code's own instructions cover. After
-the rerun above, the same brief was tried for Codex on 15 issues of the first run, then tested on 25 Verified issues
-that no setup had been tuned on, drawn with a fixed seed from the issues outside the first 100, two runs each, Codex
-CLI 0.169.0 for both setups, under the same harness. Data in [`v2/fresh-25/`](v2/fresh-25).
-
-| Setup | Solved, run 1 · run 2 | Tokens, run 1 · run 2 | Mean | Change | 95% range | Fewer tokens on | Time per run |
-|---|---:|---:|---:|---:|---|---:|---:|
-| Codex CLI alone | 21 · 22 | 3.24M · 3.05M | 3.15M | | | | 22 min |
-| **LetThemBuild · Codex, short brief** | **19 · 21** | **2.14M · 2.19M** | **2.16M** | **−31.2%** | −41.6% to −20.1% | 22 of 25 | 16 min |
-
-Issues solved: 20 against 21.5, a difference of −1.5 with a 95% interval of −3 to 0, so no detectable difference,
-only just. The issues went differently in three places: two it solved in one of its two runs where the Codex CLI
-solved both, and one the Codex CLI solved once and it did not. Output was about the same, 26k
-tokens against 25k: the saving is in what each call reads. The short brief is LetThemBuild's brief for Codex seats
-from its next release.
+**Codex.** Codex seats get a short brief that leaves out what Codex's own instructions cover and names each of the
+room's tools and rules once (build c5ae2f964). The short brief was tried on 15 issues from the earlier run and
+tested on 25 other Verified issues that no setup had been tuned on; naming each tool and rule once was then tried on
+another 15 issues from the earlier run, and the result run on the held-out 50. Against the full brief on the held-out
+50 it used 32% fewer tokens (range −36.3% to −27.0%), fewer on 49 of 50 issues, and solved 44 against 42.5. Two
+earlier setups are published unchanged: the pre-registered build's runs as `letthembuild-codex-first-run`, which
+kept Codex's own sandbox on inside the harness's, so each command went to Codex's reviewer, a second model whose
+tokens the seat's count did not include; and the full brief, run as LetThemBuild runs Codex, as
+`letthembuild-codex-full-brief`. The 25-issue test is in [`v2/fresh-25/`](v2/fresh-25): 31% fewer tokens than the
+Codex CLI, solved 20 against 21.5.
 
 ## How the held-out run was isolated
 
@@ -158,22 +129,22 @@ The same for every setup, as pre-registered:
 - Network only through a proxy that admits the model providers, LetThemBuild's account service and PyPI.
 - Every CLI's web search and fetch are off, and so are LetThemBuild's own web tools.
 
-Versions: Claude Code 2.1.311, Codex CLI 0.167.0, LetThemBuild bench build 8fa13171e (with the shipped Claude brief, a8cb60835),
-claude-opus-5-5 and gpt-6.1-sol. One Apple M5 Mac, 14–15 November 2026, a 40-minute limit per run; no run reached
-it. The Codex rerun ran on 17–18 November on the same build with the one change described above, and the 25-issue
-test on 17–18 November with Codex CLI 0.169.0. Within each model the CLI alone and LetThemBuild ran the same issue one after the other.
+Versions: Claude Code 2.1.311, Codex CLI 0.167.0, claude-opus-5-5 and gpt-6.1-sol. One Apple M5 Mac, a 40-minute
+limit per run; no run reached it. The CLI-alone runs and the pre-registered LetThemBuild build (8fa13171e) ran on
+14–15 November 2026; LetThemBuild · Claude as shipped on 14 November (a8cb60835); LetThemBuild · Codex as shipped on
+18 November (c5ae2f964), and the 25-issue test on 17–18 November with Codex CLI 0.169.0.
 
 ### Contamination checks
 
 Every run carries a `contamination.json`: what reached it from outside the issue and its repository, what the
 isolation refused, and whether the model named the benchmark.
 
-- **Nothing outside the issue and its repository reached any of the 700 Claude and Codex runs**, the 600 held-out
+- **Nothing outside the issue and its repository reached any of the 800 Claude and Codex runs**, the 700 held-out
   runs and the 100 on the 25 other issues. No run is excluded.
-- **Five flags for attempts, none of which reached a run.** One Claude Code run tried github.com and was refused;
-  in four runs the check flagged a link to an upstream pull request that sits in a comment in the project's own
+- **Seven flags for attempts, none of which reached a run.** One Claude Code run tried github.com and was refused;
+  in six runs the check flagged a link to an upstream pull request that sits in a comment in the project's own
   code. Reported, as pre-registered, not excluded.
-- **One flag for naming the benchmark, in eleven runs of one issue,** matplotlib-23412: the word it matched was part of
+- **One flag for naming the benchmark, in thirteen runs of one issue,** matplotlib-23412: the word it matched was part of
   `test_patches.py`, the project's own test file, not the benchmark.
 
 ## Check it yourself
@@ -182,13 +153,19 @@ Print every figure above from the published data:
 
 ```bash
 node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude,letthembuild-claude-run2
-node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude-first-brief,letthembuild-claude-first-brief-run2
 node v2/harness/verdict.mjs codex,codex-run2 letthembuild-codex,letthembuild-codex-run2
-node v2/harness/verdict.mjs codex,codex-run2 letthembuild-codex-rerun,letthembuild-codex-rerun-run2
-DATA=v2/fresh-25/data node v2/harness/verdict.mjs codex,codex-run2 letthembuild-codex-short-brief,letthembuild-codex-short-brief-run2
 PRICE=claude node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude,letthembuild-claude-run2
-PRICE=claude node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude-first-brief,letthembuild-claude-first-brief-run2
 node v2/harness/charts.mjs
+```
+
+The earlier setups:
+
+```bash
+node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude-first-brief,letthembuild-claude-first-brief-run2
+PRICE=claude node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude-first-brief,letthembuild-claude-first-brief-run2
+node v2/harness/verdict.mjs letthembuild-codex-full-brief,letthembuild-codex-full-brief-run2 letthembuild-codex,letthembuild-codex-run2
+node v2/harness/verdict.mjs codex,codex-run2 letthembuild-codex-first-run,letthembuild-codex-first-run-run2
+DATA=v2/fresh-25/data node v2/harness/verdict.mjs codex,codex-run2 letthembuild-codex-short-brief,letthembuild-codex-short-brief-run2
 ```
 
 Regrade the patches with the official harness (Docker, no model calls):
@@ -200,9 +177,9 @@ python -m venv .venv && .venv/bin/pip install swebench==5.0.2
 ```
 
 `v2/data/` has the same layout as `full-50/data/`, described at the end of this page, with a `contamination.json`
-beside each run. Setups are `claude-code`, `codex`, `letthembuild-claude`, `letthembuild-claude-first-brief`,
-`letthembuild-codex` and `letthembuild-codex-rerun`, each with a `-run2`. `v2/fresh-25/data/` has `codex` and
-`letthembuild-codex-short-brief`, likewise.
+beside each run. Setups are `claude-code`, `codex`, `letthembuild-claude`, `letthembuild-codex`,
+`letthembuild-claude-first-brief`, `letthembuild-codex-first-run` and `letthembuild-codex-full-brief`, each with a
+`-run2`. `v2/fresh-25/data/` has `codex` and `letthembuild-codex-short-brief`, likewise.
 
 ## What this does not show
 

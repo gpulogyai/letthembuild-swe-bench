@@ -1,0 +1,42 @@
+{
+  "setup": "letthembuild-codex-full-brief",
+  "instance_id": "sympy__sympy-13551",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-18T01:46:47.652Z",
+  "wallSeconds": 65,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/concrete/products.py"
+  ],
+  "versions": {
+    "claude": "2.1.325 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.10",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "ltbBuild": "469c0b868b14157d7092a84ae31e85bb06a76cfa",
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 1,
+        "uncached": 12032,
+        "cacheRead": 174976,
+        "cacheWrite": 0,
+        "output": 1633,
+        "total": 188641
+      }
+    },
+    "total": 188641,
+    "calls": null,
+    "costUsd": null,
+    "complete": true
+  }
+}

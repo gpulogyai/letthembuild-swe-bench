@@ -1,5 +1,5 @@
 diff --git a/django/core/validators.py b/django/core/validators.py
-index 84b4f31ec7..de5d80b008 100644
+index 84b4f31ec7..03f3401422 100644
 --- a/django/core/validators.py
 +++ b/django/core/validators.py
 @@ -48,7 +48,7 @@ class RegexValidator:
@@ -25,7 +25,7 @@ index 84b4f31ec7..de5d80b008 100644
  
          # Then check full URL
          try:
-@@ -115,7 +115,7 @@ class URLValidator(RegexValidator):
+@@ -115,13 +115,16 @@ class URLValidator(RegexValidator):
                  try:
                      scheme, netloc, path, query, fragment = urlsplit(value)
                  except ValueError:  # for example, "Invalid IPv6 URL"
@@ -34,7 +34,17 @@ index 84b4f31ec7..de5d80b008 100644
                  try:
                      netloc = punycode(netloc)  # IDN -> ACE
                  except UnicodeError:  # invalid domain part
-@@ -132,14 +132,14 @@ class URLValidator(RegexValidator):
+                     raise e
+                 url = urlunsplit((scheme, netloc, path, query, fragment))
+-                super().__call__(url)
++                try:
++                    super().__call__(url)
++                except ValidationError:
++                    raise ValidationError(self.message, code=self.code, params={'value': value})
+             else:
+                 raise
+         else:
+@@ -132,14 +135,14 @@ class URLValidator(RegexValidator):
                  try:
                      validate_ipv6_address(potential_ip)
                  except ValidationError:
@@ -51,7 +61,7 @@ index 84b4f31ec7..de5d80b008 100644
  
  
  integer_validator = RegexValidator(
-@@ -208,12 +208,12 @@ class EmailValidator:
+@@ -208,12 +211,12 @@ class EmailValidator:
  
      def __call__(self, value):
          if not value or '@' not in value:
@@ -66,7 +76,7 @@ index 84b4f31ec7..de5d80b008 100644
  
          if (domain_part not in self.domain_allowlist and
                  not self.validate_domain_part(domain_part)):
-@@ -225,7 +225,7 @@ class EmailValidator:
+@@ -225,7 +228,7 @@ class EmailValidator:
              else:
                  if self.validate_domain_part(domain_part):
                      return
@@ -75,7 +85,7 @@ index 84b4f31ec7..de5d80b008 100644
  
      def validate_domain_part(self, domain_part):
          if self.domain_regex.match(domain_part):
-@@ -272,12 +272,12 @@ def validate_ipv4_address(value):
+@@ -272,12 +275,12 @@ def validate_ipv4_address(value):
      try:
          ipaddress.IPv4Address(value)
      except ValueError:
@@ -90,7 +100,7 @@ index 84b4f31ec7..de5d80b008 100644
  
  
  def validate_ipv46_address(value):
-@@ -287,7 +287,7 @@ def validate_ipv46_address(value):
+@@ -287,7 +290,7 @@ def validate_ipv46_address(value):
          try:
              validate_ipv6_address(value)
          except ValidationError:
@@ -99,7 +109,7 @@ index 84b4f31ec7..de5d80b008 100644
  
  
  ip_address_validator_map = {
-@@ -438,7 +438,7 @@ class DecimalValidator:
+@@ -438,7 +441,7 @@ class DecimalValidator:
      def __call__(self, value):
          digit_tuple, exponent = value.as_tuple()[1:]
          if exponent in {'F', 'n', 'N'}:
@@ -108,7 +118,7 @@ index 84b4f31ec7..de5d80b008 100644
          if exponent >= 0:
              # A positive exponent adds that many trailing zeros.
              digits = len(digit_tuple) + exponent
-@@ -460,20 +460,20 @@ class DecimalValidator:
+@@ -460,20 +463,20 @@ class DecimalValidator:
              raise ValidationError(
                  self.messages['max_digits'],
                  code='max_digits',
@@ -132,7 +142,7 @@ index 84b4f31ec7..de5d80b008 100644
              )
  
      def __eq__(self, other):
-@@ -509,7 +509,8 @@ class FileExtensionValidator:
+@@ -509,7 +512,8 @@ class FileExtensionValidator:
                  code=self.code,
                  params={
                      'extension': extension,
@@ -142,7 +152,7 @@ index 84b4f31ec7..de5d80b008 100644
                  }
              )
  
-@@ -550,7 +551,7 @@ class ProhibitNullCharactersValidator:
+@@ -550,7 +554,7 @@ class ProhibitNullCharactersValidator:
  
      def __call__(self, value):
          if '\x00' in str(value):

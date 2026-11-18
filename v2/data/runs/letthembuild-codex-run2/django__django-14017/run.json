@@ -8,33 +8,33 @@
     "gemini": "gemini-4-argon-high",
     "grok": "grok-4.7"
   },
-  "started": "2026-11-15T00:25:35.873Z",
-  "wallSeconds": 97,
+  "started": "2026-11-18T14:21:03.726Z",
+  "wallSeconds": 40,
   "exitCode": 0,
   "timedOut": false,
   "filesChanged": [
     "django/db/models/query_utils.py"
   ],
   "versions": {
-    "claude": "2.1.311 (Claude Code)",
+    "claude": "2.1.325 (Claude Code)",
     "codex": "codex-cli 0.167.0",
-    "agy": "1.5.9",
+    "agy": "1.5.11",
     "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
   },
-  "ltbBuild": "8fa13171e684df4e3aacb043b1917f5e3a4d3302",
+  "ltbBuild": "7a23737ffcd3811fdac3580a205b979ae0496b70",
   "resolved": true,
   "tokens": {
     "bySource": {
       "chatgpt:gpt-6.1-sol": {
         "turns": 1,
-        "uncached": 19320,
-        "cacheRead": 173952,
+        "uncached": 14687,
+        "cacheRead": 63232,
         "cacheWrite": 0,
-        "output": 1545,
-        "total": 194817
+        "output": 1110,
+        "total": 79029
       }
     },
-    "total": 194817,
+    "total": 79029,
     "calls": null,
     "costUsd": null,
     "complete": true

@@ -1,21 +1,22 @@
 diff --git a/sphinx/builders/html/transforms.py b/sphinx/builders/html/transforms.py
-index c91da57e9..85fbe05ba 100644
+index c91da57e9..67dc1dbe9 100644
 --- a/sphinx/builders/html/transforms.py
 +++ b/sphinx/builders/html/transforms.py
-@@ -37,26 +37,21 @@ class KeyboardTransform(SphinxPostTransform):
+@@ -37,26 +37,22 @@ class KeyboardTransform(SphinxPostTransform):
      """
      default_priority = 400
      builders = ('html',)
 -    pattern = re.compile(r'(-|\+|\^|\s+)')
-+    # Match a key (which may itself be -, + or ^), then an optional separator.
-+    pattern = re.compile(r'([^\s\-+^]+|[-+^])(\s+|[-+^])?')
++    # Consume a key before looking for its separator: a key may itself be -, + or ^.
++    pattern = re.compile(r'(.+?)(-|\+|\^|\s+|$)')
  
      def run(self, **kwargs: Any) -> None:
          matcher = NodeMatcher(nodes.literal, classes=["kbd"])
          for node in self.document.traverse(matcher):  # type: nodes.literal
 -            parts = self.pattern.split(node[-1].astext())
+-            if len(parts) == 1:
 +            parts = self.pattern.findall(node[-1].astext())
-             if len(parts) == 1:
++            if len(parts) <= 1:
                  continue
  
              node.pop()
@@ -25,9 +26,9 @@ index c91da57e9..85fbe05ba 100644
                  node += nodes.literal('', key, classes=["kbd"])
 -
 -                try:
--                    # key separator (ex. -, +, ^)
--                    sep = parts.pop(0)
 +                if sep:
+                     # key separator (ex. -, +, ^)
+-                    sep = parts.pop(0)
                      node += nodes.Text(sep)
 -                except IndexError:
 -                    pass

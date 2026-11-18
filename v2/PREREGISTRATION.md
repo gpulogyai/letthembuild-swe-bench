@@ -80,3 +80,9 @@ as "no detectable difference" unless the interval excludes zero. All four models
 - 2026-11-18, reporting: the README reports LetThemBuild · Claude with the brief LetThemBuild ships (the arm added on
   2026-11-14, now published as `letthembuild-claude`). The pre-registered build's Claude runs are published unchanged
   as `letthembuild-claude-first-brief`, and their figures are given beside it.
+- 2026-11-18, added arm and reporting: LetThemBuild · Codex with the brief LetThemBuild ships for Codex seats (build
+  c5ae2f964: the short lead brief, each of the room's tools and rules named once), the seat run as in the rerun,
+  Codex 0.167.0 as frozen, two runs on the same 50 issues under tags lean1 and lean2. Chosen after the results above
+  were seen, on 15 issues of the first run. The README now reports it as `letthembuild-codex`, one comparison per
+  model. The earlier Codex setups are published unchanged under new names: the first runs as
+  `letthembuild-codex-first-run`, the rerun as `letthembuild-codex-full-brief`.

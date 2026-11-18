@@ -8,8 +8,8 @@
     "gemini": "gemini-4-argon-high",
     "grok": "grok-4.7"
   },
-  "started": "2026-11-14T18:36:15.049Z",
-  "wallSeconds": 97,
+  "started": "2026-11-18T13:44:48.425Z",
+  "wallSeconds": 51,
   "exitCode": 0,
   "timedOut": false,
   "filesChanged": [
@@ -17,25 +17,25 @@
     "sphinx/ext/autodoc/importer.py"
   ],
   "versions": {
-    "claude": "2.1.311 (Claude Code)",
+    "claude": "2.1.325 (Claude Code)",
     "codex": "codex-cli 0.167.0",
-    "agy": "1.5.9",
+    "agy": "1.5.11",
     "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
   },
-  "ltbBuild": "8fa13171e684df4e3aacb043b1917f5e3a4d3302",
+  "ltbBuild": "7a23737ffcd3811fdac3580a205b979ae0496b70",
   "resolved": true,
   "tokens": {
     "bySource": {
       "chatgpt:gpt-6.1-sol": {
         "turns": 1,
-        "uncached": 17558,
-        "cacheRead": 198528,
+        "uncached": 28146,
+        "cacheRead": 126720,
         "cacheWrite": 0,
-        "output": 2229,
-        "total": 218315
+        "output": 1631,
+        "total": 156497
       }
     },
-    "total": 218315,
+    "total": 156497,
     "calls": null,
     "costUsd": null,
     "complete": true

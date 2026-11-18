@@ -1,0 +1,42 @@
+{
+  "setup": "letthembuild-codex-full-brief-run2",
+  "instance_id": "astropy__astropy-14995",
+  "repo": "astropy/astropy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-18T02:40:52.559Z",
+  "wallSeconds": 47,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "astropy/nddata/mixins/ndarithmetic.py"
+  ],
+  "versions": {
+    "claude": "2.1.325 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.10",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "ltbBuild": "469c0b868b14157d7092a84ae31e85bb06a76cfa",
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 1,
+        "uncached": 28397,
+        "cacheRead": 93440,
+        "cacheWrite": 0,
+        "output": 1346,
+        "total": 123183
+      }
+    },
+    "total": 123183,
+    "calls": null,
+    "costUsd": null,
+    "complete": true
+  }
+}
