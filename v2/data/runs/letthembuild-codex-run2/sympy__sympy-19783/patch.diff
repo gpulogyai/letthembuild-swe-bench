@@ -1,17 +1,18 @@
 diff --git a/sympy/physics/quantum/dagger.py b/sympy/physics/quantum/dagger.py
-index 17da3cfd2c..376cb3cb9d 100644
+index 17da3cfd2c..0acc70e6f2 100644
 --- a/sympy/physics/quantum/dagger.py
 +++ b/sympy/physics/quantum/dagger.py
-@@ -76,6 +76,12 @@ class Dagger(adjoint):
-     .. [2] https://en.wikipedia.org/wiki/Hermitian_transpose
-     """
+@@ -85,5 +85,13 @@ def __new__(cls, arg):
+             return obj
+         return Expr.__new__(cls, arg)
  
 +    def __mul__(self, other):
 +        from sympy.physics.quantum.operator import IdentityOperator
++
 +        if isinstance(other, IdentityOperator):
 +            return self
-+        return Expr.__mul__(self, other)
 +
-     def __new__(cls, arg):
-         if hasattr(arg, 'adjoint'):
-             obj = arg.adjoint()
++        return super(Dagger, self).__mul__(other)
++
+ adjoint.__name__ = "Dagger"
+ adjoint._sympyrepr = lambda a, b: "Dagger(%s)" % b._print(a.args[0])

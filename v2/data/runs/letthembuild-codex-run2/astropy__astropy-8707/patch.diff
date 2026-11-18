@@ -1,5 +1,5 @@
 diff --git a/astropy/io/fits/card.py b/astropy/io/fits/card.py
-index 8c1ac5d73..b7b592c5a 100644
+index 8c1ac5d73..dfbbc234f 100644
 --- a/astropy/io/fits/card.py
 +++ b/astropy/io/fits/card.py
 @@ -5,7 +5,7 @@ import warnings
@@ -11,25 +11,35 @@ index 8c1ac5d73..b7b592c5a 100644
  from .verify import _Verify, _ErrList, VerifyError, VerifyWarning
  
  from . import conf
-@@ -550,11 +550,11 @@ class Card(_Verify):
-         Construct a `Card` object from a (raw) string. It will pad the string
+@@ -547,12 +547,16 @@ class Card(_Verify):
+     @classmethod
+     def fromstring(cls, image):
+         """
+-        Construct a `Card` object from a (raw) string. It will pad the string
++        Construct a `Card` object from a (raw) string or bytes. Byte strings
++        are decoded using ASCII. It will pad the string
          if it is not the length of a card image (80 columns).  If the card
          image is longer than 80 columns, assume it contains ``CONTINUE``
--        card(s).
-+        card(s).  Byte strings are decoded as ASCII.
+         card(s).
          """
  
++        if isinstance(image, bytes):
++            image = decode_ascii(image)
++
          card = cls()
--        card._image = _pad(image)
-+        card._image = _pad(decode_ascii(image))
+         card._image = _pad(image)
          card._verified = False
-         return card
- 
 diff --git a/astropy/io/fits/header.py b/astropy/io/fits/header.py
-index ad07e6d52..74d2fb98c 100644
+index ad07e6d52..405645fd2 100644
 --- a/astropy/io/fits/header.py
 +++ b/astropy/io/fits/header.py
-@@ -334,8 +334,9 @@ class Header:
+@@ -329,13 +329,14 @@ class Header:
+     @classmethod
+     def fromstring(cls, data, sep=''):
+         """
+-        Creates an HDU header from a byte string containing the entire header
++        Creates an HDU header from a string containing the entire header
+         data.
  
          Parameters
          ----------
@@ -37,15 +47,17 @@ index ad07e6d52..74d2fb98c 100644
 -           String containing the entire header.
 +        data : str or bytes
 +           String containing the entire header.  Byte strings are decoded
-+           as ASCII.
++           using ASCII.
  
          sep : str, optional
              The string separating cards from each other, such as a newline.  By
-@@ -348,6 +349,7 @@ class Header:
+@@ -348,6 +349,9 @@ class Header:
              A new `Header` instance.
          """
  
-+        data = decode_ascii(data)
++        if isinstance(data, bytes):
++            data = decode_ascii(data)
++
          cards = []
  
          # If the card separator contains characters that may validly appear in

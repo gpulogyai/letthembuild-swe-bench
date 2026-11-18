@@ -1,5 +1,5 @@
 diff --git a/sphinx/domains/std.py b/sphinx/domains/std.py
-index d820cfe5c..cdd8d74bf 100644
+index d820cfe5c..55aced3ab 100644
 --- a/sphinx/domains/std.py
 +++ b/sphinx/domains/std.py
 @@ -305,7 +305,7 @@ def make_glossary_term(env: "BuildEnvironment", textnodes: Iterable[Node], index
@@ -20,31 +20,36 @@ index d820cfe5c..cdd8d74bf 100644
                              warn_dangling=True),
          # links to headings or arbitrary labels
          'ref':     XRefRole(lowercase=True, innernodeclass=nodes.inline,
-@@ -933,6 +933,11 @@ class StandardDomain(Domain):
+@@ -931,6 +931,13 @@ class StandardDomain(Domain):
+             if (objtype, target) in self.objects:
+                 docname, labelid = self.objects[objtype, target]
                  break
++            elif objtype == 'term':
++                for (object_type, name), (docname, labelid) in self.objects.items():
++                    if object_type == 'term' and name.lower() == target.lower():
++                        break
++                else:
++                    continue
++                break
          else:
              docname, labelid = '', ''
-+            if typ == 'term':
-+                for (objtype, name), info in self.objects.items():
-+                    if objtype == 'term' and name.lower() == target.lower():
-+                        docname, labelid = info
-+                        break
          if not docname:
-             return None
-         return make_refnode(builder, fromdocname, docname,
-@@ -951,9 +956,13 @@ class StandardDomain(Domain):
-                 results.append(('std:' + role, res))
+@@ -952,13 +959,16 @@ class StandardDomain(Domain):
          # all others
          for objtype in self.object_types:
--            key = (objtype, target)
-             if objtype == 'term':
+             key = (objtype, target)
+-            if objtype == 'term':
 -                key = (objtype, ltarget)
+             if key in self.objects:
+                 docname, labelid = self.objects[key]
+                 results.append(('std:' + self.role_for_objtype(objtype),
+                                 make_refnode(builder, fromdocname, docname,
+                                              labelid, contnode)))
++            elif objtype == 'term':
 +                res = self._resolve_obj_xref(env, fromdocname, builder, 'term',
 +                                             target, node, contnode)
 +                if res:
 +                    results.append(('std:term', res))
-+                continue
-+            key = (objtype, target)
-             if key in self.objects:
-                 docname, labelid = self.objects[key]
-                 results.append(('std:' + self.role_for_objtype(objtype),
+         return results
+ 
+     def get_objects(self) -> Iterator[Tuple[str, str, str, str, str, int]]:

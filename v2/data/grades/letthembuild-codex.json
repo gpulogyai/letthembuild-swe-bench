@@ -13,13 +13,13 @@
     "astropy__astropy-8707",
     "django__django-13809",
     "scikit-learn__scikit-learn-13135",
+    "astropy__astropy-14369",
     "matplotlib__matplotlib-23412",
     "astropy__astropy-14995",
     "sphinx-doc__sphinx-8035",
     "django__django-12209",
     "scikit-learn__scikit-learn-14053",
     "sphinx-doc__sphinx-7889",
-    "matplotlib__matplotlib-24870",
     "django__django-14011",
     "django__django-15315",
     "scikit-learn__scikit-learn-13779",
@@ -49,7 +49,7 @@
   "unresolved_ids": [
     "django__django-13212",
     "sympy__sympy-13974",
-    "astropy__astropy-14369",
+    "matplotlib__matplotlib-24870",
     "django__django-13512",
     "django__django-14771",
     "sympy__sympy-19783"

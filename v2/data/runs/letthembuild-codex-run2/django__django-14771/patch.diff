@@ -1,5 +1,5 @@
 diff --git a/django/utils/autoreload.py b/django/utils/autoreload.py
-index cc65c043ab..55be8f49ef 100644
+index cc65c043ab..d64a76f26c 100644
 --- a/django/utils/autoreload.py
 +++ b/django/utils/autoreload.py
 @@ -220,6 +220,9 @@ def get_child_arguments():
@@ -7,8 +7,8 @@ index cc65c043ab..55be8f49ef 100644
  
      args = [sys.executable] + ['-W%s' % o for o in sys.warnoptions]
 +    if sys.implementation.name == 'cpython':
-+        for key, value in sys._xoptions.items():
-+            args += ['-X', '%s=%s' % (key, value) if value is not True else key]
++        args += ['-X%s' % (key if value is True else '%s=%s' % (key, value))
++                 for key, value in sys._xoptions.items()]
      # __spec__ is set when the server was started with the `-m` option,
      # see https://docs.python.org/3/reference/import.html#main-spec
      # __spec__ may not exist, e.g. when running in a Conda env.
