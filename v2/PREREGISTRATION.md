@@ -65,3 +65,18 @@ as "no detectable difference" unless the interval excludes zero. All four models
   Verified issues. Unset, as in every pre-registered run, it reads the same 100 issues as before.
 - 2026-11-17, reporting: the results for Claude and Codex are published while the Gemini and Grok runs, held by
   their plans' usage limits, continue. Those two are added when they finish, under the same analysis.
+- 2026-11-17, LetThemBuild · Codex run again: the harness's profile was meant to stand in for every seat's sandbox,
+  and Codex alone ran with its own sandbox off for that reason. The LetThemBuild · Codex seat instead kept Codex's own
+  sandbox, which macOS cannot run inside the harness's, so each of its commands went to Codex's guardian reviewer,
+  a second model whose tokens the count did not include. The setup is run again, two runs on the same 50 issues
+  (`letthembuild-codex-rerun`), with one change: the seat runs as it does under LetThemBuild's own sandbox, with
+  Codex 0.167.0 as frozen and Codex's own session logs kept so every session is counted. The Codex-alone runs are
+  unchanged. The first LetThemBuild · Codex figures are kept and shown beside the new ones.
+- 2026-11-18, analysis: verdict.mjs and charts.mjs now apply the failed-run rule above (a run without a token count
+  is unsolved and left out of its issue's token mean). It changes no published figure; it applies to one rerun.
+- 2026-11-18, added experiment, not pre-registered: Codex alone against LetThemBuild · Codex with the short lead
+  brief Claude Code seats use, the seat run as in the rerun, on 25 other Verified issues (`v2/fresh-25/`), two runs
+  each, Codex CLI 0.169.0 for both. The brief was chosen on 15 issues of the first run before this test.
+- 2026-11-18, reporting: the README reports LetThemBuild · Claude with the brief LetThemBuild ships (the arm added on
+  2026-11-14, now published as `letthembuild-claude`). The pre-registered build's Claude runs are published unchanged
+  as `letthembuild-claude-first-brief`, and their figures are given beside it.

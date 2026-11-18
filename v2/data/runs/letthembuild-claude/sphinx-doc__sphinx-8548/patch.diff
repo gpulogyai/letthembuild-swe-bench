@@ -1,12 +1,12 @@
 diff --git a/sphinx/ext/autodoc/__init__.py b/sphinx/ext/autodoc/__init__.py
-index ddfd2b365..7040fde61 100644
+index ddfd2b365..47019981c 100644
 --- a/sphinx/ext/autodoc/__init__.py
 +++ b/sphinx/ext/autodoc/__init__.py
 @@ -2359,6 +2359,11 @@ class AttributeDocumenter(GenericAliasMixin, NewTypeMixin, SlotsMixin,  # type:
                  pass
  
      def get_doc(self, encoding: str = None, ignore: int = None) -> List[List[str]]:
-+        # Check the attribute has a docstring-comment (including base classes)
++        # Check the attribute has a docstring-comment (including the ones in base classes)
 +        comment = self.get_attribute_comment(self.parent)
 +        if comment:
 +            return [comment]
@@ -15,7 +15,7 @@ index ddfd2b365..7040fde61 100644
              return []
  
 diff --git a/sphinx/ext/autodoc/importer.py b/sphinx/ext/autodoc/importer.py
-index d6e73d36a..5334b3ffb 100644
+index d6e73d36a..d0528db3b 100644
 --- a/sphinx/ext/autodoc/importer.py
 +++ b/sphinx/ext/autodoc/importer.py
 @@ -14,7 +14,7 @@ import warnings
@@ -27,17 +27,7 @@ index d6e73d36a..5334b3ffb 100644
  from sphinx.util import logging
  from sphinx.util.inspect import (getannotations, getmro, getslots, isclass, isenumclass,
                                   safe_getattr)
-@@ -297,8 +297,8 @@ def get_class_members(subject: Any, objpath: List[str], attrgetter: Callable,
-         except AttributeError:
-             continue
- 
--    # annotation only member (ex. attr: int)
-     for cls in getmro(subject):
-+        # annotation only member (ex. attr: int)
-         try:
-             for name in getannotations(cls):
-                 name = unmangle(cls, name)
-@@ -307,13 +307,34 @@ def get_class_members(subject: Any, objpath: List[str], attrgetter: Callable,
+@@ -307,13 +307,37 @@ def get_class_members(subject: Any, objpath: List[str], attrgetter: Callable,
          except AttributeError:
              pass
  
@@ -47,35 +37,37 @@ index d6e73d36a..5334b3ffb 100644
 -        for (ns, name), docstring in analyzer.attr_docs.items():
 -            if namespace == ns and name not in members:
 -                members[name] = ClassAttribute(subject, name, INSTANCEATTR,
--                                               '\n'.join(docstring))
-+        # append attributes having doc-comments (cf. self.attr1) if analyzer knows
-+        try:
-+            if cls is subject:
-+                if not analyzer:
-+                    continue
-+                cls_analyzer = analyzer
-+                namespace = '.'.join(objpath)
-+            else:
++    # append instance attributes (cf. self.attr1) if analyzer knows
++    # (including the attributes documented in base classes)
++    try:
++        mro = getmro(subject)
++    except AttributeError:
++        mro = (subject,)
++
++    for cls in mro:
++        if cls is subject:
++            if analyzer is None:
++                continue
++            cls_analyzer = analyzer
++            namespace = '.'.join(objpath)
++        else:
++            try:
 +                modname = safe_getattr(cls, '__module__')
 +                namespace = safe_getattr(cls, '__qualname__')
 +                cls_analyzer = ModuleAnalyzer.for_module(modname)
 +                cls_analyzer.analyze()
++            except (AttributeError, PycodeError):
++                continue
 +
-+            for (ns, name), docstring in cls_analyzer.attr_docs.items():
-+                if ns != namespace:
-+                    continue
-+                elif name not in members:
-+                    members[name] = ClassAttribute(cls, name, INSTANCEATTR,
-+                                                   '\n'.join(docstring))
-+                elif cls is not subject and members[name].docstring is None:
-+                    member = members[name]
-+                    if (member.class_ is cls or
-+                            (member.class_ is None and
-+                             name in attrgetter(cls, '__dict__', {}))):
-+                        # inherited attribute having doc-comment
-+                        member.docstring = '\n'.join(docstring)
-+        except (AttributeError, PycodeError):
-+            pass
++        for (ns, name), docstring in cls_analyzer.attr_docs.items():
++            if namespace != ns:
++                continue
++            elif name not in members:
++                members[name] = ClassAttribute(cls, name, INSTANCEATTR,
+                                                '\n'.join(docstring))
++            elif cls is not subject and members[name].docstring is None:
++                # inherited attribute documented by a comment in the base class
++                members[name].docstring = '\n'.join(docstring)
  
      return members
  

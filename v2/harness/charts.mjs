@@ -15,10 +15,11 @@ const THEMES = {
   light: { bg: "#ffffff", fg: "#15181d", muted: "#59606b", rule: "#dde1e7", claude: "#e0773c", codex: "#10a37f", gemini: "#3aa7e6", grok: "#111111" },
   dark: { bg: "#1a1d22", fg: "#eceef1", muted: "#a9b0ba", rule: "#2c3138", claude: "#d96f32", codex: "#12a07c", gemini: "#3399d6", grok: "#e8e8e8" },
 };
-// Each model's own CLI, then LetThemBuild with that model; Claude also has the added trimmed-brief setup.
+// Each model's own CLI, then LetThemBuild with that model: for Claude the brief LetThemBuild ships, for Codex the first
+// run and the rerun of its LetThemBuild setup (v2/PREREGISTRATION.md, Changes).
 const MODELS = [
-  { family: "claude", cli: "claude-code", cliName: "Claude Code", ltb: [["letthembuild-claude", "LTB · Claude"], ["letthembuild-claude-trimmed", "LTB · Claude, trimmed*"]] },
-  { family: "codex", cli: "codex", cliName: "Codex CLI", ltb: [["letthembuild-codex", "LTB · Codex"]] },
+  { family: "claude", cli: "claude-code", cliName: "Claude Code", ltb: [["letthembuild-claude", "LTB · Claude*"]] },
+  { family: "codex", cli: "codex", cliName: "Codex CLI", ltb: [["letthembuild-codex", "LTB · Codex, first"], ["letthembuild-codex-rerun", "LTB · Codex, rerun"]] },
 ];
 const SANS = "-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif";
 const MONO = "ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace";
@@ -26,9 +27,10 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
 const M = (n) => `${(n / 1e6).toFixed(n >= 1e8 ? 0 : 1)}M`;
 const pct = (a, b) => { const d = Math.round((a / b - 1) * 100); return d === 0 ? "level" : `${d > 0 ? "+" : "−"}${Math.abs(d)}%`; };
 const runs = (setup) => [setup, `${setup}-run2`].map((s) => rows.filter((r) => r.setup === s));
-const tokens = (setup) => runs(setup).map((rs) => rs.reduce((t, r) => t + r.tokens, 0));
-const solved = (setup) => runs(setup).map((rs) => rs.filter((r) => r.resolved).length);
+// A run without a token count is a failed run, as pre-registered: unsolved, and left out of its issue's token mean.
+const solved = (setup) => runs(setup).map((rs) => rs.filter((r) => r.resolved && r.tokens > 0).length);
 const mean = (a) => a.reduce((s, x) => s + x, 0) / a.length;
+const meanTokens = (setup) => { const [a, b] = runs(setup); return a.reduce((t, r) => { const o = b.find((x) => x.id === r.id); const ok = [r, o].filter((x) => x && x.tokens > 0); return t + (ok.length ? mean(ok.map((x) => x.tokens)) : 0); }, 0); };
 
 // Rows of single bars in pairs: a model's own CLI (the family colour, lightened) above LetThemBuild with that model
 // (the family colour, solid), a value label after each bar, and a dashed line between models.
@@ -57,12 +59,12 @@ function chart({ bars, max, step, tickFmt, note, left = 132, right = 190 }, t) {
 const charts = {
   "heldout-50-tokens": {
     bars: MODELS.flatMap((m) => {
-      const a = mean(tokens(m.cli));
+      const a = meanTokens(m.cli);
       return [{ name: m.cliName, family: m.family, own: true, v: 100, label: M(a) },
-        ...m.ltb.map(([key, name]) => { const b = mean(tokens(key)); return { name, family: m.family, v: (b / a) * 100, label: `${M(b)}  (${pct(b, a)})` }; })];
+        ...m.ltb.map(([key, name]) => { const b = meanTokens(key); return { name, family: m.family, v: (b / a) * 100, label: `${M(b)}  (${pct(b, a)})` }; })];
     }),
     max: 125, step: 25, tickFmt: (v) => `${v}%`, left: 172,
-    note: "Tokens, 50 held-out issues, mean of two runs; bars relative to each model's own CLI. * Added later.",
+    note: "Tokens, 50 held-out issues, mean of two runs; bars relative to each model's own CLI. * Brief settled after the pre-registered run.",
   },
   "heldout-50-solved": {
     bars: MODELS.flatMap((m) => [[m.cli, m.cliName, true], ...m.ltb.map(([k, n]) => [k, n, false])].map(([key, name, own]) => {
@@ -70,7 +72,7 @@ const charts = {
       return { name, family: m.family, own, v: mean(s), label: `${s[0]} and ${s[1]} of 50` };
     })),
     max: 50, step: 10, tickFmt: (v) => String(v), left: 172,
-    note: "Solved out of 50 in each run, official SWE-bench harness; bar length is the mean. * Added later.",
+    note: "Solved out of 50 in each run, official SWE-bench harness; bar length is the mean. * Brief settled after the pre-registered run.",
   },
 };
 

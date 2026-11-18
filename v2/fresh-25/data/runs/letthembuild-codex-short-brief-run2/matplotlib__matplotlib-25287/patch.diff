@@ -1,0 +1,43 @@
+diff --git a/lib/matplotlib/axis.py b/lib/matplotlib/axis.py
+index c0e706e2b3..74091db0fe 100644
+--- a/lib/matplotlib/axis.py
++++ b/lib/matplotlib/axis.py
+@@ -2249,13 +2249,17 @@ class XAxis(Axis):
+         )
+         self.label_position = 'bottom'
+ 
++        tick_color = mpl.rcParams['xtick.color']
++        labelcolor = mpl.rcParams['xtick.labelcolor']
++        if labelcolor == 'inherit':
++            labelcolor = tick_color
+         self.offsetText.set(
+             x=1, y=0,
+             verticalalignment='top', horizontalalignment='right',
+             transform=mtransforms.blended_transform_factory(
+                 self.axes.transAxes, mtransforms.IdentityTransform()),
+             fontsize=mpl.rcParams['xtick.labelsize'],
+-            color=mpl.rcParams['xtick.color'],
++            color=labelcolor,
+         )
+         self.offset_text_position = 'bottom'
+ 
+@@ -2508,6 +2512,10 @@ class YAxis(Axis):
+                 mtransforms.IdentityTransform(), self.axes.transAxes),
+         )
+         self.label_position = 'left'
++        tick_color = mpl.rcParams['ytick.color']
++        labelcolor = mpl.rcParams['ytick.labelcolor']
++        if labelcolor == 'inherit':
++            labelcolor = tick_color
+         # x in axes coords, y in display coords(!).
+         self.offsetText.set(
+             x=0, y=0.5,
+@@ -2515,7 +2523,7 @@ class YAxis(Axis):
+             transform=mtransforms.blended_transform_factory(
+                 self.axes.transAxes, mtransforms.IdentityTransform()),
+             fontsize=mpl.rcParams['ytick.labelsize'],
+-            color=mpl.rcParams['ytick.color'],
++            color=labelcolor,
+         )
+         self.offset_text_position = 'left'
+ 

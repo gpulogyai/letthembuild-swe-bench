@@ -1,0 +1,53 @@
+diff --git a/astropy/io/fits/card.py b/astropy/io/fits/card.py
+index 8c1ac5d73..36d77f5a2 100644
+--- a/astropy/io/fits/card.py
++++ b/astropy/io/fits/card.py
+@@ -5,7 +5,7 @@ import warnings
+ 
+ import numpy as np
+ 
+-from .util import _str_to_num, _is_int, translate, _words_group
++from .util import _str_to_num, _is_int, translate, _words_group, decode_ascii
+ from .verify import _Verify, _ErrList, VerifyError, VerifyWarning
+ 
+ from . import conf
+@@ -554,6 +554,8 @@ class Card(_Verify):
+         """
+ 
+         card = cls()
++        if isinstance(image, bytes):
++            image = decode_ascii(image)
+         card._image = _pad(image)
+         card._verified = False
+         return card
+diff --git a/astropy/io/fits/header.py b/astropy/io/fits/header.py
+index ad07e6d52..307f25593 100644
+--- a/astropy/io/fits/header.py
++++ b/astropy/io/fits/header.py
+@@ -334,8 +334,10 @@ class Header:
+ 
+         Parameters
+         ----------
+-        data : str
+-           String containing the entire header.
++        data : str or bytes
++           String containing the entire header.  Bytes are decoded as ASCII
++           (any non-ASCII characters are replaced with ``?`` and a warning is
++           issued, as when reading a header from a file).
+ 
+         sep : str, optional
+             The string separating cards from each other, such as a newline.  By
+@@ -348,6 +350,13 @@ class Header:
+             A new `Header` instance.
+         """
+ 
++        # The parsing below works on str, so decode any bytes input first
++        if isinstance(data, bytes):
++            data = decode_ascii(data)
++
++        if isinstance(sep, bytes):
++            sep = decode_ascii(sep)
++
+         cards = []
+ 
+         # If the card separator contains characters that may validly appear in

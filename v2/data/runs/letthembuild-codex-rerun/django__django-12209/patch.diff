@@ -1,0 +1,14 @@
+diff --git a/django/db/models/base.py b/django/db/models/base.py
+index e3b14a41a0..be96117b61 100644
+--- a/django/db/models/base.py
++++ b/django/db/models/base.py
+@@ -848,7 +848,9 @@ class Model(metaclass=ModelBase):
+             raise ValueError("Cannot force an update in save() with no primary key.")
+         updated = False
+         # Skip an UPDATE when adding an instance and primary key has a default.
++        # Don't do this for raw saves, as those are used for fixture loading.
+         if (
++            not raw and
+             not force_insert and
+             self._state.adding and
+             self._meta.pk.default and

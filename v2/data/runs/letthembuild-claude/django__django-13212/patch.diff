@@ -1,5 +1,5 @@
 diff --git a/django/core/validators.py b/django/core/validators.py
-index 84b4f31ec7..b2a8400a67 100644
+index 84b4f31ec7..6ed4793c24 100644
 --- a/django/core/validators.py
 +++ b/django/core/validators.py
 @@ -48,7 +48,7 @@ class RegexValidator:
@@ -99,20 +99,16 @@ index 84b4f31ec7..b2a8400a67 100644
  
  
  ip_address_validator_map = {
-@@ -438,7 +438,11 @@ class DecimalValidator:
+@@ -438,7 +438,7 @@ class DecimalValidator:
      def __call__(self, value):
          digit_tuple, exponent = value.as_tuple()[1:]
          if exponent in {'F', 'n', 'N'}:
 -            raise ValidationError(self.messages['invalid'])
-+            raise ValidationError(
-+                self.messages['invalid'],
-+                code='invalid',
-+                params={'value': value},
-+            )
++            raise ValidationError(self.messages['invalid'], code='invalid', params={'value': value})
          if exponent >= 0:
              # A positive exponent adds that many trailing zeros.
              digits = len(digit_tuple) + exponent
-@@ -460,20 +464,23 @@ class DecimalValidator:
+@@ -460,20 +460,23 @@ class DecimalValidator:
              raise ValidationError(
                  self.messages['max_digits'],
                  code='max_digits',
@@ -139,7 +135,7 @@ index 84b4f31ec7..b2a8400a67 100644
              )
  
      def __eq__(self, other):
-@@ -509,7 +516,8 @@ class FileExtensionValidator:
+@@ -509,7 +512,8 @@ class FileExtensionValidator:
                  code=self.code,
                  params={
                      'extension': extension,
@@ -149,7 +145,7 @@ index 84b4f31ec7..b2a8400a67 100644
                  }
              )
  
-@@ -550,7 +558,7 @@ class ProhibitNullCharactersValidator:
+@@ -550,7 +554,7 @@ class ProhibitNullCharactersValidator:
  
      def __call__(self, value):
          if '\x00' in str(value):

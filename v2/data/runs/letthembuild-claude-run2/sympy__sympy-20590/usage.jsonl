@@ -1,1 +1,1 @@
-{"at":"2026-11-14T19:23:00.153Z","kind":"cli-turn","provider":"claude","model":"claude-opus-5-5","usd":0.16420279999999998,"tokens":93649,"usage":{"inputTokens":91321,"cachedTokens":78574,"cacheWriteTokens":12735,"outputTokens":2328}}
+{"at":"2026-11-15T01:49:57.876Z","kind":"cli-turn","provider":"claude","model":"claude-opus-5-5","usd":0.19071719999999998,"tokens":161578,"usage":{"inputTokens":158896,"cachedTokens":145386,"cacheWriteTokens":13490,"outputTokens":2682}}
