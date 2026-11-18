@@ -3,14 +3,14 @@
         "patch_is_None": false,
         "patch_exists": true,
         "patch_successfully_applied": true,
-        "resolved": true,
+        "resolved": false,
         "infra_failure": false,
         "tests_status": {
             "FAIL_TO_PASS": {
-                "success": [
+                "success": [],
+                "failure": [
                     "lib/matplotlib/tests/test_contour.py::test_bool_autolevel"
-                ],
-                "failure": []
+                ]
             },
             "PASS_TO_PASS": {
                 "success": [

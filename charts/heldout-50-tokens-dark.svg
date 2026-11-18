@@ -1,19 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 312" width="820" role="img">
-<rect width="820" height="312" rx="14" fill="#1a1d22"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 272" width="820" role="img">
+<rect width="820" height="272" rx="14" fill="#1a1d22"/>
 <rect x="20" y="16" width="14" height="14" rx="3" fill="#a9b0ba" fill-opacity="0.4"/><text x="42" y="28" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="14" fill="#a9b0ba">the model's own CLI</text>
 <rect x="210" y="16" width="14" height="14" rx="3" fill="#a9b0ba"/><text x="232" y="28" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="14" fill="#a9b0ba">LetThemBuild, that model as its one seat</text>
-<line x1="172" x2="172" y1="52" y2="256" stroke="#2c3138"/>
-<text x="172" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#a9b0ba">0%</text>
-<line x1="263.6" x2="263.6" y1="52" y2="256" stroke="#2c3138"/>
-<text x="263.6" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#a9b0ba">25%</text>
-<line x1="355.20000000000005" x2="355.20000000000005" y1="52" y2="256" stroke="#2c3138"/>
-<text x="355.20000000000005" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#a9b0ba">50%</text>
-<line x1="446.8" x2="446.8" y1="52" y2="256" stroke="#2c3138"/>
-<text x="446.8" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#a9b0ba">75%</text>
-<line x1="538.4000000000001" x2="538.4000000000001" y1="52" y2="256" stroke="#2c3138"/>
-<text x="538.4000000000001" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#a9b0ba">100%</text>
-<line x1="630" x2="630" y1="52" y2="256" stroke="#2c3138"/>
-<text x="630" y="274" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#a9b0ba">125%</text>
+<line x1="172" x2="172" y1="52" y2="216" stroke="#2c3138"/>
+<text x="172" y="234" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#a9b0ba">0%</text>
+<line x1="263.6" x2="263.6" y1="52" y2="216" stroke="#2c3138"/>
+<text x="263.6" y="234" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#a9b0ba">25%</text>
+<line x1="355.20000000000005" x2="355.20000000000005" y1="52" y2="216" stroke="#2c3138"/>
+<text x="355.20000000000005" y="234" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#a9b0ba">50%</text>
+<line x1="446.8" x2="446.8" y1="52" y2="216" stroke="#2c3138"/>
+<text x="446.8" y="234" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#a9b0ba">75%</text>
+<line x1="538.4000000000001" x2="538.4000000000001" y1="52" y2="216" stroke="#2c3138"/>
+<text x="538.4000000000001" y="234" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#a9b0ba">100%</text>
+<line x1="630" x2="630" y1="52" y2="216" stroke="#2c3138"/>
+<text x="630" y="234" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#a9b0ba">125%</text>
 <line x1="0" x2="820" y1="132" y2="132" stroke="#2c3138" stroke-dasharray="3 4"/>
 <text x="160" y="77" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#eceef1">Claude Code</text>
 <path d="M172,61H534.4000000000001a4,4 0 0 1 4,4V79a4,4 0 0 1 -4,4H172Z" fill="#d96f32" fill-opacity="0.4"/>
@@ -24,11 +24,8 @@
 <text x="160" y="157" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#eceef1">Codex CLI</text>
 <path d="M172,141H534.4000000000001a4,4 0 0 1 4,4V159a4,4 0 0 1 -4,4H172Z" fill="#12a07c" fill-opacity="0.4"/>
 <text x="546.4000000000001" y="156.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#eceef1">7.0M</text>
-<text x="160" y="197" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#eceef1">LTB · Codex, first</text>
-<path d="M172,181H592.9914490068696a4,4 0 0 1 4,4V199a4,4 0 0 1 -4,4H172Z" fill="#12a07c"/>
-<text x="604.9914490068696" y="196.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#eceef1" font-weight="600">8.2M  (+16%)</text>
-<text x="160" y="237" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#eceef1">LTB · Codex, rerun</text>
-<path d="M172,221H526.4935866378496a4,4 0 0 1 4,4V239a4,4 0 0 1 -4,4H172Z" fill="#12a07c"/>
-<text x="538.4935866378496" y="236.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#eceef1" font-weight="600">6.9M  (−2%)</text>
-<text x="20" y="298" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="12.5" fill="#a9b0ba">Tokens, 50 held-out issues, mean of two runs; bars relative to each model's own CLI. * Brief settled after the pre-registered run.</text>
+<text x="160" y="197" text-anchor="end" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="13.5" fill="#eceef1">LTB · Codex*</text>
+<path d="M172,181H411.7554775323135a4,4 0 0 1 4,4V199a4,4 0 0 1 -4,4H172Z" fill="#12a07c"/>
+<text x="423.7554775323135" y="196.5" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="12.5" fill="#eceef1" font-weight="600">4.7M  (−33%)</text>
+<text x="20" y="258" font-family="-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif" font-size="12.5" fill="#a9b0ba">Tokens, 50 held-out issues, mean of two runs; bars relative to each model's own CLI. * Brief settled after the pre-registered run.</text>
 </svg>

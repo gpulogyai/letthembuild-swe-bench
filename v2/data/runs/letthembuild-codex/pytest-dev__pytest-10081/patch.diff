@@ -1,5 +1,5 @@
 diff --git a/src/_pytest/unittest.py b/src/_pytest/unittest.py
-index 851e4943b..1b158cb37 100644
+index 851e4943b..3eeaa6cb6 100644
 --- a/src/_pytest/unittest.py
 +++ b/src/_pytest/unittest.py
 @@ -316,7 +316,9 @@ class TestCaseFunction(Function):
@@ -8,7 +8,7 @@ index 851e4943b..1b158cb37 100644
              # when absolutely needed.
 -            if self.config.getoption("usepdb") and not _is_skipped(self.obj):
 +            if self.config.getoption("usepdb") and not (
-+                _is_skipped(self.obj) or _is_skipped(self._testcase)
++                _is_skipped(self._testcase) or _is_skipped(self.obj)
 +            ):
                  self._explicit_tearDown = self._testcase.tearDown
                  setattr(self._testcase, "tearDown", lambda *args: None)
