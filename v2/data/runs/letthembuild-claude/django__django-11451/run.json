@@ -8,8 +8,8 @@
     "gemini": "gemini-4-argon-high",
     "grok": "grok-4.7"
   },
-  "started": "2026-11-14T17:28:05.448Z",
-  "wallSeconds": 37,
+  "started": "2026-11-15T00:54:32.455Z",
+  "wallSeconds": 27,
   "exitCode": 0,
   "timedOut": false,
   "filesChanged": [
@@ -21,20 +21,20 @@
     "agy": "1.5.9",
     "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
   },
-  "ltbBuild": "8fa13171e684df4e3aacb043b1917f5e3a4d3302",
+  "ltbBuild": "a8cb6083564f9457316d50e1c56600bc328c4fa7",
   "resolved": true,
   "tokens": {
     "bySource": {
       "claude:claude-opus-5-5": {
         "turns": 1,
-        "uncached": 16,
-        "cacheRead": 113362,
-        "cacheWrite": 12476,
-        "output": 2170,
-        "total": 128024
+        "uncached": 12,
+        "cacheRead": 79710,
+        "cacheWrite": 11847,
+        "output": 1521,
+        "total": 93090
       }
     },
-    "total": 128024,
+    "total": 93090,
     "calls": null,
     "costUsd": null,
     "complete": true

@@ -1,0 +1,40 @@
+{
+  "setup": "codex",
+  "instance_id": "sympy__sympy-13480",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-18T02:30:18.970Z",
+  "wallSeconds": 79,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/functions/elementary/hyperbolic.py"
+  ],
+  "versions": {
+    "claude": "2.1.325 (Claude Code)",
+    "codex": "codex-cli 0.169.0",
+    "agy": "1.5.10",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 20667,
+        "cacheRead": 197760,
+        "cacheWrite": 0,
+        "output": 1690,
+        "total": 220117
+      }
+    },
+    "total": 220117,
+    "calls": 1,
+    "costUsd": null,
+    "complete": true
+  }
+}

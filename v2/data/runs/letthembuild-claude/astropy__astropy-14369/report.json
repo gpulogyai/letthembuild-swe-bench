@@ -3,17 +3,16 @@
         "patch_is_None": false,
         "patch_exists": true,
         "patch_successfully_applied": true,
-        "resolved": false,
+        "resolved": true,
         "infra_failure": false,
         "tests_status": {
             "FAIL_TO_PASS": {
                 "success": [
                     "astropy/units/tests/test_format.py::test_cds_grammar[strings4-unit4]",
-                    "astropy/units/tests/test_format.py::test_cds_grammar[strings6-unit6]"
-                ],
-                "failure": [
+                    "astropy/units/tests/test_format.py::test_cds_grammar[strings6-unit6]",
                     "astropy/units/tests/test_format.py::test_cds_grammar_fail[km/s.Mpc-1]"
-                ]
+                ],
+                "failure": []
             },
             "PASS_TO_PASS": {
                 "success": [
@@ -72,6 +71,8 @@
                     "astropy/units/tests/test_format.py::test_cds_grammar[strings37-unit37]",
                     "astropy/units/tests/test_format.py::test_cds_grammar_fail[0.1",
                     "astropy/units/tests/test_format.py::test_cds_grammar_fail[solMass(3/2)]",
+                    "astropy/units/tests/test_format.py::test_cds_grammar_fail[km",
+                    "astropy/units/tests/test_format.py::test_cds_grammar_fail[/s.Mpc]",
                     "astropy/units/tests/test_format.py::test_cds_grammar_fail[pix0.1nm]",
                     "astropy/units/tests/test_format.py::test_cds_grammar_fail[pix/(0.1nm)]",
                     "astropy/units/tests/test_format.py::test_cds_grammar_fail[km*s]",
@@ -748,10 +749,7 @@
                     "astropy/units/tests/test_format.py::test_unknown_parser",
                     "astropy/units/tests/test_format.py::test_celsius_fits"
                 ],
-                "failure": [
-                    "astropy/units/tests/test_format.py::test_cds_grammar_fail[km",
-                    "astropy/units/tests/test_format.py::test_cds_grammar_fail[/s.Mpc]"
-                ]
+                "failure": []
             },
             "FAIL_TO_FAIL": {
                 "success": [],

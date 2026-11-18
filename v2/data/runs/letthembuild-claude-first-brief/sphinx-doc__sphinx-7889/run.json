@@ -1,0 +1,42 @@
+{
+  "setup": "letthembuild-claude-first-brief",
+  "instance_id": "sphinx-doc__sphinx-7889",
+  "repo": "sphinx-doc/sphinx",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-14T17:46:54.986Z",
+  "wallSeconds": 38,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sphinx/ext/autodoc/mock.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.9",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "ltbBuild": "8fa13171e684df4e3aacb043b1917f5e3a4d3302",
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 1,
+        "uncached": 12,
+        "cacheRead": 83347,
+        "cacheWrite": 13400,
+        "output": 2836,
+        "total": 99595
+      }
+    },
+    "total": 99595,
+    "calls": null,
+    "costUsd": null,
+    "complete": true
+  }
+}

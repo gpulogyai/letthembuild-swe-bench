@@ -1,0 +1,40 @@
+{
+  "setup": "codex",
+  "instance_id": "scikit-learn__scikit-learn-25931",
+  "repo": "scikit-learn/scikit-learn",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-18T02:07:37.803Z",
+  "wallSeconds": 36,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sklearn/ensemble/_iforest.py"
+  ],
+  "versions": {
+    "claude": "2.1.325 (Claude Code)",
+    "codex": "codex-cli 0.169.0",
+    "agy": "1.5.10",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 16762,
+        "cacheRead": 84992,
+        "cacheWrite": 0,
+        "output": 770,
+        "total": 102524
+      }
+    },
+    "total": 102524,
+    "calls": 1,
+    "costUsd": null,
+    "complete": true
+  }
+}

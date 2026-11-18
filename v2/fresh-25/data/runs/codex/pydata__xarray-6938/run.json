@@ -1,0 +1,40 @@
+{
+  "setup": "codex",
+  "instance_id": "pydata__xarray-6938",
+  "repo": "pydata/xarray",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-18T02:16:24.230Z",
+  "wallSeconds": 39,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "xarray/core/dataset.py"
+  ],
+  "versions": {
+    "claude": "2.1.325 (Claude Code)",
+    "codex": "codex-cli 0.169.0",
+    "agy": "1.5.10",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 18197,
+        "cacheRead": 118016,
+        "cacheWrite": 0,
+        "output": 862,
+        "total": 137075
+      }
+    },
+    "total": 137075,
+    "calls": 1,
+    "costUsd": null,
+    "complete": true
+  }
+}
