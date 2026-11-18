@@ -1,0 +1,20 @@
+{
+  "clean": true,
+  "reached": [],
+  "attempted": [],
+  "recall": [
+    "names the benchmark: \"test_patch\""
+  ],
+  "notes": [
+    "telemetry or asset host refused: lh3.googleusercontent.com (1)",
+    "telemetry or asset host refused: sdmntpreastus3.oaiusercontent.com (1)",
+    "telemetry or asset host refused: sdmntprsouthcentralus.oaiusercontent.com (9)",
+    "telemetry or asset host refused: sdmntprwestus.oaiusercontent.com (2)",
+    "telemetry or asset host refused: sdmntprcentralus.oaiusercontent.com (4)",
+    "telemetry or asset host refused: sdmntprnorthcentralus.oaiusercontent.com (1)",
+    "telemetry or asset host refused: sdmntprcacentral.oaiusercontent.com (1)",
+    "telemetry or asset host refused: sdmntprsoutheastus3.oaiusercontent.com (1)",
+    "telemetry or asset host refused: sdmntprwestus3.oaiusercontent.com (1)",
+    "telemetry or asset host refused: play.googleapis.com (3)"
+  ]
+}

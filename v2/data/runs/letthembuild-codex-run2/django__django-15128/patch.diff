@@ -1,14 +1,14 @@
 diff --git a/django/db/models/sql/query.py b/django/db/models/sql/query.py
-index aaf35ee37c..4cfd5b556d 100644
+index aaf35ee37c..520c034b80 100644
 --- a/django/db/models/sql/query.py
 +++ b/django/db/models/sql/query.py
 @@ -572,6 +572,13 @@ class Query(BaseExpression):
          if self.distinct_fields != rhs.distinct_fields:
              raise TypeError('Cannot combine queries with different distinct fields.')
  
-+        # Prevent alias collisions such as T4 -> T5, T5 -> T6 when adding
-+        # joins from rhs. The base table is shared by both queries and must
-+        # keep its alias.
++        # Keep the base table alias shared, but prevent other rhs aliases from
++        # conflicting with aliases generated while adding its joins. Otherwise
++        # a change such as T4 -> T5, T5 -> T6 could relabel an alias twice.
 +        initial_alias = self.get_initial_alias()
 +        rhs = rhs.clone()
 +        rhs.bump_prefix(self, exclude={initial_alias})
@@ -26,16 +26,15 @@ index aaf35ee37c..4cfd5b556d 100644
          joinpromoter = JoinPromoter(connector, 2, False)
          joinpromoter.add_votes(
              j for j in self.alias_map if self.alias_map[j].join_type == INNER)
-@@ -846,6 +850,8 @@ class Query(BaseExpression):
+@@ -846,6 +850,7 @@ class Query(BaseExpression):
          relabelling any references to them in select columns and the where
          clause.
          """
-+        # An alias must not be changed twice, so the old and new aliases
-+        # must be disjoint.
++        # An alias must not be changed twice during a single relabeling.
          assert set(change_map).isdisjoint(change_map.values())
  
          # 1. Update references in "select" (normal columns plus aliases),
-@@ -879,12 +885,12 @@ class Query(BaseExpression):
+@@ -879,12 +884,12 @@ class Query(BaseExpression):
              for alias, aliased in self.external_aliases.items()
          }
  
@@ -46,11 +45,11 @@ index aaf35ee37c..4cfd5b556d 100644
          that the outer query's aliases and this query's aliases will not
          conflict. Even tables that previously had no alias will get an alias
 -        after this call.
-+        after this call. However, aliases in the exclude set are unchanged.
++        after this call. Aliases in 'exclude' are left unchanged.
          """
          def prefix_gen():
              """
-@@ -926,6 +932,7 @@ class Query(BaseExpression):
+@@ -926,6 +931,7 @@ class Query(BaseExpression):
          self.change_aliases({
              alias: '%s%d' % (self.alias_prefix, pos)
              for pos, alias in enumerate(self.alias_map)

@@ -15,11 +15,11 @@ const THEMES = {
   light: { bg: "#ffffff", fg: "#15181d", muted: "#59606b", rule: "#dde1e7", claude: "#e0773c", codex: "#10a37f", gemini: "#3aa7e6", grok: "#111111" },
   dark: { bg: "#1a1d22", fg: "#eceef1", muted: "#a9b0ba", rule: "#2c3138", claude: "#d96f32", codex: "#12a07c", gemini: "#3399d6", grok: "#e8e8e8" },
 };
-// Each model's own CLI, then LetThemBuild with that model: for Claude the brief LetThemBuild ships, for Codex the first
-// run and the rerun of its LetThemBuild setup (v2/PREREGISTRATION.md, Changes).
+// Each model's own CLI, then LetThemBuild with that model and the brief LetThemBuild ships (v2/PREREGISTRATION.md,
+// Changes).
 const MODELS = [
   { family: "claude", cli: "claude-code", cliName: "Claude Code", ltb: [["letthembuild-claude", "LTB · Claude*"]] },
-  { family: "codex", cli: "codex", cliName: "Codex CLI", ltb: [["letthembuild-codex", "LTB · Codex, first"], ["letthembuild-codex-rerun", "LTB · Codex, rerun"]] },
+  { family: "codex", cli: "codex", cliName: "Codex CLI", ltb: [["letthembuild-codex", "LTB · Codex*"]] },
 ];
 const SANS = "-apple-system, 'Segoe UI', 'Instrument Sans', system-ui, sans-serif";
 const MONO = "ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace";

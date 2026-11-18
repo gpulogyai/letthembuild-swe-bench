@@ -1,8 +1,8 @@
 diff --git a/sympy/concrete/products.py b/sympy/concrete/products.py
-index 66aafde2d..08f0c8373 100644
+index 66aafde2d..24f01ca16 100644
 --- a/sympy/concrete/products.py
 +++ b/sympy/concrete/products.py
-@@ -276,17 +276,11 @@ def _eval_product(self, term, limits):
+@@ -276,17 +276,14 @@ def _eval_product(self, term, limits):
  
          elif term.is_Add:
              p, q = term.as_numer_denom()
@@ -15,11 +15,15 @@ index 66aafde2d..08f0c8373 100644
 -
 -                p = sum([self._eval_product(i, (k, a, n)) for i in p.as_coeff_Add()])
 -            else:
-+            if q.has(k):
-                 p = self._eval_product(p, (k, a, n))
+-                p = self._eval_product(p, (k, a, n))
 -            return p / q
++            if q == 1:
++                # Products do not distribute over addition.
++                return None
++            p = self._eval_product(p, (k, a, n))
++            if p is not None:
 +                q = self._eval_product(q, (k, a, n))
-+                if p is not None and q is not None:
++                if q is not None:
 +                    return p / q
  
          elif term.is_Mul:

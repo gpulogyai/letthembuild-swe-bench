@@ -1,14 +1,13 @@
 diff --git a/django/db/models/sql/query.py b/django/db/models/sql/query.py
-index aaf35ee37c..3d4a77d5b3 100644
+index aaf35ee37c..13230402ce 100644
 --- a/django/db/models/sql/query.py
 +++ b/django/db/models/sql/query.py
-@@ -572,6 +572,13 @@ class Query(BaseExpression):
+@@ -572,6 +572,12 @@ class Query(BaseExpression):
          if self.distinct_fields != rhs.distinct_fields:
              raise TypeError('Cannot combine queries with different distinct fields.')
  
-+        # Change the rhs aliases to avoid collisions with aliases generated
-+        # during the merge. Keep the base table unchanged since both queries
-+        # must use the same base table.
++        # Prevent alias collisions such as T4 -> T5, T5 -> T6 when relabeling
++        # the rhs joins. The base table is shared by both queries.
 +        initial_alias = self.get_initial_alias()
 +        rhs = rhs.clone()
 +        rhs.bump_prefix(self, exclude={initial_alias})
@@ -16,7 +15,7 @@ index aaf35ee37c..3d4a77d5b3 100644
          # Work out how to relabel the rhs aliases, if necessary.
          change_map = {}
          conjunction = (connector == AND)
-@@ -589,9 +596,6 @@ class Query(BaseExpression):
+@@ -589,9 +595,6 @@ class Query(BaseExpression):
          # the AND case. The results will be correct but this creates too many
          # joins. This is something that could be fixed later on.
          reuse = set() if conjunction else set(self.alias_map)
@@ -26,15 +25,15 @@ index aaf35ee37c..3d4a77d5b3 100644
          joinpromoter = JoinPromoter(connector, 2, False)
          joinpromoter.add_votes(
              j for j in self.alias_map if self.alias_map[j].join_type == INNER)
-@@ -846,6 +850,7 @@ class Query(BaseExpression):
+@@ -846,6 +849,7 @@ class Query(BaseExpression):
          relabelling any references to them in select columns and the where
          clause.
          """
-+        # An alias must not be changed twice, for example T4 -> T5 -> T6.
++        # An alias must not be changed twice while updating internal tables.
          assert set(change_map).isdisjoint(change_map.values())
  
          # 1. Update references in "select" (normal columns plus aliases),
-@@ -879,12 +884,12 @@ class Query(BaseExpression):
+@@ -879,12 +883,12 @@ class Query(BaseExpression):
              for alias, aliased in self.external_aliases.items()
          }
  
@@ -45,11 +44,11 @@ index aaf35ee37c..3d4a77d5b3 100644
          that the outer query's aliases and this query's aliases will not
          conflict. Even tables that previously had no alias will get an alias
 -        after this call.
-+        after this call. Aliases in exclude are left unchanged.
++        after this call. Aliases in 'exclude' will not be changed.
          """
          def prefix_gen():
              """
-@@ -926,6 +931,7 @@ class Query(BaseExpression):
+@@ -926,6 +930,7 @@ class Query(BaseExpression):
          self.change_aliases({
              alias: '%s%d' % (self.alias_prefix, pos)
              for pos, alias in enumerate(self.alias_map)
@@ -57,17 +56,3 @@ index aaf35ee37c..3d4a77d5b3 100644
          })
  
      def get_initial_alias(self):
-diff --git a/docs/ref/models/querysets.txt b/docs/ref/models/querysets.txt
-index b2bf5baf90..51aa7184b6 100644
---- a/docs/ref/models/querysets.txt
-+++ b/docs/ref/models/querysets.txt
-@@ -1898,6 +1898,9 @@ SQL equivalent:
- 
-     SELECT ... WHERE x=1 OR y=2
- 
-+``|`` is not a commutative operation, as different (though equivalent) queries
-+may be generated.
-+
- Methods that do not return ``QuerySet``\s
- -----------------------------------------
- 
