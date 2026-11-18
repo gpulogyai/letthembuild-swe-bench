@@ -1,0 +1,40 @@
+{
+  "setup": "claude-code-run2",
+  "instance_id": "astropy__astropy-14995",
+  "repo": "astropy/astropy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-14T19:04:31.741Z",
+  "wallSeconds": 22,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "astropy/nddata/mixins/ndarithmetic.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.9",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 10,
+        "cacheRead": 158966,
+        "cacheWrite": 10834,
+        "output": 1642,
+        "total": 171452
+      }
+    },
+    "total": 171452,
+    "calls": 6,
+    "costUsd": 0.15134519999999999,
+    "complete": true
+  }
+}

@@ -1,0 +1,44 @@
+diff --git a/django/db/models/base.py b/django/db/models/base.py
+index e3b14a41a0..f171636709 100644
+--- a/django/db/models/base.py
++++ b/django/db/models/base.py
+@@ -398,6 +398,7 @@ class ModelState:
+     # explicit (non-auto) PKs. This impacts validation only; it has no effect
+     # on the actual save.
+     adding = True
++    pk_default = NOT_PROVIDED
+     fields_cache = ModelStateFieldsCacheDescriptor()
+ 
+ 
+@@ -471,8 +472,12 @@ class Model(metaclass=ModelBase):
+                         # get_default() to be evaluated, and then not used.
+                         # Refs #12057.
+                         val = field.get_default()
++                        if field.primary_key and 'pk' not in kwargs:
++                            self._state.pk_default = val
+             else:
+                 val = field.get_default()
++                if field.primary_key and 'pk' not in kwargs:
++                    self._state.pk_default = val
+ 
+             if is_related_object:
+                 # If we are passed a related instance, set it using the
+@@ -847,10 +852,17 @@ class Model(metaclass=ModelBase):
+         if not pk_set and (force_update or update_fields):
+             raise ValueError("Cannot force an update in save() with no primary key.")
+         updated = False
+-        # Skip an UPDATE when adding an instance and primary key has a default.
++        # Skip an UPDATE when adding an instance with a generated primary key.
++        # Don't do this for raw saves, as fixture loading must update existing
++        # rows with explicit primary keys.
+         if (
++            not raw and
+             not force_insert and
++            not force_update and
++            not update_fields and
+             self._state.adding and
++            self._state.pk_default is not NOT_PROVIDED and
++            self._state.pk_default == pk_val and
+             self._meta.pk.default and
+             self._meta.pk.default is not NOT_PROVIDED
+         ):

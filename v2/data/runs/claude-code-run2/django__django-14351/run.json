@@ -1,0 +1,41 @@
+{
+  "setup": "claude-code-run2",
+  "instance_id": "django__django-14351",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-14T18:49:51.517Z",
+  "wallSeconds": 101,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/db/models/fields/related_lookups.py",
+    "django/db/models/lookups.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.9",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 28,
+        "cacheRead": 569136,
+        "cacheWrite": 23109,
+        "output": 7560,
+        "total": 599833
+      }
+    },
+    "total": 599833,
+    "calls": 17,
+    "costUsd": 0.45001120000000006,
+    "complete": true
+  }
+}

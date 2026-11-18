@@ -1,0 +1,40 @@
+{
+  "setup": "codex",
+  "instance_id": "pytest-dev__pytest-10081",
+  "repo": "pytest-dev/pytest",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-14T17:30:45.949Z",
+  "wallSeconds": 69,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "src/_pytest/unittest.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.9",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "codex:gpt-6.1-sol": {
+        "uncached": 14019,
+        "cacheRead": 260864,
+        "cacheWrite": 0,
+        "output": 1391,
+        "total": 276274
+      }
+    },
+    "total": 276274,
+    "calls": 1,
+    "costUsd": null,
+    "complete": true
+  }
+}

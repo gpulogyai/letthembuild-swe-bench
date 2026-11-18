@@ -1,0 +1,19 @@
+diff --git a/sphinx/builders/html/transforms.py b/sphinx/builders/html/transforms.py
+index c91da57e9..b49e9b28b 100644
+--- a/sphinx/builders/html/transforms.py
++++ b/sphinx/builders/html/transforms.py
+@@ -43,6 +43,14 @@ class KeyboardTransform(SphinxPostTransform):
+         matcher = NodeMatcher(nodes.literal, classes=["kbd"])
+         for node in self.document.traverse(matcher):  # type: nodes.literal
+             parts = self.pattern.split(node[-1].astext())
++            # A separator in a key position is itself a keystroke.  Merge it
++            # with the empty fragments around it before building the nodes.
++            index = 0
++            while index < len(parts):
++                if not parts[index] and index + 1 < len(parts):
++                    parts[index:index + 3] = [''.join(parts[index:index + 3])]
++                index += 2
++
+             if len(parts) == 1:
+                 continue
+ 

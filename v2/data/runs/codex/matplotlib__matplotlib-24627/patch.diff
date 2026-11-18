@@ -1,0 +1,38 @@
+diff --git a/lib/matplotlib/axes/_base.py b/lib/matplotlib/axes/_base.py
+index 90b0bf117e..9eca17e0a4 100644
+--- a/lib/matplotlib/axes/_base.py
++++ b/lib/matplotlib/axes/_base.py
+@@ -1308,7 +1308,15 @@ class _AxesBase(martist.Artist):
+         self._get_patches_for_fill = _process_plot_var_args(self, 'fill')
+ 
+         self._gridOn = mpl.rcParams['axes.grid']
++        old_children = self._children
+         self._children = []
++        for child in old_children:
++            child._remove_method = None
++            child.stale_callback = None
++            child.axes = None
++            child.figure = None
++        # Break reference cycles between the old list and its artists.
++        old_children.clear()
+         self._mouseover_set = _OrderedSet()
+         self.child_axes = []
+         self._current_image = None  # strictly for pyplot via _sci, _gci
+diff --git a/lib/matplotlib/figure.py b/lib/matplotlib/figure.py
+index 6c18ba1a64..3f4755ab3e 100644
+--- a/lib/matplotlib/figure.py
++++ b/lib/matplotlib/figure.py
+@@ -949,6 +949,13 @@ default: %(va)s
+             ax.clear()
+             self.delaxes(ax)  # Remove ax from self._axstack.
+ 
++        for artist in [*self.artists, *self.lines, *self.patches,
++                       *self.texts, *self.images, *self.legends]:
++            artist._remove_method = None
++            artist.stale_callback = None
++            artist.axes = None
++            artist.figure = None
++
+         self.artists = []
+         self.lines = []
+         self.patches = []

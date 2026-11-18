@@ -1,0 +1,42 @@
+{
+  "setup": "letthembuild-claude-run2",
+  "instance_id": "matplotlib__matplotlib-23412",
+  "repo": "matplotlib/matplotlib",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-14T19:03:31.102Z",
+  "wallSeconds": 55,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "lib/matplotlib/patches.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.9",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "ltbBuild": "8fa13171e684df4e3aacb043b1917f5e3a4d3302",
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 1,
+        "uncached": 22,
+        "cacheRead": 184479,
+        "cacheWrite": 16976,
+        "output": 3780,
+        "total": 205257
+      }
+    },
+    "total": 205257,
+    "calls": null,
+    "costUsd": null,
+    "complete": true
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "setup": "claude-code",
+  "instance_id": "pydata__xarray-4629",
+  "repo": "pydata/xarray",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-14T18:33:29.365Z",
+  "wallSeconds": 11,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "xarray/core/merge.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.9",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 6,
+        "cacheRead": 89649,
+        "cacheWrite": 9208,
+        "output": 531,
+        "total": 99394
+      }
+    },
+    "total": 99394,
+    "calls": 3,
+    "costUsd": 0.10223780000000002,
+    "complete": true
+  }
+}

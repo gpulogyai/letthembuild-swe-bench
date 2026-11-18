@@ -1,0 +1,9 @@
+{
+  "clean": true,
+  "reached": [],
+  "attempted": [],
+  "recall": [],
+  "notes": [
+    "telemetry or asset host refused: mcp-proxy.anthropic.com (20)"
+  ]
+}
