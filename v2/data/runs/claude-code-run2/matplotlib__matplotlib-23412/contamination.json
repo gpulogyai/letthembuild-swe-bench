@@ -1,0 +1,11 @@
+{
+  "clean": true,
+  "reached": [],
+  "attempted": [],
+  "recall": [
+    "names the benchmark: \"test_patch\""
+  ],
+  "notes": [
+    "telemetry or asset host refused: mcp-proxy.anthropic.com (20)"
+  ]
+}

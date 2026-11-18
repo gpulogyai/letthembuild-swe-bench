@@ -1,0 +1,43 @@
+{
+  "setup": "claude-code-run2",
+  "instance_id": "django__django-13821",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-14T18:35:40.787Z",
+  "wallSeconds": 29,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/db/backends/sqlite3/base.py",
+    "docs/ref/contrib/gis/install/index.txt",
+    "docs/ref/databases.txt",
+    "docs/releases/3.2.txt"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.9",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 16,
+        "cacheRead": 256523,
+        "cacheWrite": 10665,
+        "output": 1694,
+        "total": 268898
+      }
+    },
+    "total": 268898,
+    "calls": 9,
+    "costUsd": 0.17056860000000001,
+    "complete": true
+  }
+}

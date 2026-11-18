@@ -1,0 +1,42 @@
+{
+  "setup": "claude-code-run2",
+  "instance_id": "sphinx-doc__sphinx-8035",
+  "repo": "sphinx-doc/sphinx",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-14T19:05:31.027Z",
+  "wallSeconds": 66,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "CHANGES",
+    "doc/usage/extensions/autodoc.rst",
+    "sphinx/ext/autodoc/__init__.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.9",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "uncached": 38,
+        "cacheRead": 694483,
+        "cacheWrite": 17140,
+        "output": 4302,
+        "total": 715963
+      }
+    },
+    "total": 715963,
+    "calls": 22,
+    "costUsd": 0.3622086,
+    "complete": true
+  }
+}

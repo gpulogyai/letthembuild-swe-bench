@@ -1,0 +1,84 @@
+diff --git a/CHANGES b/CHANGES
+index eadace6dc..d7b57766d 100644
+--- a/CHANGES
++++ b/CHANGES
+@@ -17,6 +17,8 @@ Deprecated
+ Features added
+ --------------
+ 
++* #8022: autodoc: ``:private-members:`` option now takes the names of private
++  members to be documented
+ * #2076: autodoc: Allow overriding of exclude-members in skip-member function
+ * #2024: autosummary: Add :confval:`autosummary_filename_map` to avoid conflict
+   of filenames between two object with different case
+diff --git a/doc/usage/extensions/autodoc.rst b/doc/usage/extensions/autodoc.rst
+index 150b62c4d..65fba1f3f 100644
+--- a/doc/usage/extensions/autodoc.rst
++++ b/doc/usage/extensions/autodoc.rst
+@@ -138,6 +138,12 @@ inserting them into the page source under a suitable :rst:dir:`py:module`,
+    * "Private" members (that is, those named like ``_private`` or ``__private``)
+      will be included if the ``private-members`` flag option is given.
+ 
++     .. versionchanged:: 3.2
++
++        The option can now take arguments, i.e. the private members to document.
++        For example, ``:private-members: _foo, _bar`` documents only ``_foo``
++        and ``_bar``.
++
+      .. versionadded:: 1.1
+ 
+    * autodoc considers a member private if its docstring contains
+diff --git a/sphinx/ext/autodoc/__init__.py b/sphinx/ext/autodoc/__init__.py
+index 8c3509c3b..a7bb62ded 100644
+--- a/sphinx/ext/autodoc/__init__.py
++++ b/sphinx/ext/autodoc/__init__.py
+@@ -648,16 +648,26 @@ class Documenter:
+                         keep = has_doc or self.options.undoc_members
+             elif (namespace, membername) in attr_docs:
+                 if want_all and isprivate:
+-                    # ignore members whose name starts with _ by default
+-                    keep = self.options.private_members
++                    if self.options.private_members is None:
++                        keep = False
++                    elif self.options.private_members is ALL:
++                        keep = True
++                    else:
++                        keep = membername in self.options.private_members
+                 else:
+                     # keep documented attributes
+                     keep = True
+                 isattr = True
+             elif want_all and isprivate:
+-                # ignore members whose name starts with _ by default
+-                keep = self.options.private_members and \
+-                    (has_doc or self.options.undoc_members)
++                if has_doc or self.options.undoc_members:
++                    if self.options.private_members is None:
++                        keep = False
++                    elif self.options.private_members is ALL:
++                        keep = True
++                    else:
++                        keep = membername in self.options.private_members
++                else:
++                    keep = False
+             else:
+                 if self.options.members is ALL and is_filtered_inherited_member(membername):
+                     keep = False
+@@ -859,7 +869,7 @@ class ModuleDocumenter(Documenter):
+         'show-inheritance': bool_option, 'synopsis': identity,
+         'platform': identity, 'deprecated': bool_option,
+         'member-order': member_order_option, 'exclude-members': members_set_option,
+-        'private-members': bool_option, 'special-members': members_option,
++        'private-members': members_option, 'special-members': members_option,
+         'imported-members': bool_option, 'ignore-module-all': bool_option
+     }  # type: Dict[str, Callable]
+ 
+@@ -1279,7 +1289,7 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type:
+         'noindex': bool_option, 'inherited-members': inherited_members_option,
+         'show-inheritance': bool_option, 'member-order': member_order_option,
+         'exclude-members': members_set_option,
+-        'private-members': bool_option, 'special-members': members_option,
++        'private-members': members_option, 'special-members': members_option,
+     }  # type: Dict[str, Callable]
+ 
+     _signature_class = None  # type: Any

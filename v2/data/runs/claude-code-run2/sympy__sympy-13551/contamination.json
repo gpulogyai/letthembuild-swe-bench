@@ -1,0 +1,11 @@
+{
+  "clean": true,
+  "reached": [],
+  "attempted": [],
+  "recall": [],
+  "notes": [
+    "telemetry or asset host refused: mcp-proxy.anthropic.com (20)",
+    "package index: pypi.org (1)",
+    "package index: files.pythonhosted.org (1)"
+  ]
+}

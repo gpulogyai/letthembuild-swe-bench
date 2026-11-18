@@ -1,0 +1,59 @@
+diff --git a/astropy/io/fits/card.py b/astropy/io/fits/card.py
+index 8c1ac5d73..312f47b20 100644
+--- a/astropy/io/fits/card.py
++++ b/astropy/io/fits/card.py
+@@ -554,6 +554,13 @@ class Card(_Verify):
+         """
+ 
+         card = cls()
++        if isinstance(image, bytes):
++            # FITS supports only ASCII, but decode as latin1 and just take all
++            # bytes for now; if it results in mojibake due to e.g. UTF-8
++            # encoded data in a FITS header that's OK because it shouldn't be
++            # there in the first place
++            image = image.decode('latin1')
++
+         card._image = _pad(image)
+         card._verified = False
+         return card
+diff --git a/astropy/io/fits/header.py b/astropy/io/fits/header.py
+index ad07e6d52..5221f3dc7 100644
+--- a/astropy/io/fits/header.py
++++ b/astropy/io/fits/header.py
+@@ -334,13 +334,18 @@ class Header:
+ 
+         Parameters
+         ----------
+-        data : str
+-           String containing the entire header.
++        data : str or bytes
++           String containing the entire header.  In the case of bytes they will
++           be decoded using latin-1 (only plain ASCII characters are allowed in
++           FITS headers but latin-1 allows us to retain any invalid bytes that
++           might appear in malformatted FITS files).
+ 
+         sep : str, optional
+             The string separating cards from each other, such as a newline.  By
+             default there is no card separator (as is the case in a raw FITS
+-            file).
++            file).  In general this is only used in cases where a header was
++            printed as text (e.g. with newlines after each card) and you want
++            to create a new `Header` from it by copy/pasting.
+ 
+         Returns
+         -------
+@@ -350,6 +355,14 @@ class Header:
+ 
+         cards = []
+ 
++        # If the header data is bytes decode it as latin-1 so that splitting
++        # on the (str) separator and parsing the cards works as for str input
++        if isinstance(data, bytes):
++            data = data.decode('latin1')
++
++        if isinstance(sep, bytes):
++            sep = sep.decode('latin1')
++
+         # If the card separator contains characters that may validly appear in
+         # a card, the only way to unambiguously distinguish between cards is to
+         # require that they be Card.length long.  However, if the separator
