@@ -1,0 +1,240 @@
+diff --git a/lib/matplotlib/_mathtext.py b/lib/matplotlib/_mathtext.py
+index 09f5c61879..b4eb7ec7a8 100644
+--- a/lib/matplotlib/_mathtext.py
++++ b/lib/matplotlib/_mathtext.py
+@@ -99,7 +99,10 @@ class Output:
+               for x1, y1, x2, y2 in self.rects]
+         return VectorParse(w, h + d, d, gs, rs)
+ 
+-    def to_raster(self):
++    def to_raster(self, *, antialiased=None):
++        if antialiased is None:
++            antialiased = mpl.rcParams['text.antialiased']
++
+         # Metrics y's and mathtext y's are oriented in opposite directions,
+         # hence the switch between ymin and ymax.
+         xmin = min([*[ox + info.metrics.xmin for ox, oy, info in self.glyphs],
+@@ -124,7 +127,7 @@ class Output:
+         for ox, oy, info in shifted.glyphs:
+             info.font.draw_glyph_to_bitmap(
+                 image, ox, oy - info.metrics.iceberg, info.glyph,
+-                antialiased=mpl.rcParams['text.antialiased'])
++                antialiased=antialiased)
+         for x1, y1, x2, y2 in shifted.rects:
+             height = max(int(y2 - y1) - 1, 0)
+             if height == 0:
+diff --git a/lib/matplotlib/backends/backend_agg.py b/lib/matplotlib/backends/backend_agg.py
+index 7d038a998f..a019d3b38e 100644
+--- a/lib/matplotlib/backends/backend_agg.py
++++ b/lib/matplotlib/backends/backend_agg.py
+@@ -189,7 +189,8 @@ class RendererAgg(RendererBase):
+     def draw_mathtext(self, gc, x, y, s, prop, angle):
+         """Draw mathtext using :mod:`matplotlib.mathtext`."""
+         ox, oy, width, height, descent, font_image = \
+-            self.mathtext_parser.parse(s, self.dpi, prop)
++            self.mathtext_parser.parse(
++                s, self.dpi, prop, antialiased=gc.get_antialiased())
+ 
+         xd = descent * sin(radians(angle))
+         yd = descent * cos(radians(angle))
+@@ -206,7 +207,7 @@ class RendererAgg(RendererBase):
+         # space) in the following call to draw_text_image).
+         font.set_text(s, 0, flags=get_hinting_flag())
+         font.draw_glyphs_to_bitmap(
+-            antialiased=mpl.rcParams['text.antialiased'])
++            antialiased=gc.get_antialiased())
+         d = font.get_descent() / 64.0
+         # The descent needs to be adjusted for the angle.
+         xo, yo = font.get_bitmap_offset()
+diff --git a/lib/matplotlib/backends/backend_cairo.py b/lib/matplotlib/backends/backend_cairo.py
+index 9ccadcdf1c..4ece88d595 100644
+--- a/lib/matplotlib/backends/backend_cairo.py
++++ b/lib/matplotlib/backends/backend_cairo.py
+@@ -205,7 +205,7 @@ class RendererCairo(RendererBase):
+             ctx.set_font_size(self.points_to_pixels(prop.get_size_in_points()))
+             opts = cairo.FontOptions()
+             opts.set_antialias(
+-                cairo.ANTIALIAS_DEFAULT if mpl.rcParams["text.antialiased"]
++                cairo.ANTIALIAS_DEFAULT if gc.get_antialiased()
+                 else cairo.ANTIALIAS_NONE)
+             ctx.set_font_options(opts)
+             if angle:
+@@ -219,6 +219,11 @@ class RendererCairo(RendererBase):
+             self._text2path.mathtext_parser.parse(s, self.dpi, prop)
+ 
+         ctx.save()
++        opts = cairo.FontOptions()
++        opts.set_antialias(
++            cairo.ANTIALIAS_DEFAULT if gc.get_antialiased()
++            else cairo.ANTIALIAS_NONE)
++        ctx.set_font_options(opts)
+         ctx.translate(x, y)
+         if angle:
+             ctx.rotate(np.deg2rad(-angle))
+diff --git a/lib/matplotlib/mathtext.py b/lib/matplotlib/mathtext.py
+index e538d451f8..c218349b61 100644
+--- a/lib/matplotlib/mathtext.py
++++ b/lib/matplotlib/mathtext.py
+@@ -18,6 +18,7 @@ metrics for those fonts.
+ import functools
+ import logging
+ 
++import matplotlib as mpl
+ from matplotlib import _api, _mathtext
+ from matplotlib.ft2font import LOAD_NO_HINTING
+ from matplotlib.font_manager import FontProperties
+@@ -58,7 +59,7 @@ class MathTextParser:
+             {"path": "vector", "agg": "raster", "macosx": "raster"},
+             output=output.lower())
+ 
+-    def parse(self, s, dpi=72, prop=None):
++    def parse(self, s, dpi=72, prop=None, *, antialiased=None):
+         """
+         Parse the given math expression *s* at the given *dpi*.  If *prop* is
+         provided, it is a `.FontProperties` object specifying the "default"
+@@ -69,15 +70,20 @@ class MathTextParser:
+ 
+         Depending on the *output* type, this returns either a `VectorParse` or
+         a `RasterParse`.
++
++        The keyword-only *antialiased* parameter controls raster antialiasing.
++        If None, it defaults to :rc:`text.antialiased`.
+         """
+         # lru_cache can't decorate parse() directly because prop
+         # is mutable; key the cache using an internal copy (see
+         # text._get_text_metrics_with_cache for a similar case).
+         prop = prop.copy() if prop is not None else None
+-        return self._parse_cached(s, dpi, prop)
++        if antialiased is None:
++            antialiased = mpl.rcParams["text.antialiased"]
++        return self._parse_cached(s, dpi, prop, antialiased)
+ 
+     @functools.lru_cache(50)
+-    def _parse_cached(self, s, dpi, prop):
++    def _parse_cached(self, s, dpi, prop, antialiased):
+         from matplotlib.backends import backend_agg
+ 
+         if prop is None:
+@@ -100,7 +106,7 @@ class MathTextParser:
+         if self._output_type == "vector":
+             return output.to_vector()
+         elif self._output_type == "raster":
+-            return output.to_raster()
++            return output.to_raster(antialiased=antialiased)
+ 
+ 
+ def math_to_image(s, filename_or_obj, prop=None, dpi=None, format=None,
+diff --git a/lib/matplotlib/mathtext.pyi b/lib/matplotlib/mathtext.pyi
+index a2e6e0e056..b55880dffa 100644
+--- a/lib/matplotlib/mathtext.pyi
++++ b/lib/matplotlib/mathtext.pyi
+@@ -13,7 +13,10 @@ from matplotlib.typing import ColorType
+ 
+ class MathTextParser:
+     def __init__(self, output: Literal["path", "raster", "macosx"]) -> None: ...
+-    def parse(self, s: str, dpi: float = ..., prop: FontProperties | None = ...): ...
++    def parse(
++        self, s: str, dpi: float = ..., prop: FontProperties | None = ...,
++        *, antialiased: bool | None = ...
++    ): ...
+ 
+ def math_to_image(
+     s: str,
+diff --git a/lib/matplotlib/text.py b/lib/matplotlib/text.py
+index 4591316cf9..01c40d4fe2 100644
+--- a/lib/matplotlib/text.py
++++ b/lib/matplotlib/text.py
+@@ -104,6 +104,7 @@ class Text(Artist):
+     def __init__(self,
+                  x=0, y=0, text='', *,
+                  color=None,           # defaults to rc params
++                 antialiased=None,
+                  verticalalignment='baseline',
+                  horizontalalignment='left',
+                  multialignment=None,
+@@ -138,6 +139,7 @@ class Text(Artist):
+         self._reset_visual_defaults(
+             text=text,
+             color=color,
++            antialiased=antialiased,
+             fontproperties=fontproperties,
+             usetex=usetex,
+             parse_math=parse_math,
+@@ -156,6 +158,7 @@ class Text(Artist):
+         self,
+         text='',
+         color=None,
++        antialiased=None,
+         fontproperties=None,
+         usetex=None,
+         parse_math=None,
+@@ -169,6 +172,7 @@ class Text(Artist):
+         rotation_mode=None,
+     ):
+         self.set_text(text)
++        self.set_antialiased(antialiased)
+         self.set_color(
+             color if color is not None else mpl.rcParams["text.color"])
+         self.set_fontproperties(fontproperties)
+@@ -312,6 +316,7 @@ class Text(Artist):
+     def update_from(self, other):
+         # docstring inherited
+         super().update_from(other)
++        self._antialiased = other._antialiased
+         self._color = other._color
+         self._multialignment = other._multialignment
+         self._verticalalignment = other._verticalalignment
+@@ -736,6 +741,7 @@ class Text(Artist):
+             gc = renderer.new_gc()
+             gc.set_foreground(self.get_color())
+             gc.set_alpha(self.get_alpha())
++            gc.set_antialiased(self.get_antialiased())
+             gc.set_url(self._url)
+             self._set_gc_clip(gc)
+ 
+@@ -770,6 +776,24 @@ class Text(Artist):
+         renderer.close_group('text')
+         self.stale = False
+ 
++    def set_antialiased(self, antialiased):
++        """
++        Set whether to use antialiased rendering.
++
++        Parameters
++        ----------
++        antialiased : bool or None
++            If None, use :rc:`text.antialiased`.
++        """
++        if antialiased is None:
++            antialiased = mpl.rcParams['text.antialiased']
++        self._antialiased = antialiased
++        self.stale = True
++
++    def get_antialiased(self):
++        """Return whether antialiased rendering is used."""
++        return self._antialiased
++
+     def get_color(self):
+         """Return the color of the text."""
+         return self._color
+diff --git a/lib/matplotlib/text.pyi b/lib/matplotlib/text.pyi
+index bb2f529920..4b99a0042c 100644
+--- a/lib/matplotlib/text.pyi
++++ b/lib/matplotlib/text.pyi
+@@ -23,6 +23,7 @@ class Text(Artist):
+         text: Any = ...,
+         *,
+         color: ColorType | None = ...,
++        antialiased: bool | None = ...,
+         verticalalignment: Literal[
+             "bottom", "baseline", "center", "center_baseline", "top"
+         ] = ...,
+@@ -48,6 +49,8 @@ class Text(Artist):
+     def update_bbox_position_size(self, renderer: RendererBase) -> None: ...
+     def get_wrap(self) -> bool: ...
+     def set_wrap(self, wrap: bool) -> None: ...
++    def set_antialiased(self, antialiased: bool | None) -> None: ...
++    def get_antialiased(self) -> bool: ...
+     def get_color(self) -> ColorType: ...
+     def get_fontproperties(self) -> FontProperties: ...
+     def get_fontfamily(self) -> list[str]: ...

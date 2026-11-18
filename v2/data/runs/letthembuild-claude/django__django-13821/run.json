@@ -8,13 +8,12 @@
     "gemini": "gemini-4-argon-high",
     "grok": "grok-4.7"
   },
-  "started": "2026-11-14T17:11:01.704Z",
-  "wallSeconds": 48,
+  "started": "2026-11-15T00:47:24.546Z",
+  "wallSeconds": 37,
   "exitCode": 0,
   "timedOut": false,
   "filesChanged": [
     "django/db/backends/sqlite3/base.py",
-    "docs/ref/contrib/gis/install/index.txt",
     "docs/ref/databases.txt",
     "docs/releases/3.2.txt",
     "tests/backends/sqlite/tests.py"
@@ -25,20 +24,20 @@
     "agy": "1.5.9",
     "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
   },
-  "ltbBuild": "8fa13171e684df4e3aacb043b1917f5e3a4d3302",
+  "ltbBuild": "a8cb6083564f9457316d50e1c56600bc328c4fa7",
   "resolved": true,
   "tokens": {
     "bySource": {
       "claude:claude-opus-5-5": {
         "turns": 1,
-        "uncached": 22,
-        "cacheRead": 163962,
-        "cacheWrite": 13588,
-        "output": 2495,
-        "total": 180067
+        "uncached": 18,
+        "cacheRead": 127356,
+        "cacheWrite": 12523,
+        "output": 2012,
+        "total": 141909
       }
     },
-    "total": 180067,
+    "total": 141909,
     "calls": null,
     "costUsd": null,
     "complete": true

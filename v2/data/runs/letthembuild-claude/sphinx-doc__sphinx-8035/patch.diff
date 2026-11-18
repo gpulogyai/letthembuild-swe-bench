@@ -1,46 +1,18 @@
-diff --git a/CHANGES b/CHANGES
-index eadace6dc..df70ca09b 100644
---- a/CHANGES
-+++ b/CHANGES
-@@ -18,6 +18,8 @@ Features added
- --------------
- 
- * #2076: autodoc: Allow overriding of exclude-members in skip-member function
-+* #8034: autodoc: ``:private-members:`` can take an explicit list of member
-+  names to be documented
- * #2024: autosummary: Add :confval:`autosummary_filename_map` to avoid conflict
-   of filenames between two object with different case
- * #7849: html: Add :confval:`html_codeblock_linenos_style` to change the style
 diff --git a/doc/usage/extensions/autodoc.rst b/doc/usage/extensions/autodoc.rst
-index 150b62c4d..71f49c240 100644
+index 150b62c4d..6b9048480 100644
 --- a/doc/usage/extensions/autodoc.rst
 +++ b/doc/usage/extensions/autodoc.rst
-@@ -136,9 +136,22 @@ inserting them into the page source under a suitable :rst:dir:`py:module`,
-            :undoc-members:
+@@ -137,6 +137,8 @@ inserting them into the page source under a suitable :rst:dir:`py:module`,
  
     * "Private" members (that is, those named like ``_private`` or ``__private``)
--     will be included if the ``private-members`` flag option is given.
-+     will be included if the ``private-members`` flag option is given::
-+
-+        .. automodule:: noodle
-+           :members:
-+           :private-members:
-+
+      will be included if the ``private-members`` flag option is given.
 +     It can also take an explicit list of member names to be documented as
-+     arguments::
-+
-+        .. automodule:: noodle
-+           :members:
-+           :private-members: _spicy, _garlickly
++     arguments, e.g. ``:private-members: _foo, _bar``.
  
       .. versionadded:: 1.1
-+     .. versionchanged:: 3.2
-+        The option can now take arguments.
  
-    * autodoc considers a member private if its docstring contains
-      ``:meta private:`` in its :ref:`info-field-lists`.
 diff --git a/sphinx/ext/autodoc/__init__.py b/sphinx/ext/autodoc/__init__.py
-index 8c3509c3b..a7bb62ded 100644
+index 8c3509c3b..02b18507f 100644
 --- a/sphinx/ext/autodoc/__init__.py
 +++ b/sphinx/ext/autodoc/__init__.py
 @@ -648,16 +648,26 @@ class Documenter:
@@ -49,9 +21,9 @@ index 8c3509c3b..a7bb62ded 100644
                  if want_all and isprivate:
 -                    # ignore members whose name starts with _ by default
 -                    keep = self.options.private_members
-+                    if self.options.private_members is None:
++                    if not self.options.private_members:
 +                        keep = False
-+                    elif self.options.private_members is ALL:
++                    elif self.options.private_members in (ALL, True):
 +                        keep = True
 +                    else:
 +                        keep = membername in self.options.private_members
@@ -64,9 +36,9 @@ index 8c3509c3b..a7bb62ded 100644
 -                keep = self.options.private_members and \
 -                    (has_doc or self.options.undoc_members)
 +                if has_doc or self.options.undoc_members:
-+                    if self.options.private_members is None:
++                    if not self.options.private_members:
 +                        keep = False
-+                    elif self.options.private_members is ALL:
++                    elif self.options.private_members in (ALL, True):
 +                        keep = True
 +                    else:
 +                        keep = membername in self.options.private_members

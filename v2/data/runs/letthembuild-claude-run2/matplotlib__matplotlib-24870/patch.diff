@@ -1,5 +1,5 @@
 diff --git a/lib/matplotlib/contour.py b/lib/matplotlib/contour.py
-index 144eadeae2..4f55c0d604 100644
+index 144eadeae2..ac188bd0f2 100644
 --- a/lib/matplotlib/contour.py
 +++ b/lib/matplotlib/contour.py
 @@ -1117,15 +1117,20 @@ class ContourSet(cm.ScalarMappable, ContourLabeler):
@@ -31,12 +31,13 @@ index 144eadeae2..4f55c0d604 100644
              fn = 'contour'
          nargs = len(args)
          if nargs <= 2:
-+            z_dtype = np.asarray(args[0]).dtype
-             z = ma.asarray(args[0], dtype=np.float64)
+-            z = ma.asarray(args[0], dtype=np.float64)
++            z_orig = args[0]
++            z = ma.asarray(z_orig, dtype=np.float64)
              x, y = self._initialize_x_y(z)
              args = args[1:]
          elif nargs <= 4:
-+            z_dtype = np.asarray(args[2]).dtype
++            z_orig = args[2]
              x, y, z = self._check_xyz(args[:3], kwargs)
              args = args[3:]
          else:
@@ -45,7 +46,7 @@ index 144eadeae2..4f55c0d604 100644
              _api.warn_external('Log scale: values of z <= 0 have been masked')
              self.zmin = float(z.min())
 -        self._process_contour_level_args(args)
-+        self._process_contour_level_args(args, z_dtype)
++        self._process_contour_level_args(args, np.asarray(z_orig).dtype)
          return (x, y, z)
  
      def _check_xyz(self, args, kwargs):
@@ -53,9 +54,9 @@ index 144eadeae2..4f55c0d604 100644
      If array-like, draw contour lines at the specified levels.
      The values must be in increasing order.
  
-+    If not given and *Z* is a boolean array, a single level at 0.5 is used
-+    (``[0, 0.5, 1]`` for `contourf`), i.e. the boundary between the True
-+    and False regions.
++    If not given and *Z* is a boolean array, the levels default to [0.5]
++    for `.contour` and [0, 0.5, 1] for `.contourf`, so that the boundary
++    between True and False regions is drawn.
 +
  Returns
  -------
