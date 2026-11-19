@@ -86,3 +86,13 @@ as "no detectable difference" unless the interval excludes zero. All four models
   were seen, on 15 issues of the first run. The README now reports it as `letthembuild-codex`, one comparison per
   model. The earlier Codex setups are published unchanged under new names: the first runs as
   `letthembuild-codex-first-run`, the rerun as `letthembuild-codex-full-brief`.
+- 2026-11-18, added experiment, not pre-registered: two-seat rooms on the same 50 held-out issues, two runs each,
+  with the build and briefs LetThemBuild ships (bbc845bba), Claude Code 2.1.311 and Codex 0.167.0 as frozen, the
+  same models: Claude leading with Codex reviewing (`letthembuild-claude-codex-review`) and Codex leading with Claude
+  reviewing (`letthembuild-codex-claude-review`), one round limit as LetThemBuild runs it, the Codex seat run as in
+  `letthembuild-codex`. Each is compared, under the analysis above, with its lead's CLI alone and with LetThemBuild
+  with the lead as its one seat; tokens in each round are from `v2/harness/rounds.mjs`. In these rooms Claude Code's
+  own web fetch was available to the Claude seat; it was called five times and the proxy refused each call.
+- 2026-11-19, data: transcripts are scrubbed value by value, so every line of every v2 transcript is valid JSON. 56
+  lines in earlier setups' transcripts changed where a code escape had been read as part of an address; no figure
+  changed.

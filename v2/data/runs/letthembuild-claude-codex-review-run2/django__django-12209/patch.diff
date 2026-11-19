@@ -1,0 +1,50 @@
+diff --git a/django/db/models/base.py b/django/db/models/base.py
+index e3b14a41a0..848a218aa3 100644
+--- a/django/db/models/base.py
++++ b/django/db/models/base.py
+@@ -847,8 +847,10 @@ class Model(metaclass=ModelBase):
+         if not pk_set and (force_update or update_fields):
+             raise ValueError("Cannot force an update in save() with no primary key.")
+         updated = False
+-        # Skip an UPDATE when adding an instance and primary key has a default.
++        # Skip an UPDATE when adding an instance and primary key has a default,
++        # unless loading raw data (e.g. fixtures), which may already exist.
+         if (
++            not raw and
+             not force_insert and
+             self._state.adding and
+             self._meta.pk.default and
+diff --git a/docs/releases/3.0.txt b/docs/releases/3.0.txt
+index 435755f732..a0e220b0ee 100644
+--- a/docs/releases/3.0.txt
++++ b/docs/releases/3.0.txt
+@@ -372,6 +372,29 @@ Tests
+ Backwards incompatible changes in 3.0
+ =====================================
+ 
++``Model.save()`` when providing a default for the primary key
++-------------------------------------------------------------
++
++:meth:`.Model.save` no longer attempts to find a row when saving a new
++``Model`` instance and a default value for the primary key is provided, and
++always performs a single ``INSERT`` query. In older Django versions,
++``Model.save()`` performed either an ``INSERT`` or an ``UPDATE`` based on
++whether or not the row exists.
++
++This makes calling ``Model.save()`` while providing a default primary key value
++equivalent to passing :ref:`force_insert=True <ref-models-force-insert>` to
++model's ``save()``. Attempts to use a new ``Model`` instance to update an
++existing row will result in an ``IntegrityError``.
++
++In order to update an existing model for a specific primary key value, use the
++:meth:`~django.db.models.query.QuerySet.update_or_create` method or
++``QuerySet.filter(pk=…).update(…)`` instead. For example:
++
++.. code-block:: pycon
++
++    >>> MyModel.objects.update_or_create(pk=existing_pk, defaults={"name": "new name"})
++    >>> MyModel.objects.filter(pk=existing_pk).update(name="new name")
++
+ Database backend API
+ --------------------
+ 
