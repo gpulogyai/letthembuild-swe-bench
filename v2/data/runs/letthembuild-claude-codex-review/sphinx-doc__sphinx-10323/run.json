@@ -1,0 +1,50 @@
+{
+  "setup": "letthembuild-claude-codex-review",
+  "instance_id": "sphinx-doc__sphinx-10323",
+  "repo": "sphinx-doc/sphinx",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-18T18:13:26.528Z",
+  "wallSeconds": 71,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "sphinx/directives/code.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.11",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "ltbBuild": "285389b11ab11563262128222c0e02fdfaeef0cb",
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 3,
+        "uncached": 18,
+        "cacheRead": 115039,
+        "cacheWrite": 28407,
+        "output": 2940,
+        "total": 146404
+      },
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 2,
+        "uncached": 20815,
+        "cacheRead": 60416,
+        "cacheWrite": 0,
+        "output": 441,
+        "total": 81672
+      }
+    },
+    "total": 228076,
+    "calls": null,
+    "costUsd": null,
+    "complete": true
+  }
+}

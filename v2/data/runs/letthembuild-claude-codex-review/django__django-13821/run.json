@@ -1,0 +1,54 @@
+{
+  "setup": "letthembuild-claude-codex-review",
+  "instance_id": "django__django-13821",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-18T17:18:56.628Z",
+  "wallSeconds": 90,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/db/backends/sqlite3/base.py",
+    "docs/ref/contrib/gis/install/index.txt",
+    "docs/ref/databases.txt",
+    "docs/releases/3.2.txt",
+    "tests/backends/sqlite/tests.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.11",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "ltbBuild": "285389b11ab11563262128222c0e02fdfaeef0cb",
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 3,
+        "uncached": 20,
+        "cacheRead": 124704,
+        "cacheWrite": 28238,
+        "output": 3605,
+        "total": 156567
+      },
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 2,
+        "uncached": 15075,
+        "cacheRead": 86272,
+        "cacheWrite": 0,
+        "output": 323,
+        "total": 101670
+      }
+    },
+    "total": 258237,
+    "calls": null,
+    "costUsd": null,
+    "complete": true
+  }
+}
