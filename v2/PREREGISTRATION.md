@@ -99,3 +99,6 @@ as "no detectable difference" unless the interval excludes zero. All four models
 - 2026-11-19, data: the transcripts in `full-50/data`, `v2/data` and `v2/fresh-25/data` are rewritten from the raw
   runs, scrubbed value by value with the end-of-value rule kept, so every line parses as JSON and code such as a
   `@decorator` after a line break reads as written. Only transcript lines change; no patch, grade or figure does.
+- 2026-11-19, reporting: cost at list price, already given for Claude, is given for every setup, each model at its own
+  price (gpt-6.1-sol input $2, cached input $0.10, output $10 per million tokens). `verdict.mjs` takes `PRICE=list`
+  (`PRICE=claude` still works and prints the same figures for Claude), and `rounds.mjs` gives each turn's cost.
