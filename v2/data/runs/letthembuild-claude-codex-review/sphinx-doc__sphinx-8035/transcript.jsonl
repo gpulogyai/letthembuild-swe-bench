@@ -245,7 +245,7 @@
 {"type":"delta","id":"c2fb4d60-7be6-4e08-a20a-0725dd076256","text":" tests/test_ext_","sessionId":"f85056e9-3d80-4193-8049-331a98206e63"}
 {"type":"delta","id":"c2fb4d60-7be6-4e08-a20a-0725dd076256","text":"autodoc_private_members","sessionId":"f85056e9-3d80-4193-8049-331a98206e63"}
 {"type":"delta","id":"c2fb4d60-7be6-4e08-a20a-0725dd076256","text":".py -q` → `b","sessionId":"f85056e9-3d80-4193-8049-331a98206e63"}
-{"type":"delta","id":"c2fb4d60-7be6-4e08-a20a-0725dd076256","text":"ash: /Users/nur","sessionId":"f85056e9-3d80-4193-8049-331a98206e63"}
+{"type":"delta","id":"c2fb4d60-7be6-4e08-a20a-0725dd076256","text":"ash: /home/…","sessionId":"f85056e9-3d80-4193-8049-331a98206e63"}
 {"type":"delta","id":"c2fb4d60-7be6-4e08-a20a-0725dd076256","text":"home/.pyenv","sessionId":"f85056e9-3d80-4193-8049-331a98206e63"}
 {"type":"delta","id":"c2fb4d60-7be6-4e08-a20a-0725dd076256","text":"/shims/python: Oper","sessionId":"f85056e9-3d80-4193-8049-331a98206e63"}
 {"type":"delta","id":"c2fb4d60-7be6-4e08-a20a-0725dd076256","text":"ation not permitted`\n\nSo","sessionId":"f85056e9-3d80-4193-8049-331a98206e63"}

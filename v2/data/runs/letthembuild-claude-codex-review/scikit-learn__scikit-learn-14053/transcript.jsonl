@@ -175,7 +175,7 @@
 {"type":"delta","id":"4c59c6c7-c36a-40c0-947e-1c9f6f27d904","text":" this session","sessionId":"a1e85465-4467-4d3a-8b22-1bb9f5ca7147"}
 {"type":"delta","id":"4c59c6c7-c36a-40c0-947e-1c9f6f27d904","text":":\n- The project's own inter","sessionId":"a1e85465-4467-4d3a-8b22-1bb9f5ca7147"}
 {"type":"delta","id":"4c59c6c7-c36a-40c0-947e-1c9f6f27d904","text":"preter is blocked:","sessionId":"a1e85465-4467-4d3a-8b22-1bb9f5ca7147"}
-{"type":"delta","id":"4c59c6c7-c36a-40c0-947e-1c9f6f27d904","text":" `/Users/nurh","sessionId":"a1e85465-4467-4d3a-8b22-1bb9f5ca7147"}
+{"type":"delta","id":"4c59c6c7-c36a-40c0-947e-1c9f6f27d904","text":" `/home/…","sessionId":"a1e85465-4467-4d3a-8b22-1bb9f5ca7147"}
 {"type":"delta","id":"4c59c6c7-c36a-40c0-947e-1c9f6f27d904","text":"ome/.pyenv/","sessionId":"a1e85465-4467-4d3a-8b22-1bb9f5ca7147"}
 {"type":"delta","id":"4c59c6c7-c36a-40c0-947e-1c9f6f27d904","text":"shims/python` returns","sessionId":"a1e85465-4467-4d3a-8b22-1bb9f5ca7147"}
 {"type":"delta","id":"4c59c6c7-c36a-40c0-947e-1c9f6f27d904","text":" \"Operation not permitted","sessionId":"a1e85465-4467-4d3a-8b22-1bb9f5ca7147"}

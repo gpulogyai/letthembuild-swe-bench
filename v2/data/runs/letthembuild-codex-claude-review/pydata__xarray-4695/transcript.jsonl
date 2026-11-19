@@ -103,7 +103,7 @@
 {"type":"delta","id":"5ec948cb-a9ff-484b-b322-704623287ac5","text":"array.py -k \"lo","sessionId":"e17c5805-6eef-4aa0-9bdf-f75575dd1fcd"}
 {"type":"delta","id":"5ec948cb-a9ff-484b-b322-704623287ac5","text":"c\" -q` fail","sessionId":"e17c5805-6eef-4aa0-9bdf-f75575dd1fcd"}
 {"type":"delta","id":"5ec948cb-a9ff-484b-b322-704623287ac5","text":"ed with exit 126 (","sessionId":"e17c5805-6eef-4aa0-9bdf-f75575dd1fcd"}
-{"type":"delta","id":"5ec948cb-a9ff-484b-b322-704623287ac5","text":"`/Users/nurh","sessionId":"e17c5805-6eef-4aa0-9bdf-f75575dd1fcd"}
+{"type":"delta","id":"5ec948cb-a9ff-484b-b322-704623287ac5","text":"`/home/…","sessionId":"e17c5805-6eef-4aa0-9bdf-f75575dd1fcd"}
 {"type":"delta","id":"5ec948cb-a9ff-484b-b322-704623287ac5","text":"ome/.pyenv/","sessionId":"e17c5805-6eef-4aa0-9bdf-f75575dd1fcd"}
 {"type":"delta","id":"5ec948cb-a9ff-484b-b322-704623287ac5","text":"shims/python: Operation","sessionId":"e17c5805-6eef-4aa0-9bdf-f75575dd1fcd"}
 {"type":"delta","id":"5ec948cb-a9ff-484b-b322-704623287ac5","text":" not permitted`). That","sessionId":"e17c5805-6eef-4aa0-9bdf-f75575dd1fcd"}

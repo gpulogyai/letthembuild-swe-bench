@@ -220,7 +220,7 @@
 {"type":"delta","id":"78ce46b9-ea61-4aa3-bde8-ac7e89da32bf","text":" project's own Python once more,","sessionId":"30d8b114-40a8-47e4-ad3a-40bed9426d7a"}
 {"type":"delta","id":"78ce46b9-ea61-4aa3-bde8-ac7e89da32bf","text":" outside the sandbox.","sessionId":"30d8b114-40a8-47e4-ad3a-40bed9426d7a"}
 {"type":"delta","id":"78ce46b9-ea61-4aa3-bde8-ac7e89da32bf","text":" It still failed with `b","sessionId":"30d8b114-40a8-47e4-ad3a-40bed9426d7a"}
-{"type":"delta","id":"78ce46b9-ea61-4aa3-bde8-ac7e89da32bf","text":"ash: /Users/nur","sessionId":"30d8b114-40a8-47e4-ad3a-40bed9426d7a"}
+{"type":"delta","id":"78ce46b9-ea61-4aa3-bde8-ac7e89da32bf","text":"ash: /home/…","sessionId":"30d8b114-40a8-47e4-ad3a-40bed9426d7a"}
 {"type":"delta","id":"78ce46b9-ea61-4aa3-bde8-ac7e89da32bf","text":"home/.pyenv","sessionId":"30d8b114-40a8-47e4-ad3a-40bed9426d7a"}
 {"type":"delta","id":"78ce46b9-ea61-4aa3-bde8-ac7e89da32bf","text":"/shims/python: Oper","sessionId":"30d8b114-40a8-47e4-ad3a-40bed9426d7a"}
 {"type":"delta","id":"78ce46b9-ea61-4aa3-bde8-ac7e89da32bf","text":"ation not permitted`","sessionId":"30d8b114-40a8-47e4-ad3a-40bed9426d7a"}
