@@ -1,0 +1,67 @@
+diff --git a/sphinx/ext/autodoc/__init__.py b/sphinx/ext/autodoc/__init__.py
+index ddfd2b365..3e05e69d0 100644
+--- a/sphinx/ext/autodoc/__init__.py
++++ b/sphinx/ext/autodoc/__init__.py
+@@ -715,6 +715,7 @@ class Documenter:
+             if isinstance(obj, ObjectMember) and obj.docstring:
+                 # hack for ClassDocumenter to inject docstring via ObjectMember
+                 doc = obj.docstring
++                isattr = True
+ 
+             has_doc = bool(doc)
+ 
+@@ -2359,6 +2360,10 @@ class AttributeDocumenter(GenericAliasMixin, NewTypeMixin, SlotsMixin,  # type:
+                 pass
+ 
+     def get_doc(self, encoding: str = None, ignore: int = None) -> List[List[str]]:
++        comment = self.get_attribute_comment(self.parent)
++        if comment:
++            return [comment]
++
+         if self.object is INSTANCEATTR:
+             return []
+ 
+diff --git a/sphinx/ext/autodoc/importer.py b/sphinx/ext/autodoc/importer.py
+index d6e73d36a..44b16687e 100644
+--- a/sphinx/ext/autodoc/importer.py
++++ b/sphinx/ext/autodoc/importer.py
+@@ -14,6 +14,7 @@ import warnings
+ from typing import Any, Callable, Dict, List, Mapping, NamedTuple, Optional, Tuple
+ 
+ from sphinx.deprecation import RemovedInSphinx40Warning, deprecated_alias
++from sphinx.errors import PycodeError
+ from sphinx.pycode import ModuleAnalyzer
+ from sphinx.util import logging
+ from sphinx.util.inspect import (getannotations, getmro, getslots, isclass, isenumclass,
+@@ -307,13 +308,24 @@ def get_class_members(subject: Any, objpath: List[str], attrgetter: Callable,
+         except AttributeError:
+             pass
+ 
+-    if analyzer:
+-        # append instance attributes (cf. self.attr1) if analyzer knows
+-        namespace = '.'.join(objpath)
+-        for (ns, name), docstring in analyzer.attr_docs.items():
+-            if namespace == ns and name not in members:
+-                members[name] = ClassAttribute(subject, name, INSTANCEATTR,
+-                                               '\n'.join(docstring))
++    # Look for attribute comments in each class's own module and namespace.
++    for cls in getmro(subject):
++        try:
++            if cls == subject and analyzer:
++                cls_analyzer = analyzer
++                namespace = '.'.join(objpath)
++            else:
++                cls_analyzer = ModuleAnalyzer.for_module(cls.__module__)
++                namespace = cls.__qualname__
++            for (ns, name), docstring in cls_analyzer.find_attr_docs().items():
++                if namespace == ns:
++                    if name not in members:
++                        members[name] = ClassAttribute(cls, name, INSTANCEATTR,
++                                                       '\n'.join(docstring))
++                    elif members[name].docstring is None:
++                        members[name].docstring = '\n'.join(docstring)
++        except PycodeError:
++            pass
+ 
+     return members
+ 

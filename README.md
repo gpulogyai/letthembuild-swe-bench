@@ -25,7 +25,11 @@ This is a 50-issue sample, two runs per setup, not a leaderboard result.
 - **Codex used 33% fewer tokens as a LetThemBuild seat than in the Codex CLI** (95% range −41% to −25%), fewer on
   46 of 50 issues, in less time. It solved 44 against 43 for the Codex CLI (difference +1, 95% interval −1 to +3):
   no detectable difference.
-- **Both are the setups LetThemBuild ships.** Each was settled after the pre-registered run, as
+- **A reviewer costs tokens; for Codex it also solved more.** In a two-seat room with Codex leading and Claude
+  reviewing, the room solved 46.5 against 43 for the Codex CLI alone (difference +3.5, 95% interval +0.5 to +7), the
+  only detectable difference in issues solved here, for 93% more tokens. With Claude leading and Codex reviewing, it
+  solved 48.5 against 49 for Claude Code, for 11% more tokens. See [Two seats](#two-seats-a-lead-and-a-reviewer).
+- **Both one-seat setups are the ones LetThemBuild ships.** Each was settled after the pre-registered run, as
   [The brief](#the-brief) explains, and the pre-registered build's runs are published beside them.
 
 ## Tokens
@@ -119,6 +123,82 @@ tokens the seat's count did not include; and the full brief, run as LetThemBuild
 `letthembuild-codex-full-brief`. The 25-issue test is in [`v2/fresh-25/`](v2/fresh-25): 31% fewer tokens than the
 Codex CLI, solved 20 against 21.5.
 
+## Two seats: a lead and a reviewer
+
+Added after the pre-registered run, on the same 50 held-out issues, two runs each, under the same harness, frozen
+versions and models, with the build and briefs LetThemBuild ships (bbc845bba). One room has Claude leading and Codex
+reviewing; the other has Codex leading and Claude reviewing. LetThemBuild runs a round as the lead's turn and then
+the reviewer's; when the reviewer objects, the lead takes another round, and when the room is done the lead writes
+a closing summary. Most runs took two rounds.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/heldout-50-rooms-tokens-dark.svg">
+  <img alt="Tokens relative to the lead's own CLI: Claude Code 13.2M, LetThemBuild with Claude 6.7M (−50%), Claude leading with Codex reviewing 14.7M (+11%); Codex CLI 7.0M, LetThemBuild with Codex 4.7M (−33%), Codex leading with Claude reviewing 13.5M (+93%)." src="charts/heldout-50-rooms-tokens-light.svg" width="820">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/heldout-50-rooms-solved-dark.svg">
+  <img alt="Issues solved out of 50 in each of two runs: Claude Code 49 and 49, LetThemBuild with Claude 47 and 48, Claude leading with Codex reviewing 48 and 49; Codex CLI 43 and 43, LetThemBuild with Codex 44 and 44, Codex leading with Claude reviewing 47 and 46." src="charts/heldout-50-rooms-solved-light.svg" width="820">
+</picture>
+
+| Room | Solved, run 1 · run 2 | Tokens, run 1 · run 2 | Mean | Against the lead's own CLI | 95% range | Solved difference | 95% interval | Time per run |
+|---|---:|---:|---:|---:|---|---:|---|---:|
+| Claude leads, Codex reviews | 48 · 49 | 14.85M · 14.48M | 14.67M | +10.8% | +1.2% to +21.4% | −0.5 | −1.5 to 0 | 83 min |
+| Codex leads, Claude reviews | **47 · 46** | 13.54M · 13.55M | 13.54M | +92.6% | +70.9% to +115.5% | **+3.5** | **+0.5 to +7** | 80 min |
+
+Against LetThemBuild with the lead as its one seat, the Claude-led room used 120% more tokens (range +107% to +134%)
+and solved 48.5 against 47.5 (interval 0 to +3); the Codex-led room used 190% more (range +168% to +210%) and solved
+46.5 against 44 (interval −0.5 to +6). Neither difference in issues solved is detectable.
+
+Against the Codex CLI alone, the Codex-led room solved three issues in both runs that Codex alone solved in neither
+(django-13512, django-14771, sympy-19783) and astropy-14369 in one run of two, and lost none. Against Claude Code,
+the Claude-led room lost django-13807 in one run of two.
+
+### Tokens in each round
+
+Per issue, mean of the 100 runs of each room. "Per turn" is the mean over the runs that reached that turn; "per run"
+counts a run that did not reach it as zero, so the "per run" column adds up to the room's tokens per issue.
+
+**Claude leads, Codex reviews:** 293k tokens per issue; Claude 200k (68%), Codex 93k (32%). Last round reached: 1 in
+8 runs, 2 in 84, 3 in 8.
+
+| Turn | Seat | Runs | Tokens per turn | Per run | Output per turn |
+|---|---|---:|---:|---:|---:|
+| Round 1, lead | Claude | 100 | 140k | 140k | 3,030 |
+| Round 1, review | Codex | 100 | 71k | 71k | 379 |
+| Round 2, lead | Claude | 92 | 40k | 37k | 1,011 |
+| Round 2, review | Codex | 92 | 23k | 21k | 108 |
+| Round 3, lead | Claude | 8 | 55k | 4k | 1,069 |
+| Round 3, review | Codex | 8 | 24k | 2k | 111 |
+| Closing summary | Claude | 94 | 20k | 18k | 819 |
+
+**Codex leads, Claude reviews:** 271k tokens per issue; Codex 137k (51%), Claude 134k (49%). Last round reached: 1
+in 5 runs, 2 in 79, 3 in 16.
+
+| Turn | Seat | Runs | Tokens per turn | Per run | Output per turn |
+|---|---|---:|---:|---:|---:|
+| Round 1, lead | Codex | 100 | 94k | 94k | 1,016 |
+| Round 1, review | Claude | 100 | 96k | 96k | 1,679 |
+| Round 2, lead | Codex | 95 | 24k | 23k | 128 |
+| Round 2, review | Claude | 95 | 34k | 33k | 567 |
+| Round 3, lead | Codex | 16 | 18k | 3k | 67 |
+| Round 3, review | Claude | 16 | 33k | 5k | 473 |
+| Closing summary | Codex | 98 | 17k | 17k | 119 |
+
+- **The lead's first turn is the one-seat run.** Claude's first turn as lead (140k) is close to LetThemBuild · Claude
+  alone (133k per issue), and Codex's (94k) matches LetThemBuild · Codex alone (94k). Everything after it is what
+  the review adds: 153k per issue with Claude leading, 177k with Codex leading.
+- **A review reads the work again.** The first review is the largest turn after the lead's: the reviewer reads the
+  issue, the change and the checks for itself. Later rounds are smaller, since both seats carry their earlier turns.
+- **Claude as reviewer costs as much as Codex as lead.** Claude's first review (96k) matches Codex's first turn
+  (94k), and Claude writes more as reviewer than Codex does (1,679 output tokens a turn against 379), so the
+  Codex-led room's extra tokens are mostly Claude's reviews.
+- **The reviewer did not always agree.** 18 of the 200 runs ended with the reviewer still not agreeing after the
+  last round; the lead's patch was graded as it stood, and 16 of those 18 were solved.
+
+The per-turn figures come from each turn's usage line in `usage.jsonl`, matched to the turn in the room's
+transcript, and add up to each run's total.
+
 ## How the held-out run was isolated
 
 The same for every setup, as pre-registered:
@@ -139,12 +219,17 @@ limit per run; no run reached it. The CLI-alone runs and the pre-registered LetT
 Every run carries a `contamination.json`: what reached it from outside the issue and its repository, what the
 isolation refused, and whether the model named the benchmark.
 
-- **Nothing outside the issue and its repository reached any of the 800 Claude and Codex runs**, the 700 held-out
-  runs and the 100 on the 25 other issues. No run is excluded.
-- **Seven flags for attempts, none of which reached a run.** One Claude Code run tried github.com and was refused;
-  in six runs the check flagged a link to an upstream pull request that sits in a comment in the project's own
-  code. Reported, as pre-registered, not excluded.
-- **One flag for naming the benchmark, in thirteen runs of one issue,** matplotlib-23412: the word it matched was part of
+- **Nothing outside the issue and its repository reached any of the 1,000 Claude and Codex runs**: the 700 one-seat
+  held-out runs, the 200 two-seat runs and the 100 on the 25 other issues. No run is excluded.
+- **Seven flags for attempts in the one-seat runs, none of which reached a run.** One Claude Code run tried
+  github.com and was refused; in six runs the check flagged a link to an upstream pull request that sits in a
+  comment in the project's own code. Reported, as pre-registered, not excluded.
+- **Eight flags for attempts in the two-seat runs, none of which reached a run.** Six runs tried a site and were
+  refused by the proxy; two flagged only the upstream link in the project's own code.
+- **Claude Code's own web fetch was available to the Claude seat in the two-seat rooms.** It is off in every other
+  setup. It was called five times in the 200 runs, and the proxy refused all five, so nothing reached a run; it is
+  reported here because the pre-registration has every CLI's web tools off.
+- **One flag for naming the benchmark, in seventeen runs of one issue,** matplotlib-23412: the word it matched was part of
   `test_patches.py`, the project's own test file, not the benchmark.
 
 ## Check it yourself
@@ -156,6 +241,18 @@ node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude,let
 node v2/harness/verdict.mjs codex,codex-run2 letthembuild-codex,letthembuild-codex-run2
 PRICE=claude node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude,letthembuild-claude-run2
 node v2/harness/charts.mjs
+```
+
+The two-seat rooms, against each lead's own CLI and against LetThemBuild with the lead as its one seat, and their
+tokens in each round:
+
+```bash
+node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude-codex-review,letthembuild-claude-codex-review-run2
+node v2/harness/verdict.mjs codex,codex-run2 letthembuild-codex-claude-review,letthembuild-codex-claude-review-run2
+node v2/harness/verdict.mjs letthembuild-claude,letthembuild-claude-run2 letthembuild-claude-codex-review,letthembuild-claude-codex-review-run2
+node v2/harness/verdict.mjs letthembuild-codex,letthembuild-codex-run2 letthembuild-codex-claude-review,letthembuild-codex-claude-review-run2
+node v2/harness/rounds.mjs letthembuild-claude-codex-review,letthembuild-claude-codex-review-run2
+node v2/harness/rounds.mjs letthembuild-codex-claude-review,letthembuild-codex-claude-review-run2
 ```
 
 The earlier setups:
@@ -178,15 +275,18 @@ python -m venv .venv && .venv/bin/pip install swebench==5.0.2
 
 `v2/data/` has the same layout as `full-50/data/`, described at the end of this page, with a `contamination.json`
 beside each run. Setups are `claude-code`, `codex`, `letthembuild-claude`, `letthembuild-codex`,
-`letthembuild-claude-first-brief`, `letthembuild-codex-first-run` and `letthembuild-codex-full-brief`, each with a
+`letthembuild-claude-first-brief`, `letthembuild-codex-first-run`, `letthembuild-codex-full-brief`,
+`letthembuild-claude-codex-review` (Claude leads, Codex reviews) and `letthembuild-codex-claude-review` (Codex leads,
+Claude reviews), each with a
 `-run2`. `v2/fresh-25/data/` has `codex` and `letthembuild-codex-short-brief`, likewise.
 
 ## What this does not show
 
 - **Fifty issues, two runs each.** The ranges say how much runs vary; a solved difference of one or two issues is
   within that.
-- **One seat only.** A room with reviewers reads the problem more than once and costs more; that is a different
-  measurement.
+- **Two pairings of reviewers only.** The two-seat rooms were added after the pre-registered run and are one lead
+  and one reviewer each, in one round limit; larger rooms, other pairings and other limits are not measured. The
+  Codex-led room's gain in issues solved is one result among several comparisons, on 50 issues.
 - **One machine, one week's models and CLIs.** Results move as they change; versions and dates are above.
 - **Gemini and Grok are not here yet.** They are pre-registered and will be reported whatever their result.
 

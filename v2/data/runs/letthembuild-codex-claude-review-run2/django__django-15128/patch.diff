@@ -1,0 +1,49 @@
+diff --git a/django/db/models/sql/query.py b/django/db/models/sql/query.py
+index aaf35ee37c..3a5b7135ea 100644
+--- a/django/db/models/sql/query.py
++++ b/django/db/models/sql/query.py
+@@ -572,6 +572,13 @@ class Query(BaseExpression):
+         if self.distinct_fields != rhs.distinct_fields:
+             raise TypeError('Cannot combine queries with different distinct fields.')
+ 
++        # Avoid alias collisions when relabeling the rhs query's joins. Without
++        # a separate prefix, a change such as T4 -> T5 could overlap T5 -> T6.
++        # The base table is shared by both queries and must keep its alias.
++        initial_alias = self.get_initial_alias()
++        rhs = rhs.clone()
++        rhs.bump_prefix(self, exclude={initial_alias})
++
+         # Work out how to relabel the rhs aliases, if necessary.
+         change_map = {}
+         conjunction = (connector == AND)
+@@ -846,6 +853,7 @@ class Query(BaseExpression):
+         relabelling any references to them in select columns and the where
+         clause.
+         """
++        # An alias must not be changed twice by overlapping replacements.
+         assert set(change_map).isdisjoint(change_map.values())
+ 
+         # 1. Update references in "select" (normal columns plus aliases),
+@@ -879,12 +887,12 @@ class Query(BaseExpression):
+             for alias, aliased in self.external_aliases.items()
+         }
+ 
+-    def bump_prefix(self, outer_query):
++    def bump_prefix(self, outer_query, exclude=None):
+         """
+         Change the alias prefix to the next letter in the alphabet in a way
+         that the outer query's aliases and this query's aliases will not
+         conflict. Even tables that previously had no alias will get an alias
+-        after this call.
++        after this call, except for aliases in exclude.
+         """
+         def prefix_gen():
+             """
+@@ -926,6 +934,7 @@ class Query(BaseExpression):
+         self.change_aliases({
+             alias: '%s%d' % (self.alias_prefix, pos)
+             for pos, alias in enumerate(self.alias_map)
++            if alias not in (exclude or ())
+         })
+ 
+     def get_initial_alias(self):

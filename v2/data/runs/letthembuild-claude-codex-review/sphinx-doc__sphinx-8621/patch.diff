@@ -1,0 +1,50 @@
+diff --git a/sphinx/builders/html/transforms.py b/sphinx/builders/html/transforms.py
+index c91da57e9..7eb612a58 100644
+--- a/sphinx/builders/html/transforms.py
++++ b/sphinx/builders/html/transforms.py
+@@ -9,7 +9,7 @@
+ """
+ 
+ import re
+-from typing import Any, Dict
++from typing import Any, Dict, List
+ 
+ from docutils import nodes
+ 
+@@ -38,11 +38,35 @@ class KeyboardTransform(SphinxPostTransform):
+     default_priority = 400
+     builders = ('html',)
+     pattern = re.compile(r'(-|\+|\^|\s+)')
++    key_pattern = re.compile(r'[^-+^\s]+|[-+^]')
++
++    def split_keys(self, text: str) -> List[str]:
++        """Split *text* into alternating keys and separators.
++
++        A separator character (-, + or ^) in a key position is a key itself.
++        Returns ``[text]`` when the text can not be split unambiguously.
++        """
++        parts = []  # type: List[str]
++        pos = 0
++        while True:
++            key = self.key_pattern.match(text, pos)
++            if key is None:
++                return [text]
++            parts.append(key.group())
++            pos = key.end()
++            if pos == len(text):
++                return parts
++
++            sep = self.pattern.match(text, pos)
++            if sep is None or sep.end() == len(text):
++                return [text]
++            parts.append(sep.group())
++            pos = sep.end()
+ 
+     def run(self, **kwargs: Any) -> None:
+         matcher = NodeMatcher(nodes.literal, classes=["kbd"])
+         for node in self.document.traverse(matcher):  # type: nodes.literal
+-            parts = self.pattern.split(node[-1].astext())
++            parts = self.split_keys(node[-1].astext())
+             if len(parts) == 1:
+                 continue
+ 

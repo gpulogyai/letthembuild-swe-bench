@@ -7,7 +7,7 @@
 //    providers and the Python package index (proxy.mjs);
 //  - afterwards contam.mjs checks the run's own record for web access and benchmark files, and the run is kept
 //    with that verdict beside it.
-// arms: cc | codex | agy | grok | ltb-claude | ltb-codex | ltb-gemini | ltb-grok | room<N>-<lead>
+// arms: cc | codex | agy | grok | ltb-claude | ltb-codex | ltb-gemini | ltb-grok | room<N>-<lead> | pair-claude-codex | pair-codex-claude
 import { spawn, execFileSync } from "node:child_process";
 import { mkdirSync, writeFileSync, readFileSync, rmSync, existsSync, createWriteStream, cpSync, readdirSync } from "node:fs";
 import { join } from "node:path";
@@ -48,7 +48,7 @@ const wsProof = prepWorkspace(task, ws);
 makeHome(home);
 const prompt = PROMPT(task.problem_statement);
 writeFileSync(join(out, "prompt.txt"), prompt);
-const isLtb = arm.startsWith("ltb-") || arm.startsWith("room");
+const isLtb = arm.startsWith("ltb-") || arm.startsWith("room") || arm.startsWith("pair-");
 if (isLtb && !LTB_DESKTOP) { console.error("LTB_DESKTOP is not set"); process.exit(2); }
 if (isLtb) cpSync(LTB_DATA_TEMPLATE, ltbData, { recursive: true });
 
@@ -74,6 +74,9 @@ function cmd() {
     case "ltb-codex": return ltb(["chatgpt"]);
     case "ltb-gemini": return ltb(["gemini"]);
     case "ltb-grok": return ltb(["grok"]);
+    // Two seats, the first leads and the second reviews (added 2026-11-18, after the pre-registered run).
+    case "pair-claude-codex": return ltb(["claude", "chatgpt"]);
+    case "pair-codex-claude": return ltb(["chatgpt", "claude"]);
     default: {
       const m = /^room([234])-(claude|chatgpt|gemini|grok)$/.exec(arm);
       if (!m) throw new Error(`unknown arm ${arm}`);
@@ -102,6 +105,13 @@ const code = await new Promise((r) => child.on("close", r));
 clearTimeout(timer); const ended = Date.now();
 await new Promise((r) => events.end(r)); proxy.close();
 if (existsSync(join(ltbData, "bench-usage.jsonl"))) cpSync(join(ltbData, "bench-usage.jsonl"), join(out, "ltb-usage.jsonl"));
+// KEEP_CLI_SESSIONS keeps the CLIs' own session logs (per-call requests and usage), for research runs only; unset in
+// every pre-registered run.
+if (process.env.KEEP_CLI_SESSIONS) {
+  const found = execFileSync("find", [slot, "-name", "rollout-*.jsonl", "-o", "-name", "*.jsonl", "-path", "*/projects/*"], { encoding: "utf8" }).trim().split("\n").filter(Boolean);
+  mkdirSync(join(out, "cli-sessions"), { recursive: true });
+  found.forEach((f, i) => cpSync(f, join(out, "cli-sessions", `${i}-${f.split("/").pop()}`)));
+}
 
 execFileSync("git", ["-C", ws, "add", "-A"]);
 const EXCLUDE = [".letthemchat", ".gemini", ".claude", ".codex", "artifacts", ".grok", ".agents"].map((p) => `:(exclude)${p}`);
@@ -162,4 +172,5 @@ writeFileSync(join(out, "contamination.json"), JSON.stringify(verdict, null, 2))
 returnHome(home);
 rmSync(slot, { recursive: true, force: true });
 process.stdout.write(`${armTagged} ${id}: exit ${code}${timedOut ? " TIMEOUT" : ""}${failed ? " FAILED" : ""}, ${Math.round((ended - started) / 1000)}s, ${usage.total} tokens, ${files.length} files, patch ${patch.length}B, contamination ${verdict.clean ? "clean" : "REACHED: " + verdict.reached.join("; ")}${verdict.attempted.length ? " / tried: " + verdict.attempted.join("; ") : ""}${verdict.recall.length ? " / recall: " + verdict.recall.join("; ") : ""}` + "\n", () => process.exit(0));
-// Exit once the line is out, so a provider connection the CLI leaves open cannot hold the run's lane.
+// Exit once the line is out: a provider connection left open by the CLI kept the proxy, and so this process, alive
+// after a finished run (codex@r2 django__django-13212 waited four hours), and its lane with it.

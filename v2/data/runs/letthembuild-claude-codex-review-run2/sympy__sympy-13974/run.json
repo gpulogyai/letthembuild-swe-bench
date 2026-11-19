@@ -1,0 +1,50 @@
+{
+  "setup": "letthembuild-claude-codex-review-run2",
+  "instance_id": "sympy__sympy-13974",
+  "repo": "sympy/sympy",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-18T18:59:03.523Z",
+  "wallSeconds": 158,
+  "exitCode": 1,
+  "timedOut": false,
+  "filesChanged": [
+    "sympy/physics/quantum/tensorproduct.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.11",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "ltbBuild": "285389b11ab11563262128222c0e02fdfaeef0cb",
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 3,
+        "uncached": 28,
+        "cacheRead": 220139,
+        "cacheWrite": 34860,
+        "output": 10808,
+        "total": 265835
+      },
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 3,
+        "uncached": 34544,
+        "cacheRead": 69504,
+        "cacheWrite": 0,
+        "output": 546,
+        "total": 104594
+      }
+    },
+    "total": 370429,
+    "calls": null,
+    "costUsd": null,
+    "complete": true
+  }
+}

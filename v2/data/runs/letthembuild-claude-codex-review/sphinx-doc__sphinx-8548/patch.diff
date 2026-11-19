@@ -1,0 +1,99 @@
+diff --git a/sphinx/ext/autodoc/__init__.py b/sphinx/ext/autodoc/__init__.py
+index ddfd2b365..4c2d59b0a 100644
+--- a/sphinx/ext/autodoc/__init__.py
++++ b/sphinx/ext/autodoc/__init__.py
+@@ -2359,6 +2359,11 @@ class AttributeDocumenter(GenericAliasMixin, NewTypeMixin, SlotsMixin,  # type:
+                 pass
+ 
+     def get_doc(self, encoding: str = None, ignore: int = None) -> List[List[str]]:
++        # Check the attribute has a docstring-comment (including the base classes)
++        comment = self.get_attribute_comment(self.parent)
++        if comment:
++            return [comment]
++
+         if self.object is INSTANCEATTR:
+             return []
+ 
+@@ -2374,6 +2379,10 @@ class AttributeDocumenter(GenericAliasMixin, NewTypeMixin, SlotsMixin,  # type:
+ 
+     def add_content(self, more_content: Optional[StringList], no_docstring: bool = False
+                     ) -> None:
++        # Disable analyzing attribute comment on Documenter.add_content() because
++        # AttributeDocumenter.get_doc() obtains it (including the base classes)
++        self.analyzer = None
++
+         if more_content is None:
+             more_content = StringList()
+         self.update_content(more_content)
+diff --git a/sphinx/ext/autodoc/importer.py b/sphinx/ext/autodoc/importer.py
+index d6e73d36a..85497d499 100644
+--- a/sphinx/ext/autodoc/importer.py
++++ b/sphinx/ext/autodoc/importer.py
+@@ -14,7 +14,7 @@ import warnings
+ from typing import Any, Callable, Dict, List, Mapping, NamedTuple, Optional, Tuple
+ 
+ from sphinx.deprecation import RemovedInSphinx40Warning, deprecated_alias
+-from sphinx.pycode import ModuleAnalyzer
++from sphinx.pycode import ModuleAnalyzer, PycodeError
+ from sphinx.util import logging
+ from sphinx.util.inspect import (getannotations, getmro, getslots, isclass, isenumclass,
+                                  safe_getattr)
+@@ -297,23 +297,41 @@ def get_class_members(subject: Any, objpath: List[str], attrgetter: Callable,
+         except AttributeError:
+             continue
+ 
+-    # annotation only member (ex. attr: int)
+-    for cls in getmro(subject):
+-        try:
+-            for name in getannotations(cls):
+-                name = unmangle(cls, name)
+-                if name and name not in members:
+-                    members[name] = ClassAttribute(cls, name, INSTANCEATTR)
+-        except AttributeError:
+-            pass
+-
+-    if analyzer:
+-        # append instance attributes (cf. self.attr1) if analyzer knows
+-        namespace = '.'.join(objpath)
+-        for (ns, name), docstring in analyzer.attr_docs.items():
+-            if namespace == ns and name not in members:
+-                members[name] = ClassAttribute(subject, name, INSTANCEATTR,
+-                                               '\n'.join(docstring))
++    try:
++        for cls in getmro(subject):
++            # annotation only member (ex. attr: int)
++            try:
++                for name in getannotations(cls):
++                    name = unmangle(cls, name)
++                    if name and name not in members:
++                        members[name] = ClassAttribute(cls, name, INSTANCEATTR)
++            except AttributeError:
++                pass
++
++            # append instance attributes (cf. self.attr1) if analyzer knows
++            try:
++                if cls is subject and analyzer:
++                    cls_analyzer = analyzer
++                    qualname = '.'.join(objpath)
++                else:
++                    modname = safe_getattr(cls, '__module__')
++                    qualname = safe_getattr(cls, '__qualname__')
++                    cls_analyzer = ModuleAnalyzer.for_module(modname)
++                    cls_analyzer.analyze()
++
++                for (ns, name), docstring in cls_analyzer.attr_docs.items():
++                    if ns != qualname:
++                        continue
++                    elif name not in members:
++                        members[name] = ClassAttribute(cls, name, INSTANCEATTR,
++                                                       '\n'.join(docstring))
++                    elif members[name].class_ is None and members[name].docstring is None:
++                        # inherited data member documented with a doc-comment in base class
++                        members[name].docstring = '\n'.join(docstring)
++            except (AttributeError, PycodeError):
++                pass
++    except AttributeError:
++        pass
+ 
+     return members
+ 
