@@ -133,7 +133,7 @@
 {"type":"delta","id":"c18c5c76-c078-4c62-87f7-6d749a35ae57","text":" ran:**\n- The p","sessionId":"7ed586f3-6101-4b0c-b4e0-d4e875f6249a"}
 {"type":"delta","id":"c18c5c76-c078-4c62-87f7-6d749a35ae57","text":"yenv `python` is bl","sessionId":"7ed586f3-6101-4b0c-b4e0-d4e875f6249a"}
 {"type":"delta","id":"c18c5c76-c078-4c62-87f7-6d749a35ae57","text":"ocked: `b","sessionId":"7ed586f3-6101-4b0c-b4e0-d4e875f6249a"}
-{"type":"delta","id":"c18c5c76-c078-4c62-87f7-6d749a35ae57","text":"ash: /home/…","sessionId":"7ed586f3-6101-4b0c-b4e0-d4e875f6249a"}
+{"type":"delta","id":"c18c5c76-c078-4c62-87f7-6d749a35ae57","text":"ash: /Users/nur","sessionId":"7ed586f3-6101-4b0c-b4e0-d4e875f6249a"}
 {"type":"delta","id":"c18c5c76-c078-4c62-87f7-6d749a35ae57","text":"home/.pyenv","sessionId":"7ed586f3-6101-4b0c-b4e0-d4e875f6249a"}
 {"type":"delta","id":"c18c5c76-c078-4c62-87f7-6d749a35ae57","text":"/shims/python: Oper","sessionId":"7ed586f3-6101-4b0c-b4e0-d4e875f6249a"}
 {"type":"delta","id":"c18c5c76-c078-4c62-87f7-6d749a35ae57","text":"ation not permitted`, both","sessionId":"7ed586f3-6101-4b0c-b4e0-d4e875f6249a"}

@@ -1,0 +1,5 @@
+{"at":"2026-11-18T18:50:37.970Z","kind":"cli-turn","provider":"claude","model":"claude-opus-5-5","usd":0.173358,"tokens":114277,"usage":{"inputTokens":111862,"cachedTokens":98690,"cacheWriteTokens":13158,"outputTokens":2415}}
+{"at":"2026-11-18T18:50:57.489Z","kind":"cli-turn","provider":"chatgpt","model":"gpt-6.1-sol","usd":0.0379388,"tokens":83463,"usage":{"inputTokens":83140,"cachedTokens":69248,"cacheWriteTokens":0,"outputTokens":323}}
+{"at":"2026-11-18T18:51:04.547Z","kind":"cli-turn","provider":"claude","model":"claude-opus-5-5","usd":0.0183712,"tokens":19413,"usage":{"inputTokens":19038,"cachedTokens":17566,"cacheWriteTokens":1470,"outputTokens":375}}
+{"at":"2026-11-18T18:51:16.671Z","kind":"cli-turn","provider":"chatgpt","model":"gpt-6.1-sol","usd":0.004594,"tokens":24005,"usage":{"inputTokens":23960,"cachedTokens":23040,"cacheWriteTokens":0,"outputTokens":45}}
+{"at":"2026-11-18T18:51:28.087Z","kind":"cli-turn","provider":"claude","model":"claude-opus-5-5","usd":0.11834599999999999,"tokens":19316,"usage":{"inputTokens":18437,"cachedTokens":5990,"cacheWriteTokens":12445,"outputTokens":879}}

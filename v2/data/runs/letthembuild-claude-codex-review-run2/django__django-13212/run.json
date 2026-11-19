@@ -1,0 +1,50 @@
+{
+  "setup": "letthembuild-claude-codex-review-run2",
+  "instance_id": "django__django-13212",
+  "repo": "django/django",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-18T18:54:49.062Z",
+  "wallSeconds": 103,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "django/core/validators.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.11",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "ltbBuild": "285389b11ab11563262128222c0e02fdfaeef0cb",
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 3,
+        "uncached": 20,
+        "cacheRead": 153267,
+        "cacheWrite": 29723,
+        "output": 4298,
+        "total": 187308
+      },
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 2,
+        "uncached": 32920,
+        "cacheRead": 141184,
+        "cacheWrite": 0,
+        "output": 630,
+        "total": 174734
+      }
+    },
+    "total": 362042,
+    "calls": null,
+    "costUsd": null,
+    "complete": true
+  }
+}

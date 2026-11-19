@@ -1,0 +1,51 @@
+{
+  "setup": "letthembuild-claude-codex-review",
+  "instance_id": "matplotlib__matplotlib-24870",
+  "repo": "matplotlib/matplotlib",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-18T17:58:13.160Z",
+  "wallSeconds": 137,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "lib/matplotlib/contour.py",
+    "lib/matplotlib/tri/_tricontour.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.11",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "ltbBuild": "285389b11ab11563262128222c0e02fdfaeef0cb",
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 3,
+        "uncached": 32,
+        "cacheRead": 265496,
+        "cacheWrite": 44138,
+        "output": 6563,
+        "total": 316229
+      },
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 2,
+        "uncached": 14349,
+        "cacheRead": 82816,
+        "cacheWrite": 0,
+        "output": 446,
+        "total": 97611
+      }
+    },
+    "total": 413840,
+    "calls": null,
+    "costUsd": null,
+    "complete": true
+  }
+}

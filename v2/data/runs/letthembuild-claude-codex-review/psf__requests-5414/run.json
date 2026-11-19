@@ -1,0 +1,50 @@
+{
+  "setup": "letthembuild-claude-codex-review",
+  "instance_id": "psf__requests-5414",
+  "repo": "psf/requests",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-18T17:26:20.159Z",
+  "wallSeconds": 65,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "requests/models.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.11",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "ltbBuild": "285389b11ab11563262128222c0e02fdfaeef0cb",
+  "resolved": true,
+  "tokens": {
+    "bySource": {
+      "claude:claude-opus-5-5": {
+        "turns": 3,
+        "uncached": 14,
+        "cacheRead": 72445,
+        "cacheWrite": 25501,
+        "output": 2599,
+        "total": 100559
+      },
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 2,
+        "uncached": 11961,
+        "cacheRead": 48256,
+        "cacheWrite": 0,
+        "output": 307,
+        "total": 60524
+      }
+    },
+    "total": 161083,
+    "calls": null,
+    "costUsd": null,
+    "complete": true
+  }
+}

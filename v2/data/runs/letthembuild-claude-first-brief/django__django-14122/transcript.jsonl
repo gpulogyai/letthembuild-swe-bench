@@ -138,7 +138,7 @@
 {"type":"delta","id":"a1ba6830-5a51-4c20-a172-ee695324dd97","text":"preter,","sessionId":"d2172159-9558-4cb6-a5e0-6c8e1c2d94d6"}
 {"type":"delta","id":"a1ba6830-5a51-4c20-a172-ee695324dd97","text":" which probably has the d","sessionId":"d2172159-9558-4cb6-a5e0-6c8e1c2d94d6"}
 {"type":"delta","id":"a1ba6830-5a51-4c20-a172-ee695324dd97","text":"ependencies, fails with `","sessionId":"d2172159-9558-4cb6-a5e0-6c8e1c2d94d6"}
-{"type":"delta","id":"a1ba6830-5a51-4c20-a172-ee695324dd97","text":"bash: /home/…","sessionId":"d2172159-9558-4cb6-a5e0-6c8e1c2d94d6"}
+{"type":"delta","id":"a1ba6830-5a51-4c20-a172-ee695324dd97","text":"bash: /Users/n","sessionId":"d2172159-9558-4cb6-a5e0-6c8e1c2d94d6"}
 {"type":"delta","id":"a1ba6830-5a51-4c20-a172-ee695324dd97","text":"urhome/.pyen","sessionId":"d2172159-9558-4cb6-a5e0-6c8e1c2d94d6"}
 {"type":"delta","id":"a1ba6830-5a51-4c20-a172-ee695324dd97","text":"v/shims/python:","sessionId":"d2172159-9558-4cb6-a5e0-6c8e1c2d94d6"}
 {"type":"delta","id":"a1ba6830-5a51-4c20-a172-ee695324dd97","text":" Operation not permitted`.","sessionId":"d2172159-9558-4cb6-a5e0-6c8e1c2d94d6"}

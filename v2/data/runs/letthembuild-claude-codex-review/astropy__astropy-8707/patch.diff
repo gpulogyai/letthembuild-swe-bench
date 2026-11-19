@@ -1,0 +1,64 @@
+diff --git a/astropy/io/fits/card.py b/astropy/io/fits/card.py
+index 8c1ac5d73..b91b95092 100644
+--- a/astropy/io/fits/card.py
++++ b/astropy/io/fits/card.py
+@@ -551,9 +551,18 @@ class Card(_Verify):
+         if it is not the length of a card image (80 columns).  If the card
+         image is longer than 80 columns, assume it contains ``CONTINUE``
+         card(s).
++
++        The image may be a `str` or `bytes`; bytes are decoded as latin-1.
+         """
+ 
+         card = cls()
++        if isinstance(image, bytes):
++            # FITS supports only ASCII, but decode as latin1 and just take all
++            # bytes for now; if it results in mojibake due to e.g. UTF-8
++            # encoded data in a FITS header that's OK because it shouldn't be
++            # there in the first place
++            image = image.decode('latin1')
++
+         card._image = _pad(image)
+         card._verified = False
+         return card
+diff --git a/astropy/io/fits/header.py b/astropy/io/fits/header.py
+index ad07e6d52..bf682853c 100644
+--- a/astropy/io/fits/header.py
++++ b/astropy/io/fits/header.py
+@@ -334,13 +334,18 @@ class Header:
+ 
+         Parameters
+         ----------
+-        data : str
+-           String containing the entire header.
++        data : str or bytes
++           String containing the entire header.  In the case of bytes they will
++           be decoded using latin-1 (only plain ASCII characters are allowed in
++           FITS headers but latin-1 allows us to retain any invalid bytes that
++           might appear in malformatted FITS files).
+ 
+-        sep : str, optional
++        sep : str or bytes, optional
+             The string separating cards from each other, such as a newline.  By
+             default there is no card separator (as is the case in a raw FITS
+-            file).
++            file).  In general this is only used in cases where a header was
++            printed as text (e.g. with newlines after each card) and you want
++            to create a new `Header` from it by copy/pasting.
+ 
+         Returns
+         -------
+@@ -350,6 +355,13 @@ class Header:
+ 
+         cards = []
+ 
++        # If the card separator or data are bytes, decode them; FITS headers
++        # should be ASCII but latin-1 keeps any stray bytes intact
++        if isinstance(sep, bytes):
++            sep = sep.decode('latin1')
++        if isinstance(data, bytes):
++            data = data.decode('latin1')
++
+         # If the card separator contains characters that may validly appear in
+         # a card, the only way to unambiguously distinguish between cards is to
+         # require that they be Card.length long.  However, if the separator

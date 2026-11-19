@@ -1,0 +1,50 @@
+{
+  "setup": "letthembuild-codex-claude-review-run2",
+  "instance_id": "matplotlib__matplotlib-24870",
+  "repo": "matplotlib/matplotlib",
+  "models": {
+    "claude": "claude-opus-5-5",
+    "chatgpt": "gpt-6.1-sol",
+    "gemini": "gemini-4-argon-high",
+    "grok": "grok-4.7"
+  },
+  "started": "2026-11-18T19:22:24.178Z",
+  "wallSeconds": 86,
+  "exitCode": 0,
+  "timedOut": false,
+  "filesChanged": [
+    "lib/matplotlib/contour.py"
+  ],
+  "versions": {
+    "claude": "2.1.311 (Claude Code)",
+    "codex": "codex-cli 0.167.0",
+    "agy": "1.5.11",
+    "grok": "grok 1.0.70 (f50904eaee6c) [stable]"
+  },
+  "ltbBuild": "285389b11ab11563262128222c0e02fdfaeef0cb",
+  "resolved": false,
+  "tokens": {
+    "bySource": {
+      "chatgpt:gpt-6.1-sol": {
+        "turns": 3,
+        "uncached": 18667,
+        "cacheRead": 105216,
+        "cacheWrite": 0,
+        "output": 1439,
+        "total": 125322
+      },
+      "claude:claude-opus-5-5": {
+        "turns": 2,
+        "uncached": 14,
+        "cacheRead": 98931,
+        "cacheWrite": 16559,
+        "output": 2081,
+        "total": 117585
+      }
+    },
+    "total": 242907,
+    "calls": null,
+    "costUsd": null,
+    "complete": true
+  }
+}
