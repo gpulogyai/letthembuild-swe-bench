@@ -75,7 +75,7 @@
 {"type":"delta","id":"b9ea3776-6772-4669-8ff7-5538062dccf7","text":"_attrs[0])`","sessionId":"e89abe6d-7924-482d-8cf0-34d8cfe8255a"}
 {"type":"delta","id":"b9ea3776-6772-4669-8ff7-5538062dccf7","text":".\n\nNot verified: the","sessionId":"e89abe6d-7924-482d-8cf0-34d8cfe8255a"}
 {"type":"delta","id":"b9ea3776-6772-4669-8ff7-5538062dccf7","text":" Python runner failed with `","sessionId":"e89abe6d-7924-482d-8cf0-34d8cfe8255a"}
-{"type":"delta","id":"b9ea3776-6772-4669-8ff7-5538062dccf7","text":"bash: /Users/n","sessionId":"e89abe6d-7924-482d-8cf0-34d8cfe8255a"}
+{"type":"delta","id":"b9ea3776-6772-4669-8ff7-5538062dccf7","text":"bash: /home/…","sessionId":"e89abe6d-7924-482d-8cf0-34d8cfe8255a"}
 {"type":"delta","id":"b9ea3776-6772-4669-8ff7-5538062dccf7","text":"urhome/.pyen","sessionId":"e89abe6d-7924-482d-8cf0-34d8cfe8255a"}
 {"type":"delta","id":"b9ea3776-6772-4669-8ff7-5538062dccf7","text":"v/shims/python:","sessionId":"e89abe6d-7924-482d-8cf0-34d8cfe8255a"}
 {"type":"delta","id":"b9ea3776-6772-4669-8ff7-5538062dccf7","text":" Operation not permitted`,","sessionId":"e89abe6d-7924-482d-8cf0-34d8cfe8255a"}

@@ -96,3 +96,6 @@ as "no detectable difference" unless the interval excludes zero. All four models
 - 2026-11-19, data: transcripts are scrubbed value by value, so every line of every v2 transcript is valid JSON. 56
   lines in earlier setups' transcripts changed where a code escape had been read as part of an address; no figure
   changed.
+- 2026-11-19, data: the transcripts in `full-50/data`, `v2/data` and `v2/fresh-25/data` are rewritten from the raw
+  runs, scrubbed value by value with the end-of-value rule kept, so every line parses as JSON and code such as a
+  `@decorator` after a line break reads as written. Only transcript lines change; no patch, grade or figure does.

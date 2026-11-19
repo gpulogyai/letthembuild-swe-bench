@@ -256,7 +256,7 @@
 {"type":"delta","id":"c610face-6cb3-43f3-a73e-c61c5da5a2bf","text":"\"` outside the sandb","sessionId":"9897b925-a6cb-474b-b491-c3581c7dd897"}
 {"type":"delta","id":"c610face-6cb3-43f3-a73e-c61c5da5a2bf","text":"ox. It fail","sessionId":"9897b925-a6cb-474b-b491-c3581c7dd897"}
 {"type":"delta","id":"c610face-6cb3-43f3-a73e-c61c5da5a2bf","text":"ed the same way as","sessionId":"9897b925-a6cb-474b-b491-c3581c7dd897"}
-{"type":"delta","id":"c610face-6cb3-43f3-a73e-c61c5da5a2bf","text":" before: `/Users/n","sessionId":"9897b925-a6cb-474b-b491-c3581c7dd897"}
+{"type":"delta","id":"c610face-6cb3-43f3-a73e-c61c5da5a2bf","text":" before: `/home/…","sessionId":"9897b925-a6cb-474b-b491-c3581c7dd897"}
 {"type":"delta","id":"c610face-6cb3-43f3-a73e-c61c5da5a2bf","text":"urhome/.pyen","sessionId":"9897b925-a6cb-474b-b491-c3581c7dd897"}
 {"type":"delta","id":"c610face-6cb3-43f3-a73e-c61c5da5a2bf","text":"v/shims/python:","sessionId":"9897b925-a6cb-474b-b491-c3581c7dd897"}
 {"type":"delta","id":"c610face-6cb3-43f3-a73e-c61c5da5a2bf","text":" Operation not permitted`.","sessionId":"9897b925-a6cb-474b-b491-c3581c7dd897"}
