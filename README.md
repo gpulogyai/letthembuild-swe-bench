@@ -141,6 +141,11 @@ Either way the bill barely moves.
 The seat read 2.54M fewer cached tokens, worth 25 cents, and took in 0.19M more fresh input, which costs twenty
 times as much and came to 38 cents. Fewer tokens, slightly bigger bill.
 
+What's in our hands and what isn't: the price of each kind of token is set by Anthropic and OpenAI, and anyone
+running these CLIs on a Claude or ChatGPT subscription doesn't pay per token at all. What we control is the mix. We
+cut the cheap kind hard; the expensive kinds, cache writes and output, went up a little, so those are what we're
+working on next: shorter reports from each seat, and a steadier prompt so less has to be written to the cache.
+
 So if you compare coding agents, compare cost at list price, not token counts. Lines are rounded to the cent, so a
 difference can be a cent off its two costs. Every figure above comes from the
 per-run token counts in [`v2/data/runs/`](v2/data/runs) (`tokens.bySource` in each `run.json`), and the
