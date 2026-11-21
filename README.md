@@ -144,7 +144,12 @@ times as much and came to 38 cents. Fewer tokens, slightly bigger bill.
 What's in our hands and what isn't: the price of each kind of token is set by Anthropic and OpenAI. Most people
 run these CLIs on a Claude or ChatGPT subscription, with no per-token bill at all; what they run into is the plan's
 usage limit. Fewer tokens may stretch that limit, but neither provider publishes how cached tokens count toward it,
-so we don't claim it; we're measuring it instead. On the per-token side, the larger part of the cache writes is the
+so we don't claim it. We tried measuring it on one Claude plan (21 November 2026), reading the weekly usage meter
+before and after the same 50 held-out issues through each setup. Claude Code alone (13.94M tokens, plus a 4.16M warm-up
+batch) moved it from 43% to 44%; the seat (6.60M tokens) moved it from 44% to 45%. The meter only shows whole percents,
+so each step is somewhere between just above 0 and just under 2 points: too coarse to call. If anything it hints that
+the limit counts usage closer to price than to raw tokens, which would make it the same story as the bill. On the
+per-token side, the larger part of the cache writes is the
 CLI's own system prompt, which it rewrites on every run with or without LetThemBuild. What's ours is our instructions
 to each seat, about 2,000 to 3,000 tokens per issue, and how much the seat writes back. Trimming those is worth a few
 percent of the bill, not half.
