@@ -20,7 +20,8 @@ This is a 50-issue sample, two runs per setup, not a leaderboard result.
 ## What we found
 
 - **Claude used 50% fewer tokens as a LetThemBuild seat than in Claude Code** (95% range −53% to −46%), fewer on
-  all 50 issues, at about the same cost (−3%, range −8% to +2%). It solved 47.5 against 49 for Claude Code
+  all 50 issues, at about the same cost (−3%, range −8% to +2%; [why half the tokens didn't halve the
+  bill](#why-half-the-tokens-didnt-halve-the-bill)). It solved 47.5 against 49 for Claude Code
   (difference −1.5, 95% interval −4 to 0): no detectable difference, only just.
 - **Codex used 33% fewer tokens as a LetThemBuild seat than in the Codex CLI** (95% range −41% to −25%), fewer on
   46 of 50 issues, in less time. It solved 44 against 43 for the Codex CLI (difference +1, 95% interval −1 to +3):
@@ -89,9 +90,61 @@ gpt-6.1-sol input $2, cached input $0.10, output $10 (Codex reports no cache wri
 272k-token long-context tier). Claude Code writes to the one-hour cache, at $8 a million; at that price every Claude
 setup costs more and the comparison barely moves.
 
-The Codex seat's saving is in cached input, the cheapest kind: it read 3.80M cached tokens per run of 50 against
-the Codex CLI's 6.34M. It took in more fresh input, 0.83M against 0.64M, at twenty times the cached price, and wrote
-the same output (0.05M), so at list price the two cost about the same.
+### Why half the tokens didn't halve the bill
+
+People ask this a lot, so here it is with the numbers.
+
+A token count adds up four different things, and they don't cost the same. Re-reading something the model has
+already seen (a cache read) is the cheapest by far. What the model writes back (output) is the most expensive. On
+Claude Opus 5.5 an output token costs a hundred times what a cache-read token does. So the question isn't how many
+tokens a setup saved; it's which kind.
+
+The list prices used here, per million tokens, as each provider's pricing page showed them on 20 November 2026
+([Anthropic](https://platform.claude.com/docs/en/about-claude/pricing),
+[OpenAI](https://developers.openai.com/api/docs/pricing), Standard tier, prompts up to 272K tokens):
+
+| Token type | claude-opus-5-5 | gpt-6.1-sol |
+|---|---:|---:|
+| Cache read | $0.20 | $0.10 |
+| Fresh input | $4 | $2 |
+| Cache write (Claude: five-minute cache) | $5 | — (Codex reports none) |
+| Output | $20 | $10 |
+
+**Claude.** Mean of the two runs, per run of 50 issues:
+
+| Token type | Claude Code | LetThemBuild seat | Cost, Claude Code | Cost, seat | Difference |
+|---|---:|---:|---:|---:|---:|
+| Cache read | 12.49M | 5.77M | $2.50 | $1.15 | −$1.35 |
+| Cache write | 0.62M | 0.74M | $3.09 | $3.71 | +$0.62 |
+| Output | 0.12M | 0.15M | $2.45 | $2.93 | +$0.48 |
+| Fresh input | 0.00M | 0.00M | $0.00 | $0.00 | $0.00 |
+| **All** | **13.24M** | **6.66M (−49.7%)** | **$8.04** | **$7.79 (−3.1%)** | **−$0.25** |
+
+The seat read 6.73M fewer cached tokens, and at $0.20 a million that was worth $1.35. But it wrote 0.12M more to
+the cache and 0.02M more output, and those are the expensive kinds: they cost $1.09 of it back. Even if every saved
+token had been a cache read and nothing else had gone up, 6.58M × $0.20 is $1.32: the bill could only ever have
+fallen by about 16%, never by half.
+
+One caveat on the cache-write price. Claude Code writes to the one-hour cache, which is $8 a million rather than $5.
+Priced that way, Claude Code comes to $9.89 and the seat to $10.01, so the seat is 1% dearer instead of 3% cheaper.
+Either way the bill barely moves.
+
+**Codex.** Same layout:
+
+| Token type | Codex CLI | LetThemBuild seat | Cost, Codex CLI | Cost, seat | Difference |
+|---|---:|---:|---:|---:|---:|
+| Cached input | 6.34M | 3.80M | $0.63 | $0.38 | −$0.25 |
+| Fresh input | 0.64M | 0.83M | $1.28 | $1.66 | +$0.38 |
+| Output | 0.05M | 0.05M | $0.52 | $0.53 | +$0.00 |
+| **All** | **7.03M** | **4.68M (−33.5%)** | **$2.44** | **$2.56 (+5.2%)** | **+$0.13** |
+
+The seat read 2.54M fewer cached tokens, worth 25 cents, and took in 0.19M more fresh input, which costs twenty
+times as much and came to 38 cents. Fewer tokens, slightly bigger bill.
+
+So if you compare coding agents, compare cost at list price, not token counts. Lines are rounded to the cent, so a
+difference can be a cent off its two costs. Every figure above comes from the
+per-run token counts in [`v2/data/runs/`](v2/data/runs) (`tokens.bySource` in each `run.json`), and the
+`PRICE=list` commands under [Check it yourself](#check-it-yourself) give the same totals.
 
 ## Where the saving comes from
 
