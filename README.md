@@ -120,8 +120,8 @@ The list prices used here, per million tokens, as each provider's pricing page s
 | Fresh input | 0.00M | 0.00M | $0.00 | $0.00 | $0.00 |
 | **All** | **13.24M** | **6.66M (−49.7%)** | **$8.04** | **$7.79 (−3.1%)** | **−$0.25** |
 
-Almost all of the 6.58M tokens the seat saved were cache reads, and at $0.20 a million they were worth $1.35. The
-seat wrote a little more to the cache and a little more output, which cost $1.10 of that back. Even if every saved
+The seat read 6.73M fewer cached tokens, and at $0.20 a million that was worth $1.35. But it wrote 0.12M more to
+the cache and 0.02M more output, and those are the expensive kinds: they cost $1.09 of it back. Even if every saved
 token had been a cache read and nothing else had gone up, 6.58M × $0.20 is $1.32: the bill could only ever have
 fallen by about 16%, never by half.
 
@@ -135,13 +135,14 @@ Either way the bill barely moves.
 |---|---:|---:|---:|---:|---:|
 | Cached input | 6.34M | 3.80M | $0.63 | $0.38 | −$0.25 |
 | Fresh input | 0.64M | 0.83M | $1.28 | $1.66 | +$0.38 |
-| Output | 0.05M | 0.05M | $0.52 | $0.53 | +$0.01 |
-| **All** | **7.03M** | **4.68M (−33.5%)** | **$2.44** | **$2.56 (+5.2%)** | **+$0.12** |
+| Output | 0.05M | 0.05M | $0.52 | $0.53 | +$0.00 |
+| **All** | **7.03M** | **4.68M (−33.5%)** | **$2.44** | **$2.56 (+5.2%)** | **+$0.13** |
 
 The seat read 2.54M fewer cached tokens, worth 25 cents, and took in 0.19M more fresh input, which costs twenty
 times as much and came to 38 cents. Fewer tokens, slightly bigger bill.
 
-So if you compare coding agents, compare cost at list price, not token counts. Every figure above comes from the
+So if you compare coding agents, compare cost at list price, not token counts. Lines are rounded to the cent, so a
+difference can be a cent off its two costs. Every figure above comes from the
 per-run token counts in [`v2/data/runs/`](v2/data/runs) (`tokens.bySource` in each `run.json`), and the
 `PRICE=list` commands under [Check it yourself](#check-it-yourself) give the same totals.
 
