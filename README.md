@@ -36,7 +36,7 @@ This is a 50-issue sample, two runs per setup, not a leaderboard result.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/heldout-50-tokens-dark.svg">
-  <img alt="Tokens for the 50 held-out issues, mean of two runs: Claude Code 13.2M, LetThemBuild with Claude 6.7M (−50%); Codex CLI 7.0M, LetThemBuild with Codex 4.7M (−33%)." src="charts/heldout-50-tokens-light.svg" width="820">
+  <img alt="Tokens for the 50 held-out issues, mean of two runs, relative to each model's own CLI: Claude Code 13.2M; LetThemBuild with Claude 6.7M (−50%); Claude writing with Codex reviewing 14.7M (+11%). Codex CLI 7.0M; LetThemBuild with Codex 4.7M (−33%); Codex writing with Claude reviewing 13.5M (+93%)." src="charts/heldout-50-tokens-light.svg" width="820">
 </picture>
 
 Tokens are everything the model read and wrote: fresh input, cache reads, cache writes and output, as each tool
@@ -46,19 +46,23 @@ reports them.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/heldout-50-solved-dark.svg">
-  <img alt="Issues solved out of 50 in each of two runs: Claude Code 49 and 49, LetThemBuild with Claude 47 and 48; Codex CLI 43 and 43, LetThemBuild with Codex 44 and 44." src="charts/heldout-50-solved-light.svg" width="820">
+  <img alt="Issues solved out of 50 in each of two runs: Claude Code 49 and 49; LetThemBuild with Claude 47 and 48; Claude writing with Codex reviewing 48 and 49. Codex CLI 43 and 43; LetThemBuild with Codex 44 and 44; Codex writing with Claude reviewing 47 and 46." src="charts/heldout-50-solved-light.svg" width="820">
 </picture>
 
 ## Every setup
 
-| Setup | Model | Solved, run 1 · run 2 | Tokens, run 1 · run 2 | Mean | Change | 95% range | Fewer tokens on | Time per run |
-|---|---|---:|---:|---:|---:|---|---:|---:|
-| Claude Code alone | claude-opus-5-5 | 49 · 49 | 12.82M · 13.65M | 13.24M | | | | 30 min |
-| **LetThemBuild · Claude*** | claude-opus-5-5 | **47 · 48** | **6.64M · 6.68M** | **6.66M** | **−49.7%** | −53.2% to −46.1% | 50 of 50 | 34 min |
-| Codex CLI alone | gpt-6.1-sol | 43 · 43 | 7.21M · 6.86M | 7.03M | | | | 36 min |
-| **LetThemBuild · Codex*** | gpt-6.1-sol | **44 · 44** | **4.68M · 4.68M** | **4.68M** | **−33.5%** | −41.1% to −25.2% | 46 of 50 | 32 min |
+| Setup | Solved, run 1 · run 2 | Tokens, run 1 · run 2 | Mean | Change from own CLI | 95% range | Fewer tokens on | Time per run |
+|---|---:|---:|---:|---:|---|---:|---:|
+| Claude Code alone | 49 · 49 | 12.82M · 13.65M | 13.24M | | | | 30 min |
+| **LetThemBuild · Claude*** | **47 · 48** | **6.64M · 6.68M** | **6.66M** | **−49.7%** | −53.2% to −46.1% | 50 of 50 | 34 min |
+| LetThemBuild · Claude writes, Codex reviews† | 48 · 49 | 14.85M · 14.48M | 14.67M | +10.8% | +1.2% to +21.4% | 14 of 50 | 83 min |
+| Codex CLI alone | 43 · 43 | 7.21M · 6.86M | 7.03M | | | | 36 min |
+| **LetThemBuild · Codex*** | **44 · 44** | **4.68M · 4.68M** | **4.68M** | **−33.5%** | −41.1% to −25.2% | 46 of 50 | 32 min |
+| LetThemBuild · Codex writes, Claude reviews† | 47 · 46 | 13.54M · 13.55M | 13.54M | +92.6% | +70.9% to +115.5% | 3 of 50 | 80 min |
 
+Claude is claude-opus-5-5 and Codex is gpt-6.1-sol throughout; a two-seat setup is compared with the writer's own CLI.
 \* The brief LetThemBuild ships, settled after the pre-registered results were seen; see [The brief](#the-brief).
+† Two seats, added after the pre-registered run; see [Two seats](#two-seats-a-lead-and-a-reviewer).
 An issue's tokens are the mean of its two runs. The ranges come from resampling the 50 issues 10,000 times, keeping
 each issue's runs together, with a fixed seed. Time per run is the wall-clock time for all 50 issues, mean of the
 two runs.
@@ -149,20 +153,10 @@ reviewing; the other has Codex leading and Claude reviewing. LetThemBuild runs a
 the reviewer's; when the reviewer objects, the lead takes another round, and when the room is done the lead writes
 a closing summary. Most runs took two rounds.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/heldout-50-rooms-tokens-dark.svg">
-  <img alt="Tokens relative to the lead's own CLI: Claude Code 13.2M, LetThemBuild with Claude 6.7M (−50%), Claude leading with Codex reviewing 14.7M (+11%); Codex CLI 7.0M, LetThemBuild with Codex 4.7M (−33%), Codex leading with Claude reviewing 13.5M (+93%)." src="charts/heldout-50-rooms-tokens-light.svg" width="820">
-</picture>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/heldout-50-rooms-solved-dark.svg">
-  <img alt="Issues solved out of 50 in each of two runs: Claude Code 49 and 49, LetThemBuild with Claude 47 and 48, Claude leading with Codex reviewing 48 and 49; Codex CLI 43 and 43, LetThemBuild with Codex 44 and 44, Codex leading with Claude reviewing 47 and 46." src="charts/heldout-50-rooms-solved-light.svg" width="820">
-</picture>
-
 | Room | Solved, run 1 · run 2 | Tokens, run 1 · run 2 | Mean | Against the lead's own CLI | 95% range | Solved difference | 95% interval | Time per run |
 |---|---:|---:|---:|---:|---|---:|---|---:|
-| Claude leads, Codex reviews | 48 · 49 | 14.85M · 14.48M | 14.67M | +10.8% | +1.2% to +21.4% | −0.5 | −1.5 to 0 | 83 min |
-| Codex leads, Claude reviews | **47 · 46** | 13.54M · 13.55M | 13.54M | +92.6% | +70.9% to +115.5% | **+3.5** | **+0.5 to +7** | 80 min |
+| Claude writes, Codex reviews | 48 · 49 | 14.85M · 14.48M | 14.67M | +10.8% | +1.2% to +21.4% | −0.5 | −1.5 to 0 | 83 min |
+| Codex writes, Claude reviews | **47 · 46** | 13.54M · 13.55M | 13.54M | +92.6% | +70.9% to +115.5% | **+3.5** | **+0.5 to +7** | 80 min |
 
 Against LetThemBuild with the lead as its one seat, the Claude-led room used 120% more tokens (range +107% to +134%)
 and solved 48.5 against 47.5 (interval 0 to +3); the Codex-led room used 190% more (range +168% to +210%) and solved
@@ -177,7 +171,7 @@ the Claude-led room lost django-13807 in one run of two.
 Per issue, mean of the 100 runs of each room. "Per turn" is the mean over the runs that reached that turn; "per run"
 counts a run that did not reach it as zero, so the "per run" column adds up to the room's tokens per issue.
 
-**Claude leads, Codex reviews:** 293k tokens per issue; Claude 200k (68%), Codex 93k (32%). Last round reached: 1 in
+**Claude writes, Codex reviews:** 293k tokens per issue; Claude 200k (68%), Codex 93k (32%). Last round reached: 1 in
 8 runs, 2 in 84, 3 in 8.
 
 | Turn | Seat | Runs | Tokens per turn | Per run | Output per turn |
@@ -190,7 +184,7 @@ counts a run that did not reach it as zero, so the "per run" column adds up to t
 | Round 3, review | Codex | 8 | 24k | 2k | 111 |
 | Closing summary | Claude | 94 | 20k | 18k | 819 |
 
-**Codex leads, Claude reviews:** 271k tokens per issue; Codex 137k (51%), Claude 134k (49%). Last round reached: 1
+**Codex writes, Claude reviews:** 271k tokens per issue; Codex 137k (51%), Claude 134k (49%). Last round reached: 1
 in 5 runs, 2 in 79, 3 in 16.
 
 | Turn | Seat | Runs | Tokens per turn | Per run | Output per turn |
@@ -292,7 +286,7 @@ python -m venv .venv && .venv/bin/pip install swebench==5.0.2
 `v2/data/` has the same layout as `full-50/data/`, described at the end of this page, with a `contamination.json`
 beside each run. Setups are `claude-code`, `codex`, `letthembuild-claude`, `letthembuild-codex`,
 `letthembuild-claude-first-brief`, `letthembuild-codex-first-run`, `letthembuild-codex-full-brief`,
-`letthembuild-claude-codex-review` (Claude leads, Codex reviews) and `letthembuild-codex-claude-review` (Codex leads,
+`letthembuild-claude-codex-review` (Claude writes, Codex reviews) and `letthembuild-codex-claude-review` (Codex leads,
 Claude reviews), each with a
 `-run2`. `v2/fresh-25/data/` has `codex` and `letthembuild-codex-short-brief`, likewise.
 
