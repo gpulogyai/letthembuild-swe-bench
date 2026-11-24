@@ -34,21 +34,4 @@ for (const [name, s] of [["alone", A], ["ltb", B]]) console.log(`${name} ${s.tag
 for (const s of [A, B]) if (s.failures.length) console.log(`failed runs, no token count (unsolved): ${s.failures.join(", ")}`);
 console.log(`change ${P(sum(B.tokens) / sum(A.tokens) - 1)}, 95% range ${P(q(ch, 0.025))} to ${P(q(ch, 0.975))}, fewer tokens on ${fewer} of ${ids.length}`);
 const d = sum(B.wins) - sum(A.wins);
-// PRICE=list (or PRICE=claude, its earlier name) adds cost at list price, a secondary figure the pre-registration
-// does not cover. Each model at its own price, per million tokens: claude-opus-5-5 input $4, cache read $0.20, cache
-// write $5 (the five-minute cache), output $20; gpt-6.1-sol input $2, cached input $0.10, output $10 (Codex reports
-// no cache writes, and no call passed the 272k-token long-context tier).
-const LIST = { "claude-opus-5-5": [4, 0.2, 5, 20], "gpt-6.1-sol": [2, 0.1, 2.5, 10] };
-if (process.env.PRICE === "claude" || process.env.PRICE === "list") {
-  const usd = (r) => Object.entries(r.tokens.bySource).reduce((s, [key, x]) => {
-    const p = LIST[key.split(":").pop()]; if (!p) throw new Error(`no list price for ${key}`);
-    return s + ((x.uncached ?? 0) * p[0] + (x.cacheRead ?? 0) * p[1] + (x.cacheWrite ?? 0) * p[2] + (x.output ?? 0) * p[3]) / 1e6;
-  }, 0);
-  const cost = (side) => ids.map((_, i) => side.runs.reduce((s, r) => s + usd(r[i]), 0) / side.runs.length);
-  const ca = cost(A), cb = cost(B), cc = [];
-  let s2 = 20261117 >>> 0; const r2 = () => { s2 = (Math.imul(s2, 1664525) + 1013904223) >>> 0; return s2 / 4294967296; };
-  for (let k = 0; k < 10000; k++) { let a = 0, b = 0; for (let j = 0; j < ids.length; j++) { const i = Math.floor(r2() * ids.length); a += ca[i]; b += cb[i]; } cc.push(b / a - 1); }
-  cc.sort((x, y) => x - y);
-  console.log(`cost at list price $${sum(ca).toFixed(2)} -> $${sum(cb).toFixed(2)}, change ${P(sum(cb) / sum(ca) - 1)}, 95% range ${P(q(cc, 0.025))} to ${P(q(cc, 0.975))}, cheaper on ${ids.filter((_, i) => cb[i] < ca[i]).length} of ${ids.length}`);
-}
 console.log(`solved difference ${d >= 0 ? "+" : "−"}${Math.abs(d)} issues, 95% interval ${q(dw, 0.025)} to ${q(dw, 0.975)} → ${q(dw, 0.025) > 0 || q(dw, 0.975) < 0 ? "a detectable difference" : "no detectable difference"}`);
