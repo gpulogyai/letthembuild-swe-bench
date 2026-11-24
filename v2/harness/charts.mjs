@@ -66,8 +66,8 @@ function chart({ bars, max, step, tickFmt, note, legend, left = 132, right = 190
 // Two-seat rooms, added after the pre-registered run: the lead, then the reviewer (v2/PREREGISTRATION.md, Changes).
 // Each seat's tokens come from the room's per-turn usage lines (usage.jsonl).
 const ROOMS = [
-  { family: "claude", key: "letthembuild-claude-codex-review", name: "LTB · Claude + Codex", seats: [["claude", "claude"], ["codex", "chatgpt"]] },
-  { family: "codex", key: "letthembuild-codex-claude-review", name: "LTB · Codex + Claude", seats: [["codex", "chatgpt"], ["claude", "claude"]] },
+  { family: "claude", key: "letthembuild-claude-codex-review", name: "Claude writes, Codex reviews", seats: [["claude", "claude"], ["codex", "chatgpt"]] },
+  { family: "codex", key: "letthembuild-codex-claude-review", name: "Codex writes, Claude reviews", seats: [["codex", "chatgpt"], ["claude", "claude"]] },
 ];
 const ids = readFileSync(join(ROOT, "v2/data/tasks.txt"), "utf8").trim().split("\n");
 const seatTokens = (setup, provider) => mean([setup, `${setup}-run2`].map((s) => ids.reduce((t, id) => t + readFileSync(join(ROOT, "v2/data/runs", s, id, "usage.jsonl"), "utf8").trim().split("\n").map((l) => JSON.parse(l)).filter((u) => u.kind === "cli-turn" && u.provider === provider).reduce((a, u) => a + u.tokens, 0), 0)));
@@ -75,39 +75,22 @@ const seatTokens = (setup, provider) => mean([setup, `${setup}-run2`].map((s) =>
 const charts = {
   "heldout-50-tokens": {
     bars: MODELS.flatMap((m) => {
-      const a = meanTokens(m.cli);
-      return [{ name: m.cliName, family: m.family, own: true, v: 100, label: M(a) },
-        ...m.ltb.map(([key, name]) => { const b = meanTokens(key); return { name, family: m.family, v: (b / a) * 100, label: `${M(b)}  (${pct(b, a)})` }; })];
-    }),
-    max: 125, step: 25, tickFmt: (v) => `${v}%`, left: 172,
-    note: "Tokens, 50 held-out issues, mean of two runs; bars relative to each model's own CLI. * Brief settled after the pre-registered run.",
-  },
-  "heldout-50-solved": {
-    bars: MODELS.flatMap((m) => [[m.cli, m.cliName, true], ...m.ltb.map(([k, n]) => [k, n, false])].map(([key, name, own]) => {
-      const s = solved(key);
-      return { name, family: m.family, own, v: mean(s), label: `${s[0]} and ${s[1]} of 50` };
-    })),
-    max: 50, step: 10, tickFmt: (v) => String(v), left: 172,
-    note: "Solved out of 50 in each run, official SWE-bench harness; bar length is the mean. * Brief settled after the pre-registered run.",
-  },
-  "heldout-50-rooms-tokens": {
-    bars: MODELS.flatMap((m) => {
       const a = meanTokens(m.cli), one = meanTokens(m.ltb[0][0]), room = ROOMS.find((r) => r.family === m.family);
       const parts = room.seats.map(([family, provider]) => ({ family, v: (seatTokens(room.key, provider) / a) * 100 })), b = meanTokens(room.key);
       return [{ name: m.cliName, family: m.family, own: true, v: 100, label: M(a) },
         { name: m.ltb[0][1], family: m.family, v: (one / a) * 100, label: `${M(one)}  (${pct(one, a)})` },
         { name: room.name, family: m.family, parts, v: (b / a) * 100, label: `${M(b)}  (${pct(b, a)})` }];
     }),
-    max: 200, step: 50, tickFmt: (v) => `${v}%`, left: 172, legend: "LetThemBuild: one seat, or a lead and a reviewer",
-    note: "Tokens, 50 held-out issues, mean of two runs, relative to the lead's own CLI. A room's bar is split by seat, lead first.",
+    max: 200, step: 50, tickFmt: (v) => `${v}%`, left: 222, legend: "LetThemBuild: one seat, or one model writing and another reviewing",
+    note: "Tokens, mean of two runs, relative to the writer's own CLI; two-seat bars split by seat. * Brief settled after the pre-registered run.",
   },
-  "heldout-50-rooms-solved": {
+  "heldout-50-solved": {
     bars: MODELS.flatMap((m) => { const room = ROOMS.find((r) => r.family === m.family);
       return [[m.cli, m.cliName, true], [m.ltb[0][0], m.ltb[0][1], false], [room.key, room.name, false]].map(([key, name, own]) => {
         const s = solved(key); return { name, family: m.family, own, v: mean(s), label: `${s[0]} and ${s[1]} of 50` };
       }); }),
-    max: 50, step: 10, tickFmt: (v) => String(v), left: 172, legend: "LetThemBuild: one seat, or a lead and a reviewer",
-    note: "Solved out of 50 in each run, official SWE-bench harness; bar length is the mean. Rooms added after the pre-registered run.",
+    max: 50, step: 10, tickFmt: (v) => String(v), left: 222, legend: "LetThemBuild: one seat, or one model writing and another reviewing",
+    note: "Solved out of 50 in each run, official SWE-bench harness; bar length is the mean. * Brief settled after the pre-registered run.",
   },
 };
 

@@ -1,8 +1,8 @@
 <sub>LETTHEMBUILD BENCHMARK · SWE-BENCH VERIFIED · NOVEMBER 2026 · 50 HELD-OUT ISSUES · PRE-REGISTERED</sub>
 
-# What a coding CLI costs as a LetThemBuild seat
+# How many tokens a coding CLI uses as a LetThemBuild seat
 
-LetThemBuild runs a model's own command-line tool as a seat in a room. This benchmark measures what that costs:
+LetThemBuild runs a model's own command-line tool as a seat in a room. This benchmark measures how many tokens that takes:
 the same model, on the same issues, run once in its own CLI and once as LetThemBuild's only seat, running that same
 CLI underneath. The issues come from [SWE-bench Verified](https://www.swebench.com/), and every patch is graded by
 the official SWE-bench harness against the project's own tests.
@@ -20,17 +20,15 @@ This is a 50-issue sample, two runs per setup, not a leaderboard result.
 ## What we found
 
 - **Claude used 50% fewer tokens as a LetThemBuild seat than in Claude Code** (95% range −53% to −46%), fewer on
-  all 50 issues, at about the same cost (−3%, range −8% to +2%; [why half the tokens didn't halve the
-  bill](#why-half-the-tokens-didnt-halve-the-bill)). It solved 47.5 against 49 for Claude Code
+  all 50 issues. It solved 47.5 against 49 for Claude Code
   (difference −1.5, 95% interval −4 to 0): no detectable difference, only just.
 - **Codex used 33% fewer tokens as a LetThemBuild seat than in the Codex CLI** (95% range −41% to −25%), fewer on
   46 of 50 issues, in less time. It solved 44 against 43 for the Codex CLI (difference +1, 95% interval −1 to +3):
   no detectable difference.
 - **A reviewer costs tokens; for Codex it also solved more.** In a two-seat room with Codex leading and Claude
   reviewing, the room solved 46.5 against 43 for the Codex CLI alone (difference +3.5, 95% interval +0.5 to +7), the
-  only detectable difference in issues solved here, for 93% more tokens and about five times the cost at list price
-  ($12.03 against $2.44 per 50 issues). With Claude leading and Codex reviewing, it solved 48.5 against 49 for Claude
-  Code, for 11% more tokens and about twice the cost ($16.99 against $8.04). See [Two seats](#two-seats-a-lead-and-a-reviewer).
+  only detectable difference in issues solved here, for 93% more tokens. With Claude leading and Codex reviewing, it
+  solved 48.5 against 49 for Claude Code, for 11% more tokens. See [Two seats](#two-seats-a-lead-and-a-reviewer).
 - **Both one-seat setups are the ones LetThemBuild ships.** Each was settled after the pre-registered run, as
   [The brief](#the-brief) explains, and the pre-registered build's runs are published beside them.
 
@@ -38,7 +36,7 @@ This is a 50-issue sample, two runs per setup, not a leaderboard result.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/heldout-50-tokens-dark.svg">
-  <img alt="Tokens for the 50 held-out issues, mean of two runs: Claude Code 13.2M, LetThemBuild with Claude 6.7M (−50%); Codex CLI 7.0M, LetThemBuild with Codex 4.7M (−33%)." src="charts/heldout-50-tokens-light.svg" width="820">
+  <img alt="Tokens for the 50 held-out issues, mean of two runs, relative to each model's own CLI: Claude Code 13.2M; LetThemBuild with Claude 6.7M (−50%); Claude writing with Codex reviewing 14.7M (+11%). Codex CLI 7.0M; LetThemBuild with Codex 4.7M (−33%); Codex writing with Claude reviewing 13.5M (+93%)." src="charts/heldout-50-tokens-light.svg" width="820">
 </picture>
 
 Tokens are everything the model read and wrote: fresh input, cache reads, cache writes and output, as each tool
@@ -48,19 +46,23 @@ reports them.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="charts/heldout-50-solved-dark.svg">
-  <img alt="Issues solved out of 50 in each of two runs: Claude Code 49 and 49, LetThemBuild with Claude 47 and 48; Codex CLI 43 and 43, LetThemBuild with Codex 44 and 44." src="charts/heldout-50-solved-light.svg" width="820">
+  <img alt="Issues solved out of 50 in each of two runs: Claude Code 49 and 49; LetThemBuild with Claude 47 and 48; Claude writing with Codex reviewing 48 and 49. Codex CLI 43 and 43; LetThemBuild with Codex 44 and 44; Codex writing with Claude reviewing 47 and 46." src="charts/heldout-50-solved-light.svg" width="820">
 </picture>
 
 ## Every setup
 
-| Setup | Model | Solved, run 1 · run 2 | Tokens, run 1 · run 2 | Mean | Change | 95% range | Fewer tokens on | Time per run |
-|---|---|---:|---:|---:|---:|---|---:|---:|
-| Claude Code alone | claude-opus-5-5 | 49 · 49 | 12.82M · 13.65M | 13.24M | | | | 30 min |
-| **LetThemBuild · Claude*** | claude-opus-5-5 | **47 · 48** | **6.64M · 6.68M** | **6.66M** | **−49.7%** | −53.2% to −46.1% | 50 of 50 | 34 min |
-| Codex CLI alone | gpt-6.1-sol | 43 · 43 | 7.21M · 6.86M | 7.03M | | | | 36 min |
-| **LetThemBuild · Codex*** | gpt-6.1-sol | **44 · 44** | **4.68M · 4.68M** | **4.68M** | **−33.5%** | −41.1% to −25.2% | 46 of 50 | 32 min |
+| Setup | Solved, run 1 · run 2 | Tokens, run 1 · run 2 | Mean | Change from own CLI | 95% range | Fewer tokens on | Time per run |
+|---|---:|---:|---:|---:|---|---:|---:|
+| Claude Code alone | 49 · 49 | 12.82M · 13.65M | 13.24M | | | | 30 min |
+| **LetThemBuild · Claude*** | **47 · 48** | **6.64M · 6.68M** | **6.66M** | **−49.7%** | −53.2% to −46.1% | 50 of 50 | 34 min |
+| LetThemBuild · Claude writes, Codex reviews† | 48 · 49 | 14.85M · 14.48M | 14.67M | +10.8% | +1.2% to +21.4% | 14 of 50 | 83 min |
+| Codex CLI alone | 43 · 43 | 7.21M · 6.86M | 7.03M | | | | 36 min |
+| **LetThemBuild · Codex*** | **44 · 44** | **4.68M · 4.68M** | **4.68M** | **−33.5%** | −41.1% to −25.2% | 46 of 50 | 32 min |
+| LetThemBuild · Codex writes, Claude reviews† | 47 · 46 | 13.54M · 13.55M | 13.54M | +92.6% | +70.9% to +115.5% | 3 of 50 | 80 min |
 
+Claude is claude-opus-5-5 and Codex is gpt-6.1-sol throughout; a two-seat setup is compared with the writer's own CLI.
 \* The brief LetThemBuild ships, settled after the pre-registered results were seen; see [The brief](#the-brief).
+† Two seats, added after the pre-registered run; see [Two seats](#two-seats-a-lead-and-a-reviewer).
 An issue's tokens are the mean of its two runs. The ranges come from resampling the 50 issues 10,000 times, keeping
 each issue's runs together, with a fixed seed. Time per run is the wall-clock time for all 50 issues, mean of the
 two runs.
@@ -75,94 +77,41 @@ two runs.
 Mean of the two runs. The interval is from the same resampling as the token ranges; a difference counts as
 detectable only when its interval excludes zero, as pre-registered.
 
-### Cost at list price
+### What the saving is made of
 
-| Setup | Cost per run of 50, list price | Change | 95% range | Cheaper on |
-|---|---:|---:|---|---:|
-| Claude Code alone | $8.04 | | | |
-| LetThemBuild · Claude* | $7.79 | −3.1% | −8.1% to +2.1% | 27 of 50 |
-| Codex CLI alone | $2.44 | | | |
-| LetThemBuild · Codex* | $2.56 | +5.2% | −5.5% to +17.4% | 22 of 50 |
+A token count adds up four kinds: fresh input, cache reads (re-reading what the model has already seen), cache
+writes and output. Per run of 50 issues, mean of the two runs:
 
-Cost is not a pre-registered outcome; it is here because tokens alone hide it. Each model at its own list price, per
-million tokens: claude-opus-5-5 input $4, cache read $0.20, cache write $5 (the five-minute cache), output $20;
-gpt-6.1-sol input $2, cached input $0.10, output $10 (Codex reports no cache writes, and no call reached the
-272k-token long-context tier). Claude Code writes to the one-hour cache, at $8 a million; at that price every Claude
-setup costs more and the comparison barely moves.
+| Claude | Claude Code | LetThemBuild seat | Change |
+|---|---:|---:|---:|
+| Cache read | 12.49M | 5.77M | −6.73M |
+| Cache write | 0.62M | 0.74M | +0.12M |
+| Output | 0.12M | 0.15M | +0.02M |
+| Fresh input | 0.00M | 0.00M | 0.00M |
+| **All** | **13.24M** | **6.66M** | **−49.7%** |
 
-### Why half the tokens didn't halve the bill
+| Codex | Codex CLI | LetThemBuild seat | Change |
+|---|---:|---:|---:|
+| Cached input | 6.34M | 3.80M | −2.54M |
+| Fresh input | 0.64M | 0.83M | +0.19M |
+| Output | 0.05M | 0.05M | +0.00M |
+| **All** | **7.03M** | **4.68M** | **−33.5%** |
 
-People ask this a lot, so here it is with the numbers.
+For both, the saving is in cached input: the seat reads less of the conversation back. It writes about the same
+amount, slightly more for Claude, and Codex's seat takes in a little more fresh input. Lines are rounded, so a change
+can be off its two figures by 0.01M. Every figure comes from the per-run token counts in
+[`v2/data/runs/`](v2/data/runs) (`tokens.bySource` in each `run.json`).
 
-A token count adds up four different things, and they don't cost the same. Re-reading something the model has
-already seen (a cache read) is the cheapest by far. What the model writes back (output) is the most expensive. On
-Claude Opus 5.5 an output token costs a hundred times what a cache-read token does. So the question isn't how many
-tokens a setup saved; it's which kind.
-
-The list prices used here, per million tokens, as each provider's pricing page showed them on 20 November 2026
-([Anthropic](https://platform.claude.com/docs/en/about-claude/pricing),
-[OpenAI](https://developers.openai.com/api/docs/pricing), Standard tier, prompts up to 272K tokens):
-
-| Token type | claude-opus-5-5 | gpt-6.1-sol |
-|---|---:|---:|
-| Cache read | $0.20 | $0.10 |
-| Fresh input | $4 | $2 |
-| Cache write (Claude: five-minute cache) | $5 | — (Codex reports none) |
-| Output | $20 | $10 |
-
-**Claude.** Mean of the two runs, per run of 50 issues:
-
-| Token type | Claude Code | LetThemBuild seat | Cost, Claude Code | Cost, seat | Difference |
-|---|---:|---:|---:|---:|---:|
-| Cache read | 12.49M | 5.77M | $2.50 | $1.15 | −$1.35 |
-| Cache write | 0.62M | 0.74M | $3.09 | $3.71 | +$0.62 |
-| Output | 0.12M | 0.15M | $2.45 | $2.93 | +$0.48 |
-| Fresh input | 0.00M | 0.00M | $0.00 | $0.00 | $0.00 |
-| **All** | **13.24M** | **6.66M (−49.7%)** | **$8.04** | **$7.79 (−3.1%)** | **−$0.25** |
-
-The seat read 6.73M fewer cached tokens, and at $0.20 a million that was worth $1.35. But it wrote 0.12M more to
-the cache and 0.02M more output, and those are the expensive kinds: they cost $1.09 of it back. Even if every saved
-token had been a cache read and nothing else had gone up, 6.58M × $0.20 is $1.32: the bill could only ever have
-fallen by about 16%, never by half.
-
-One caveat on the cache-write price. Claude Code writes to the one-hour cache, which is $8 a million rather than $5.
-Priced that way, Claude Code comes to $9.89 and the seat to $10.01, so the seat is 1% dearer instead of 3% cheaper.
-Either way the bill barely moves.
-
-**Codex.** Same layout:
-
-| Token type | Codex CLI | LetThemBuild seat | Cost, Codex CLI | Cost, seat | Difference |
-|---|---:|---:|---:|---:|---:|
-| Cached input | 6.34M | 3.80M | $0.63 | $0.38 | −$0.25 |
-| Fresh input | 0.64M | 0.83M | $1.28 | $1.66 | +$0.38 |
-| Output | 0.05M | 0.05M | $0.52 | $0.53 | +$0.00 |
-| **All** | **7.03M** | **4.68M (−33.5%)** | **$2.44** | **$2.56 (+5.2%)** | **+$0.13** |
-
-The seat read 2.54M fewer cached tokens, worth 25 cents, and took in 0.19M more fresh input, which costs twenty
-times as much and came to 38 cents. Fewer tokens, slightly bigger bill.
-
-What's in our hands and what isn't: the price of each kind of token is set by Anthropic and OpenAI. Most people
-run these CLIs on a Claude or ChatGPT subscription, with no per-token bill at all; what they run into is the plan's
-usage limit. Fewer tokens may stretch that limit, but neither provider publishes how cached tokens count toward it,
-so we don't claim it. We tried measuring it on one Claude plan (21 November 2026), reading the weekly usage meter
-before and after the same 50 held-out issues through each setup. Claude Code alone (13.94M tokens, plus a 4.16M warm-up
-batch) moved it from 43% to 44%; the seat (6.60M tokens) moved it from 44% to 45%. The meter only shows whole percents,
-so each step is somewhere between just above 0 and just under 2 points: too coarse to call. If anything it hints that
-the limit counts usage closer to price than to raw tokens, which would make it the same story as the bill. On the
-per-token side, the larger part of the cache writes is the
-CLI's own system prompt, which it rewrites on every run with or without LetThemBuild. What's ours is our instructions
-to each seat, about 2,000 to 3,000 tokens per issue, and how much the seat writes back. Trimming those is worth a few
-percent of the bill, not half.
-
-So if you compare coding agents, compare cost at list price, not token counts. Lines are rounded to the cent, so a
-difference can be a cent off its two costs. Every figure above comes from the
-per-run token counts in [`v2/data/runs/`](v2/data/runs) (`tokens.bySource` in each `run.json`), and the
-`PRICE=list` commands under [Check it yourself](#check-it-yourself) give the same totals.
+Most people run these CLIs on a Claude or ChatGPT subscription, where what they run into is the plan's usage
+limit. Fewer tokens may stretch that limit, but neither provider publishes how cached tokens count toward it, so
+we don't claim it. We tried measuring it on one Claude plan (21 November 2026), reading the weekly usage meter
+before and after the same 50 held-out issues through each setup: Claude Code alone moved it from 43% to 44%, the
+seat from 44% to 45%. The meter only shows whole percents, too coarse to call.
 
 ## Where the saving comes from
 
 A LetThemBuild seat reads LetThemBuild's own brief with every call: how to check a change, how to report it to the
-room. What that costs depends on what the CLI already carries.
+room. How many tokens that adds depends on what the CLI already carries.
 
 - **Claude Code starts heavy.** As a seat it starts without the tools and instructions the room already covers,
   and that saving is larger than the brief.
@@ -180,10 +129,8 @@ results, both are listed under Changes in the pre-registration, and every earlie
 unchanged.
 
 **Claude.** The pre-registered build (8fa13171e) carried the brief as it was on 14 November 2026. Its Claude seat
-used 35% fewer tokens than Claude Code (8.57M, range −39.6% to −30.4%) and solved 47 and 48, but cost 13% more at
-list price (+7.3% to +18.4%): the saving was in cache reads, which are cheap, while the seat made 954 tool calls
-over the two runs to Claude Code's 743, wrote 87% more text between steps and gave answers 60% longer, and output
-and cache writes are the expensive tokens. The brief was then shortened (build a8cb60835), tried first on 15 issues
+used 35% fewer tokens than Claude Code (8.57M, range −39.6% to −30.4%) and solved 47 and 48, but the seat made 954 tool calls
+over the two runs to Claude Code's 743, wrote 87% more text between steps and gave answers 60% longer. The brief was then shortened (build a8cb60835), tried first on 15 issues
 from the earlier run, and run on the held-out 50. Published as `letthembuild-claude-first-brief` (pre-registered)
 and `letthembuild-claude` (shipped).
 
@@ -206,34 +153,10 @@ reviewing; the other has Codex leading and Claude reviewing. LetThemBuild runs a
 the reviewer's; when the reviewer objects, the lead takes another round, and when the room is done the lead writes
 a closing summary. Most runs took two rounds.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/heldout-50-rooms-tokens-dark.svg">
-  <img alt="Tokens relative to the lead's own CLI: Claude Code 13.2M, LetThemBuild with Claude 6.7M (−50%), Claude leading with Codex reviewing 14.7M (+11%); Codex CLI 7.0M, LetThemBuild with Codex 4.7M (−33%), Codex leading with Claude reviewing 13.5M (+93%)." src="charts/heldout-50-rooms-tokens-light.svg" width="820">
-</picture>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="charts/heldout-50-rooms-solved-dark.svg">
-  <img alt="Issues solved out of 50 in each of two runs: Claude Code 49 and 49, LetThemBuild with Claude 47 and 48, Claude leading with Codex reviewing 48 and 49; Codex CLI 43 and 43, LetThemBuild with Codex 44 and 44, Codex leading with Claude reviewing 47 and 46." src="charts/heldout-50-rooms-solved-light.svg" width="820">
-</picture>
-
 | Room | Solved, run 1 · run 2 | Tokens, run 1 · run 2 | Mean | Against the lead's own CLI | 95% range | Solved difference | 95% interval | Time per run |
 |---|---:|---:|---:|---:|---|---:|---|---:|
-| Claude leads, Codex reviews | 48 · 49 | 14.85M · 14.48M | 14.67M | +10.8% | +1.2% to +21.4% | −0.5 | −1.5 to 0 | 83 min |
-| Codex leads, Claude reviews | **47 · 46** | 13.54M · 13.55M | 13.54M | +92.6% | +70.9% to +115.5% | **+3.5** | **+0.5 to +7** | 80 min |
-
-### Cost at list price
-
-| Room | Cost per run of 50 | Against the lead's own CLI | 95% range | Against the lead as one seat | 95% range |
-|---|---:|---:|---|---:|---|
-| Claude leads, Codex reviews | $16.99 | +111% ($8.04) | +99% to +125% | +118% ($7.79) | +108% to +129% |
-| Codex leads, Claude reviews | $12.03 | +394% ($2.44) | +352% to +439% | +370% ($2.56) | +326% to +416% |
-
-Prices as in [Cost at list price](#cost-at-list-price) above, each seat at its own model's price. A room costs more
-than its token count suggests when Claude is in it: most of a Claude seat's tokens are cache reads at $0.20 a
-million, but most of its cost is cache writes ($5) and output ($20). As reviewer, Claude wrote 0.97M tokens to the
-cache and 0.12M of output per run of 50, 86% of its $8.26. Codex
-leading with Claude reviewing solved 3.5 more issues than the Codex CLI alone for $9.59 more per 50 issues, about
-$2.74 per extra issue solved.
+| Claude writes, Codex reviews | 48 · 49 | 14.85M · 14.48M | 14.67M | +10.8% | +1.2% to +21.4% | −0.5 | −1.5 to 0 | 83 min |
+| Codex writes, Claude reviews | **47 · 46** | 13.54M · 13.55M | 13.54M | +92.6% | +70.9% to +115.5% | **+3.5** | **+0.5 to +7** | 80 min |
 
 Against LetThemBuild with the lead as its one seat, the Claude-led room used 120% more tokens (range +107% to +134%)
 and solved 48.5 against 47.5 (interval 0 to +3); the Codex-led room used 190% more (range +168% to +210%) and solved
@@ -246,43 +169,40 @@ the Claude-led room lost django-13807 in one run of two.
 ### Tokens in each round
 
 Per issue, mean of the 100 runs of each room. "Per turn" is the mean over the runs that reached that turn; "per run"
-counts a run that did not reach it as zero, so the "per run" columns add up to the room's tokens and cost per issue.
-Cost is at list price, each seat at its own model's price.
+counts a run that did not reach it as zero, so the "per run" column adds up to the room's tokens per issue.
 
-**Claude leads, Codex reviews:** 293k tokens and $0.340 per issue; Claude 200k tokens and $0.291 (86% of the
-cost), Codex 93k and $0.049. Last round reached: 1 in
+**Claude writes, Codex reviews:** 293k tokens per issue; Claude 200k (68%), Codex 93k (32%). Last round reached: 1 in
 8 runs, 2 in 84, 3 in 8.
 
-| Turn | Seat | Runs | Tokens per turn | Per run | Output per turn | Cost per run |
-|---|---|---:|---:|---:|---:|---:|
-| Round 1, lead | Claude | 100 | 140k | 140k | 3,030 | $0.161 |
-| Round 1, review | Codex | 100 | 71k | 71k | 379 | $0.036 |
-| Round 2, lead | Claude | 92 | 40k | 37k | 1,011 | $0.050 |
-| Round 2, review | Codex | 92 | 23k | 21k | 108 | $0.012 |
-| Round 3, lead | Claude | 8 | 55k | 4k | 1,069 | $0.003 |
-| Round 3, review | Codex | 8 | 24k | 2k | 111 | $0.001 |
-| Closing summary | Claude | 94 | 20k | 18k | 819 | $0.077 |
+| Turn | Seat | Runs | Tokens per turn | Per run | Output per turn |
+|---|---|---:|---:|---:|---:|
+| Round 1, lead | Claude | 100 | 140k | 140k | 3,030 |
+| Round 1, review | Codex | 100 | 71k | 71k | 379 |
+| Round 2, lead | Claude | 92 | 40k | 37k | 1,011 |
+| Round 2, review | Codex | 92 | 23k | 21k | 108 |
+| Round 3, lead | Claude | 8 | 55k | 4k | 1,069 |
+| Round 3, review | Codex | 8 | 24k | 2k | 111 |
+| Closing summary | Claude | 94 | 20k | 18k | 819 |
 
-**Codex leads, Claude reviews:** 271k tokens and $0.241 per issue; Codex 137k tokens and $0.076, Claude 134k and
-$0.165 (69% of the cost). Last round reached: 1
+**Codex writes, Claude reviews:** 271k tokens per issue; Codex 137k (51%), Claude 134k (49%). Last round reached: 1
 in 5 runs, 2 in 79, 3 in 16.
 
-| Turn | Seat | Runs | Tokens per turn | Per run | Output per turn | Cost per run |
-|---|---|---:|---:|---:|---:|---:|
-| Round 1, lead | Codex | 100 | 94k | 94k | 1,016 | $0.047 |
-| Round 1, review | Claude | 100 | 96k | 96k | 1,679 | $0.123 |
-| Round 2, lead | Codex | 95 | 24k | 23k | 128 | $0.009 |
-| Round 2, review | Claude | 95 | 34k | 33k | 567 | $0.039 |
-| Round 3, lead | Codex | 16 | 18k | 3k | 67 | $0.001 |
-| Round 3, review | Claude | 16 | 33k | 5k | 473 | $0.004 |
-| Closing summary | Codex | 98 | 17k | 17k | 119 | $0.019 |
+| Turn | Seat | Runs | Tokens per turn | Per run | Output per turn |
+|---|---|---:|---:|---:|---:|
+| Round 1, lead | Codex | 100 | 94k | 94k | 1,016 |
+| Round 1, review | Claude | 100 | 96k | 96k | 1,679 |
+| Round 2, lead | Codex | 95 | 24k | 23k | 128 |
+| Round 2, review | Claude | 95 | 34k | 33k | 567 |
+| Round 3, lead | Codex | 16 | 18k | 3k | 67 |
+| Round 3, review | Claude | 16 | 33k | 5k | 473 |
+| Closing summary | Codex | 98 | 17k | 17k | 119 |
 
 - **The lead's first turn is the one-seat run.** Claude's first turn as lead (140k) is close to LetThemBuild · Claude
   alone (133k per issue), and Codex's (94k) matches LetThemBuild · Codex alone (94k). Everything after it is what
   the review adds: 153k per issue with Claude leading, 177k with Codex leading.
 - **A review reads the work again.** The first review is the largest turn after the lead's: the reviewer reads the
   issue, the change and the checks for itself. Later rounds are smaller, since both seats carry their earlier turns.
-- **Claude as reviewer costs as much as Codex as lead.** Claude's first review (96k) matches Codex's first turn
+- **Claude as reviewer uses as many tokens as Codex as lead.** Claude's first review (96k) matches Codex's first turn
   (94k), and Claude writes more as reviewer than Codex does (1,679 output tokens a turn against 379), so the
   Codex-led room's extra tokens are mostly Claude's reviews.
 - **The reviewer did not always agree.** 18 of the 200 runs ended with the reviewer still not agreeing after the
@@ -331,13 +251,11 @@ Print every figure above from the published data:
 ```bash
 node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude,letthembuild-claude-run2
 node v2/harness/verdict.mjs codex,codex-run2 letthembuild-codex,letthembuild-codex-run2
-PRICE=list node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude,letthembuild-claude-run2
-PRICE=list node v2/harness/verdict.mjs codex,codex-run2 letthembuild-codex,letthembuild-codex-run2
 node v2/harness/charts.mjs
 ```
 
 The two-seat rooms, against each lead's own CLI and against LetThemBuild with the lead as its one seat, and their
-tokens and cost in each round (add `PRICE=list` to a verdict for its cost):
+tokens in each round:
 
 ```bash
 node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude-codex-review,letthembuild-claude-codex-review-run2
@@ -352,7 +270,6 @@ The earlier setups:
 
 ```bash
 node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude-first-brief,letthembuild-claude-first-brief-run2
-PRICE=claude node v2/harness/verdict.mjs claude-code,claude-code-run2 letthembuild-claude-first-brief,letthembuild-claude-first-brief-run2
 node v2/harness/verdict.mjs letthembuild-codex-full-brief,letthembuild-codex-full-brief-run2 letthembuild-codex,letthembuild-codex-run2
 node v2/harness/verdict.mjs codex,codex-run2 letthembuild-codex-first-run,letthembuild-codex-first-run-run2
 DATA=v2/fresh-25/data node v2/harness/verdict.mjs codex,codex-run2 letthembuild-codex-short-brief,letthembuild-codex-short-brief-run2
@@ -369,7 +286,7 @@ python -m venv .venv && .venv/bin/pip install swebench==5.0.2
 `v2/data/` has the same layout as `full-50/data/`, described at the end of this page, with a `contamination.json`
 beside each run. Setups are `claude-code`, `codex`, `letthembuild-claude`, `letthembuild-codex`,
 `letthembuild-claude-first-brief`, `letthembuild-codex-first-run`, `letthembuild-codex-full-brief`,
-`letthembuild-claude-codex-review` (Claude leads, Codex reviews) and `letthembuild-codex-claude-review` (Codex leads,
+`letthembuild-claude-codex-review` (Claude writes, Codex reviews) and `letthembuild-codex-claude-review` (Codex leads,
 Claude reviews), each with a
 `-run2`. `v2/fresh-25/data/` has `codex` and `letthembuild-codex-short-brief`, likewise.
 
@@ -516,7 +433,7 @@ cut short was discarded and run again once the limit had reset.
   developer's Mac. On a machine with nothing added the gap is smaller; our estimate is above.
 - **Two LetThemBuild builds.** Claude's seat ran a newer build than Codex's, with a shorter brief and the lean
   start. Codex has not been rerun on it.
-- **One seat only.** These are single-seat rooms. A room with reviewers reads the problem more than once and costs
+- **One seat only.** These are single-seat rooms. A room with reviewers reads the problem more than once and uses
   more tokens; that is a different measurement.
 - **One machine, one week's models.** Results will move as models and tools change; versions and dates are above.
 
@@ -637,8 +554,8 @@ them.
 ✅ solved, ❌ not solved, by the official harness. The links open Claude Code's run; every other setup's patch and transcript is under `data/runs/<setup>/` with the same name.
 
 Why the pattern? Every LetThemBuild turn carries the same standing brief: how to work, how to check a change, how to
-report. On a one-line fix that is a fixed cost you can see (django-13023: 424k against 226k). On a long problem it
-pays for itself. The brief asks the model to prove a change with the cheapest check that settles it, using the
+report. On a one-line fix that is a fixed overhead you can see (django-13023: 424k against 226k). On a long problem it
+saves more than it adds. The brief asks the model to prove a change with the cheapest check that settles it, using the
 tests and environment the project already has, and to say plainly what it could not check. That keeps a hard issue
 from turning into a long search.
 
@@ -646,7 +563,7 @@ from turning into a long search.
 
 - Gemini and Grok on the held-out 50, as pre-registered.
 - Rooms: the same issues with a second and third model reviewing the first, on the isolated harness, to show what a
-  second opinion costs and what it catches.
+  second opinion adds in tokens and what it catches.
 
 ---
 

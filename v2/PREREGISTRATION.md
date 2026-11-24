@@ -102,3 +102,6 @@ as "no detectable difference" unless the interval excludes zero. All four models
 - 2026-11-19, reporting: cost at list price, already given for Claude, is given for every setup, each model at its own
   price (gpt-6.1-sol input $2, cached input $0.10, output $10 per million tokens). `verdict.mjs` takes `PRICE=list`
   (`PRICE=claude` still works and prints the same figures for Claude), and `rounds.mjs` gives each turn's cost.
+- 2026-11-24, reporting: the README reports tokens and issues solved, the outcomes pre-registered above, and no
+  longer gives cost; `verdict.mjs` and `rounds.mjs` no longer price tokens. The per-type token counts in each
+  `run.json` (`tokens.bySource`) are unchanged. No run, patch, grade or token figure changed.

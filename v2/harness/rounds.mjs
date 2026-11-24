@@ -8,11 +8,8 @@ import { join } from "node:path";
 const DATA = process.env.DATA ?? join(import.meta.dirname, "..", "data");
 const setups = process.argv[2].split(",");
 const ids = readFileSync(join(DATA, "tasks.txt"), "utf8").trim().split("\n");
-// List prices per million tokens, as in verdict.mjs: input, cache read, cache write, output.
-const LIST = { "claude-opus-5-5": [4, 0.2, 5, 20], "gpt-6.1-sol": [2, 0.1, 2.5, 10] };
-const usd = (u) => { const p = LIST[u.model], x = u.usage, w = x.cacheWriteTokens ?? 0; return ((x.inputTokens - x.cachedTokens - w) * p[0] + x.cachedTokens * p[1] + w * p[2] + x.outputTokens * p[3]) / 1e6; };
 const lines = (f) => readFileSync(f, "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l));
-const rows = new Map(), reached = {}; let runs = 0, total = 0, cost = 0;
+const rows = new Map(), reached = {}; let runs = 0, total = 0;
 for (const setup of setups) for (const id of ids) {
   const dir = join(DATA, "runs", setup, id); runs++;
   const usage = lines(join(dir, "usage.jsonl")).filter((u) => u.kind === "cli-turn");
@@ -28,14 +25,14 @@ for (const setup of setups) for (const id of ids) {
   const top = Math.max(...turns.map((t) => t.round)); reached[top] = (reached[top] ?? 0) + 1;
   turns.forEach((t, i) => {
     const u = usage[i], key = t.role === "summary" ? `9|summary|${u.model}` : `${t.round}|${t.role}|${u.model}`;
-    const r = rows.get(key) ?? { turns: 0, tokens: 0, output: 0, usd: 0 };
-    r.turns++; r.tokens += u.tokens; r.output += u.usage.outputTokens; r.usd += usd(u); rows.set(key, r); total += u.tokens; cost += usd(u);
+    const r = rows.get(key) ?? { turns: 0, tokens: 0, output: 0 };
+    r.turns++; r.tokens += u.tokens; r.output += u.usage.outputTokens; rows.set(key, r); total += u.tokens;
   });
 }
 const k = (n) => `${Math.round(n / 1000)}k`;
-console.log(`${setups.join(", ")}: ${runs} runs; last round reached ${Object.entries(reached).map(([r, n]) => `${r}: ${n} runs`).join(", ")}; ${k(total / runs)} tokens and $${(cost / runs).toFixed(3)} at list price per run`);
-console.log("turn                model             turns   per turn   per run   output per turn   $ per run");
+console.log(`${setups.join(", ")}: ${runs} runs; last round reached ${Object.entries(reached).map(([r, n]) => `${r}: ${n} runs`).join(", ")}; ${k(total / runs)} tokens per run`);
+console.log("turn                model             turns   per turn   per run   output per turn");
 for (const [key, r] of [...rows].sort()) {
   const [round, role, model] = key.split("|");
-  console.log(`${(round === "9" ? "closing summary" : `round ${round} ${role}`).padEnd(20)}${model.padEnd(18)}${String(r.turns).padStart(5)}${k(r.tokens / r.turns).padStart(11)}${k(r.tokens / runs).padStart(10)}${String(Math.round(r.output / r.turns)).padStart(18)}${("$" + (r.usd / runs).toFixed(3)).padStart(12)}`);
+  console.log(`${(round === "9" ? "closing summary" : `round ${round} ${role}`).padEnd(20)}${model.padEnd(18)}${String(r.turns).padStart(5)}${k(r.tokens / r.turns).padStart(11)}${k(r.tokens / runs).padStart(10)}${String(Math.round(r.output / r.turns)).padStart(18)}`);
 }
